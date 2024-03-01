@@ -26,13 +26,18 @@
     <h1>Game Selector</h1>
 
     <button onclick="runSnakeGame()">Run Snake Game</button>
-    <button onclick="runAnotherGame()">Run Another Game</button>
+    <button onclick="runSlideGame()">Run Another Game</button>
+    <button onclick="clearGameContainer()">Run clear</button>
     <!-- Dodać więcej przycisków dla innych gier -->
 
-    <div id="gameContainer"></div>
+    <div id="gameContainer">
+      <h1 id="playGame"></h1>
+
+
+    </div>
 
     <script src="snake/snake.js"></script>
-    <script src="anotherGame.js"></script>
+    <script src="slide/slide.js"></script>
     <!-- Dodać więcej skryptów dla innych gier -->
 
     <script>
@@ -47,12 +52,16 @@
         runSnakeScript();
       }
 
-      function runAnotherGame() {
+      function runSlideGame() {
         clearGameContainer();
         // Dodać kod dla uruchomienia innej gry
-        const gameElement = document.createElement("div");
-        gameElement.textContent = "Another Game is Running";
-        document.getElementById("gameContainer").appendChild(gameElement);
+
+        const canvas = document.createElement("canvas");
+        canvas.id = "slideCanvas";
+        canvas.width = 400;
+        canvas.height = 400;
+        document.getElementById("gameContainer").appendChild(canvas);
+        runSlideScript();
       }
 
       // Dodać funkcje runThirdGame(), runFourthGame() itd. dla reszty gier
@@ -63,3 +72,4 @@
     </script>
   </body>
 </html>
+

@@ -163,8 +163,8 @@ function runSnakeScript() {
         let location;
         do {
             location = {
-                x: generateRandomNumber(15),
-                y: generateRandomNumber(15)
+                x: generateRandomNumber(19),
+                y: generateRandomNumber(19)
             }
         } while (snake.filter(square => square.x === location.x && square.y === location.y).length > 0);
         return location;
