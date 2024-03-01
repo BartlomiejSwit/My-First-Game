@@ -1,0 +1,65 @@
+<!-- 
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake</title>
+    <script src="snake.js"></script>
+    <link rel="stylesheet" href="snake.css">
+  </head>
+  <body>
+    <h1>Snake</h1>
+    <canvas id="gameCanvas" width="400" height="400"></canvas>
+    <script src="snake.js"></script>
+  </body>
+  -->
+  <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Selector</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <h1>Game Selector</h1>
+
+    <button onclick="runSnakeGame()">Run Snake Game</button>
+    <button onclick="runAnotherGame()">Run Another Game</button>
+    <!-- Dodać więcej przycisków dla innych gier -->
+
+    <div id="gameContainer"></div>
+
+    <script src="snake.js"></script>
+    <script src="anotherGame.js"></script>
+    <!-- Dodać więcej skryptów dla innych gier -->
+
+    <script>
+      function runSnakeGame() {
+        clearGameContainer();
+        const canvas = document.createElement("canvas");
+        canvas.id = "gameCanvas";
+        canvas.width = 400;
+        canvas.height = 400;
+        document.getElementById("gameContainer").appendChild(canvas);
+        // Uruchamia skrypt gry Snake
+        runSnakeScript();
+      }
+
+      function runAnotherGame() {
+        clearGameContainer();
+        // Dodać kod dla uruchomienia innej gry
+        const gameElement = document.createElement("div");
+        gameElement.textContent = "Another Game is Running";
+        document.getElementById("gameContainer").appendChild(gameElement);
+      }
+
+      // Dodać funkcje runThirdGame(), runFourthGame() itd. dla reszty gier
+
+      function clearGameContainer() {
+        document.getElementById("gameContainer").innerHTML = "";
+      }
+    </script>
+  </body>
+</html>
