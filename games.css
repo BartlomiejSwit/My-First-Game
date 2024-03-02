@@ -1,0 +1,19 @@
+.mojPrzycisk {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+.mojPrzycisk {
+    background-color: #4CAF50; /* Kolor tła przycisku */
+    color: white; /* Kolor tekstu na przycisku */
+    padding: 10px 20px; /* Odstępy wewnętrzne przycisku */
+    font-size: 16px; /* Rozmiar tekstu na przycisku */
+    border: none; /* Brak obramowania */
+    border-radius: 5px; /* Zakrąglone narożniki */
+    cursor: pointer; /* Zmień kształt kursora na wskaźnik */
+  }
