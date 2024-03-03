@@ -1,8 +1,25 @@
+h1 {
+    font-size: 40px;
+    color: #4CAF50;
+    text-align: center;
+    margin: 20px;
+}
+
+.container {
+  display: grid; /* Ustaw kontener na grid */
+  grid-template-columns: 1fr 1fr; /* Dziel przestrzeń na dwie kolumny o równej szerokości */
+  gap: 10px; /* Dodaj odstęp między kolumnami */
+}
+
+.box {
+  box-sizing: border-box;
+}
+
 button:hover {
     background-color: #45a049;
 }
 
-.mojPrzycisk {
+.myButton {
     display: inline-block;
     background-color: #4CAF50;
     color: white;
@@ -17,7 +34,7 @@ button:hover {
     box-shadow: 0 5px #999;
   }
   
-  .mojPrzycisk:active {
+  .myButton:active {
     background-color: rgb(126, 11, 11);
   }
 
@@ -28,3 +45,29 @@ h2 {
     margin: 20px;
 }
 
+footer{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    height: auto;
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    display: flex;
+    justify-content: flex-end; /* Przesuń elementy na koniec kontenera (w prawo) */
+    align-items: center; /* Wyśrodkuj elementy wzdłuż osi pionowej */
+}
+
+footer p1{
+    margin-right: 20px;
+    padding: 0;
+    font-size: 20px;
+    max-width: calc(100% - 40px);
+}
+
+footer img{
+    width: 30px;
+    height: 30px;
+    margin-right: 20px;
+}

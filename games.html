@@ -1,19 +1,3 @@
-<!-- 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Snake</title>
-    <script src="snake.js"></script>
-    <link rel="stylesheet" href="snake.css">
-  </head>
-  <body>
-    <h1>Snake</h1>
-    <canvas id="gameCanvas" width="400" height="400"></canvas>
-    <script src="snake.js"></script>
-  </body>
-  -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -21,19 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game Selector</title>
     <link rel="stylesheet" href="games.css">
+    <link rel="icon" href="icons/game.ico" type="image/x-icon">
   </head>
   <body>
     <h1>Game Selector</h1>
-
-    <button class="mojPrzycisk" onclick="runSnakeGame()">Run Snake Game</button>
-    <button class="mojPrzycisk" onclick="runSlideGame()">Run Another Game</button>
-    <button class="mojPrzycisk" onclick="clearGameContainer()">Run clear</button>
+    <button class="myButton" onclick="clearGameContainer()">Run clear</button>
     <!-- Dodać więcej przycisków dla innych gier -->
-    <h2 id="playGame"></h2>
-    <div id="gameContainer">
-      
-
-
+   
+    <div class="container" id="container">
+      <div>
+        <h2 id="playGame"></h2>
+        <div class="box" id="gameContainer">
+          <!-- Tutaj będą wyświetlane gry -->
+        </div>
+      </div>
+      <div class="box" >
+        <button class="myButton" onclick="runSnakeGame()">Run Snake Game</button>
+        <button class="myButton" onclick="runSlideGame()">Run Another Game</button>
+      </div>
     </div>
 
     <script src="snake/snake.js"></script>
@@ -44,7 +33,7 @@
       function runSnakeGame() {
         clearGameContainer();
         const canvas = document.createElement("canvas");
-        canvas.id = "gameCanvas";
+        canvas.id = "snakeCanvas";
         canvas.width = 400;
         canvas.height = 400;
         document.getElementById("gameContainer").appendChild(canvas);
@@ -55,14 +44,13 @@
 
       function runSlideGame() {
         clearGameContainer();
-        // Dodać kod dla uruchomienia innej gry
-
         const canvas = document.createElement("canvas");
         canvas.id = "slideCanvas";
-        canvas.width = 400;
-        canvas.height = 400;
+        canvas.width = 500;
+        canvas.height = 500;
         document.getElementById("gameContainer").appendChild(canvas);
         runSlideScript();
+        playGame.innerHTML = "Slid Game";
       }
 
       // Dodać funkcje runThirdGame(), runFourthGame() itd. dla reszty gier
@@ -72,6 +60,10 @@
         playGame.innerHTML = "";
       }
     </script>
+      <footer>
+        <img src="icons/author.ico" alt="Ikonka">
+        <p1>Created by: name surname</p1>        
+      </footer>
   </body>
 </html>
 
