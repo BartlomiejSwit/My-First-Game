@@ -29,9 +29,9 @@
     <button class="mojPrzycisk" onclick="runSlideGame()">Run Another Game</button>
     <button class="mojPrzycisk" onclick="clearGameContainer()">Run clear</button>
     <!-- Dodać więcej przycisków dla innych gier -->
-
+    <h2 id="playGame"></h2>
     <div id="gameContainer">
-      <h1 id="playGame"></h1>
+      
 
 
     </div>
@@ -50,6 +50,7 @@
         document.getElementById("gameContainer").appendChild(canvas);
         // Uruchamia skrypt gry Snake
         runSnakeScript();
+        playGame.innerHTML = "Snake Game";
       }
 
       function runSlideGame() {
@@ -68,6 +69,7 @@
 
       function clearGameContainer() {
         document.getElementById("gameContainer").innerHTML = "";
+        playGame.innerHTML = "";
       }
     </script>
   </body>

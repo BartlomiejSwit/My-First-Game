@@ -1,3 +1,7 @@
+button:hover {
+    background-color: #45a049;
+}
+
 .mojPrzycisk {
     display: inline-block;
     background-color: #4CAF50;
@@ -10,9 +14,17 @@
     transition: background-color 0.3s;
     font-size: 20px;
     border-radius: 12px;
-    box-shadow: 0 9px #999;
+    box-shadow: 0 5px #999;
   }
   
   .mojPrzycisk:active {
-    background-color: #45a049;
+    background-color: rgb(126, 11, 11);
   }
+
+h2 {
+    font-size: 40px;
+    color: #4CAF50;
+    text-align: center;
+    margin: 20px;
+}
+
