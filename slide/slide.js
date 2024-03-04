@@ -1,4 +1,4 @@
-function runSlideScript() {
+/*function runSlideScript() {
     const canvas = document.getElementById('slideCanvas');
     const ctx = canvas.getContext('2d');
 
@@ -69,4 +69,64 @@ function runSlideScript() {
     canvas.addEventListener('mouseup', handleMouseUp);
 
     drawBlock();
+}*/
+function runSlideScript() {
+    const canvas = document.getElementById('slideCanvas');
+    const ctx = canvas.getContext('2d');
+    
+    const square = {
+        width: 50,
+        height: 50
+    };
+
+    const squarebIG = {
+        width: 100,
+        height: 100,
+    };
+
+    const rectangle = {
+        width: 50,
+        height: 100
+    };
+
+    function drawSquare(x, y) {
+        ctx.fillStyle = 'yellow';
+        ctx.fillRect(x, y, square.width, square.height);
+    }
+
+    function drawBigSquare(x, y) {
+        ctx.fillStyle = 'red';
+        ctx.fillRect(x, y, squarebIG.width, squarebIG.height);
+    }
+
+    function drawRectangle(x, y) {
+        ctx.fillStyle = 'blue';
+        ctx.fillRect(x, y, rectangle.width, rectangle.height);
+    }
+
+    function drawBackground() {
+        ctx.fillStyle = 'black';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.fillStyle = 'gray';
+        ctx.fillRect(50, 150, 100, 100);
+
+        ctx.fillStyle = 'black';
+        ctx.beginPath();
+        ctx.moveTo(50, 200);
+        ctx.lineTo(100, 150);
+        ctx.lineTo(150, 200);
+        ctx.lineTo(100, 250);
+        ctx.closePath();
+        ctx.fill();
+    
+
+    }
+
+    drawBackground();
+    drawSquare(0,0);
+    drawBigSquare(50,0);
+    drawRectangle(0,50);
+
+
 }

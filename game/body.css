@@ -5,8 +5,19 @@
   }
   
   .box {
+    display: flexbox; /* Ustaw elementy w kontenerze na flexbox */
     box-sizing: border-box;
+    gap: 20px;
   }
+
+  /*html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #000;
+    color: #fff;
+    border: #cf0b0b;
+  }*/
   
   button:hover {
       background-color: #45a049;

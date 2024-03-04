@@ -1,6 +1,6 @@
 
 function runSnakeScript() {
-    let points, snake, running, apple, move, nextmove, canMove, blink = false;
+    let points, snake, running, apple, move, nextmove, canMove, blink = false, itemSize = 18;
     const ctx = document.getElementById('snakeCanvas').getContext('2d');
 
     setDefaults();
@@ -31,11 +31,11 @@ function runSnakeScript() {
         ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
         ctx.fillStyle = 'green';
-        snake.forEach(square => ctx.fillRect(square.x * 20, square.y * 20, 18, 18));
+        snake.forEach(square => ctx.fillRect(square.x * 20, square.y * 20, itemSize, itemSize));
 
         //ctx.fillStyle = 'pink';
         ctx.fillStyle = (blink) ? 'pink' : 'red';
-        ctx.fillRect(apple.x * 20, apple.y * 20, 18, 18);
+        ctx.fillRect(apple.x * 20, apple.y * 20, itemSize, itemSize);
     }
 
     function blinkApple() {
