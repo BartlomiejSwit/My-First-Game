@@ -4,53 +4,70 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game Selector</title>
-    <link rel="stylesheet" href="games.css">
+    <link rel="stylesheet" href="game/head.css">
+    <link rel="stylesheet" href="game/body.css">
+    <link rel="stylesheet" href="game/footer.css">
     <link rel="icon" href="icons/game.ico" type="image/x-icon">
   </head>
   <body>
     <h1>Game Selector</h1>
-    <button class="myButton" onclick="clearGameContainer()">Run clear</button>
+    <button class="myButton" onclick="clearGameContainer()">Clear Game</button>
     <!-- Dodać więcej przycisków dla innych gier -->
    
-    <div class="container" id="container">
+    <div class="container">
       <div>
-        <h2 id="playGame"></h2>
+        <h2 id="playGame">GAME</h2>
         <div class="box" id="gameContainer">
           <!-- Tutaj będą wyświetlane gry -->
         </div>
       </div>
       <div class="box" >
         <button class="myButton" onclick="runSnakeGame()">Run Snake Game</button>
-        <button class="myButton" onclick="runSlideGame()">Run Another Game</button>
+        <button class="myButton" onclick="runSlideGame()">Run Slide Game</button>
+        <button class="myButton" onclick="runTetrisGame()">Run Tetris Game</button>
       </div>
     </div>
 
     <script src="snake/snake.js"></script>
     <script src="slide/slide.js"></script>
+    <script src="slide/tetris.js"></script>
     <!-- Dodać więcej skryptów dla innych gier -->
 
     <script>
       function runSnakeGame() {
         clearGameContainer();
-        const canvas = document.createElement("canvas");
-        canvas.id = "snakeCanvas";
-        canvas.width = 400;
-        canvas.height = 400;
-        document.getElementById("gameContainer").appendChild(canvas);
-        // Uruchamia skrypt gry Snake
+        const canvasSnake = document.createElement("canvas");
+        canvasSnake.id = "snakeCanvas";
+        canvasSnake.width = 400;
+        canvasSnake.height = 400;
+        canvasSnake.style.border = "5px solid red";
+        document.getElementById("gameContainer").appendChild(canvasSnake);
         runSnakeScript();
         playGame.innerHTML = "Snake Game";
       }
 
       function runSlideGame() {
         clearGameContainer();
-        const canvas = document.createElement("canvas");
-        canvas.id = "slideCanvas";
-        canvas.width = 500;
-        canvas.height = 500;
-        document.getElementById("gameContainer").appendChild(canvas);
+        const canvasSlide = document.createElement("canvas");
+        canvasSlide.id = "slideCanvas";
+        canvasSlide.width = 500;
+        canvasSlide.height = 500;
+        canvasSlide.style.border = "5px solid red";
+        document.getElementById("gameContainer").appendChild(canvasSlide);
         runSlideScript();
-        playGame.innerHTML = "Slid Game";
+        playGame.innerHTML = "Slide Game";
+      }
+
+      function runTetrisGame() {
+        clearGameContainer();
+        const canvasTetris = document.createElement("canvas");
+        canvasTetris.id = "tetrisCanvas";
+        canvasTetris.width = 1000;
+        canvasTetris.height = 500;
+        canvasTetris.style.border = "5px solid red";
+        document.getElementById("gameContainer").appendChild(canvasTetris);
+        runTetrisScript();
+        playGame.innerHTML = "Tetris Game";
       }
 
       // Dodać funkcje runThirdGame(), runFourthGame() itd. dla reszty gier

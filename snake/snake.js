@@ -7,7 +7,6 @@ function runSnakeScript() {
     addKeyEventListener();
     setInterval(randomFrame, 100);
     setInterval(blinkApple, 300)
-    console.log(points);
 
     function randomFrame() {
         if (canMove) {

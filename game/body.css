@@ -1,0 +1,39 @@
+.container {
+    display: grid; /* Ustaw kontener na grid */
+    grid-template-columns: 1fr 1fr; /* Dziel przestrzeń na dwie kolumny o równej szerokości */
+    gap: 10px; /* Dodaj odstęp między kolumnami */
+  }
+  
+  .box {
+    box-sizing: border-box;
+  }
+  
+  button:hover {
+      background-color: #45a049;
+  }
+  
+  .myButton {
+      display: inline-block;
+      background-color: #4CAF50;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      cursor: pointer;
+      width: auto; /* Ustaw width na auto, aby dostosować szerokość do zawartości */
+      transition: background-color 0.3s;
+      font-size: 20px;
+      border-radius: 12px;
+      box-shadow: 0 5px #999;
+    }
+    
+    .myButton:active {
+      background-color: rgb(126, 11, 11);
+    }
+  
+  h2 {
+      font-size: 40px;
+      color: #4CAF50;
+      text-align: center;
+      margin: 20px;
+  }
