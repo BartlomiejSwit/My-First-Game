@@ -5,9 +5,14 @@
   }
   
   .box {
-    display: flexbox; /* Ustaw elementy w kontenerze na flexbox */
-    box-sizing: border-box;
-    gap: 20px;
+    /*display: flexbox; /* Ustaw elementy w kontenerze na flexbox */
+    /*box-sizing: border-box;
+    /*gap: 20px;
+    padding: 20px;
+    border: 2px solid #4CAF50;
+    border-radius: 12px;
+    background-color: #f2f2f2;*/
+    text-align: center;
   }
 
   /*html, body {
