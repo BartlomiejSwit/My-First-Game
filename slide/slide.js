@@ -84,24 +84,44 @@ function runSlideScript() {
         height: 100,
     };
 
-    const rectangle = {
+    const rectanglePerpendicularly = {
         width: 50,
         height: 100
     };
 
+    const rectangleHorizontally = {
+        width: 100,
+        height: 50
+    };
+    
+
     function drawSquare(x, y) {
-        ctx.fillStyle = 'yellow';
+        ctx.fillStyle = 'black';
         ctx.fillRect(x, y, square.width, square.height);
+        ctx.fillStyle = 'yellow';
+        ctx.fillRect(x + 1, y + 1, square.width - 2, square.height - 2);
+
     }
 
     function drawBigSquare(x, y) {
-        ctx.fillStyle = 'red';
+        ctx.fillStyle = 'black';
         ctx.fillRect(x, y, squarebIG.width, squarebIG.height);
+        ctx.fillStyle = 'red';
+        ctx.fillRect(x + 1, y + 1, squarebIG.width - 2, squarebIG.height - 2);
     }
 
-    function drawRectangle(x, y) {
+    function drawRectanglePerpendicularly(x, y) {
+        ctx.fillStyle = 'black';
+        ctx.fillRect(x, y, rectanglePerpendicularly.width, rectanglePerpendicularly.height);
         ctx.fillStyle = 'blue';
-        ctx.fillRect(x, y, rectangle.width, rectangle.height);
+        ctx.fillRect(x + 1, y + 1, rectanglePerpendicularly.width - 2, rectanglePerpendicularly.height - 2);
+    }
+
+    function drawRectangleHorizontally(x, y) {
+        ctx.fillStyle = 'black';        
+        ctx.fillRect(x, y, rectangleHorizontally.width, rectangleHorizontally.height);
+        ctx.fillStyle = 'blue';
+        ctx.fillRect(x + 1, y + 1, rectangleHorizontally.width - 2, rectangleHorizontally.height - 2);        
     }
 
     function drawBackground() {
@@ -122,11 +142,125 @@ function runSlideScript() {
     
 
     }
+    
+    const canvWidth = canvas.width;
+    const canvHeight = canvas.height;
 
-    drawBackground();
+    const moveRange = 50;
+
+    let bigsquareX = 50;
+    let bigsquareY = 0;
+
+    let square1X = 0;
+    let square1Y = 0;
+
+    let square2X = 150;
+    let square2Y = 0;
+
+    let square3X = 0;
+    let square3Y = 50;
+
+    let square4X = 150;
+    let square4Y = 50;
+
+    let square5X = 0;
+    let square5Y = 100;
+
+    let square6X = 150;
+    let square6Y = 100;
+
+    let square7X = 0;
+    let square7Y = 150;
+
+    let square8X = 50;
+    let square8Y = 150;
+
+    let square9X = 100;
+    let square9Y = 150;
+
+    let square10X = 150;
+    let square10Y = 150;
+
+    let square11X = 0;
+    let square11Y = 200;
+
+    let square12X = 150;
+    let square12Y = 200;
+
+    let rectangle1X = 50;
+    let rectangle1Y = 100;
+
+    let rectangle2X = 0;
+    let rectangle2Y = 100;
+
+    let rectangle3X = 150;
+    let rectangle3Y = 100;
+
+    let rectangle4X = 0;
+    let rectangle4Y = 0;
+
+    let rectangle5X = 150;
+    let rectangle5Y = 0;
+
+    /*drawBackground();
     drawSquare(0,0);
-    drawBigSquare(50,0);
-    drawRectangle(0,50);
+    drawBigSquare(bigsquareX,bigsquareY);
+    drawRectangle(0,50);*/
+
+    function drawStageOne() {
+        drawBackground();
+        drawSquare(square1X,square1Y);
+        drawSquare(square2X,square2Y);
+        drawSquare(square3X,square3Y);
+        drawSquare(square4X,square4Y);
+        drawSquare(square5X,square5Y);
+        drawSquare(square6X,square6Y);
+        drawSquare(square7X,square7Y);
+        drawSquare(square8X,square8Y);
+        drawSquare(square9X,square9Y);
+        drawSquare(square10X,square10Y);
+        drawSquare(square11X,square11Y);
+        drawSquare(square12X,square12Y);
+        drawBigSquare(bigsquareX,bigsquareY);
+        drawRectangleHorizontally(rectangle1X,rectangle1Y);
+    }
+
+    function drawStageTwo() {
+        drawBackground();
+        drawSquare(square1X,square1Y);
+        drawSquare(square2X,square2Y);
+        drawSquare(square3X,square3Y);
+        drawSquare(square4X,square4Y);
+        drawSquare(square8X,square8Y);
+        drawSquare(square9X,square9Y);
+        drawSquare(square11X,square11Y);
+        drawSquare(square12X,square12Y);
+        drawBigSquare(bigsquareX,bigsquareY);
+        drawRectangleHorizontally(rectangle1X,rectangle1Y);
+        drawRectanglePerpendicularly(rectangle2X,rectangle2Y);
+        drawRectanglePerpendicularly(rectangle3X,rectangle3Y);
+
+    }
+
+    function drawStageTree() {
+        drawBackground();
+        drawSquare(square8X,square8Y);
+        drawSquare(square9X,square9Y);
+        drawSquare(square11X,square11Y);
+        drawSquare(square12X,square12Y);
+        drawBigSquare(bigsquareX,bigsquareY);
+        drawRectangleHorizontally(rectangle1X,rectangle1Y);
+        drawRectanglePerpendicularly(rectangle2X,rectangle2Y);
+        drawRectanglePerpendicularly(rectangle3X,rectangle3Y);
+        drawRectanglePerpendicularly(rectangle4X,rectangle4Y);
+        drawRectanglePerpendicularly(rectangle5X,rectangle5Y);
+    }
+
+
+
+    drawStageOne();
+    //drawStageTwo();
+    //drawStageTree();
 
 
 }
