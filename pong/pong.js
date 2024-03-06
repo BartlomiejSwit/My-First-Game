@@ -71,10 +71,10 @@ function runPongScript() {
         drawPaddle(rightPaddleX, rightPaddleY);
     }
 
-    window.addEventListener("click", 
+    /*window.addEventListener("click", 
     function () {
         console.log("click");
-    });
+    });*/
 
     function ballReset() {
         ballX = canvWidth / 2 - ballSize / 2;
