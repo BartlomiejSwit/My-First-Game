@@ -76,9 +76,31 @@ function runPongScript() {
         console.log("click");
     });
 
-    canvas.addEventListener("mousemove", function() {
-        console.log("mousemove");
-    });
+    function ballReset() {
+        ballX = canvWidth / 2 - ballSize / 2;
+        ballY = canvHeight / 2 - ballSize / 2;
+    }
+    canvasPosition = canvas.getBoundingClientRect();
+    console.log(canvasPosition);
+
+    function leftPaddlePosition(e) {
+        //console.log("mousemove is: " + (e.clientY - canvasPosition.top))
+        leftPaddleY = e.clientY - canvasPosition.top - paddleHeight / 2;
+
+        if (leftPaddleY >= canvHeight - paddleHeight) {
+            leftPaddleY = canvHeight - paddleHeight;
+        }
+
+        if (leftPaddleY <= 0) {
+            leftPaddleY = 0;
+        }
+    }
+
+
+
+    canvas.addEventListener("mousemove", leftPaddlePosition);
+       
+ 
 
     function moveEverything() {
         ballX += ballSpeedX;
