@@ -108,6 +108,20 @@ function runSlideScript() {
         ctx.fillRect(x, y, squarebIG.width, squarebIG.height);
         ctx.fillStyle = 'red';
         ctx.fillRect(x + 1, y + 1, squarebIG.width - 2, squarebIG.height - 2);
+        ctx.fillStyle = 'grey';
+        ctx.beginPath(x, y);
+        ctx.moveTo(x, y + 50);
+        ctx.lineTo(x + 50, y + 100);
+        ctx.lineTo(x + 100, y + 50);
+        ctx.lineTo(x + 50, y);
+        ctx.closePath();
+        ctx.fill();
+
+        ctx.fillStyle = 'red';
+        ctx.beginPath(x, y);
+        ctx.arc(x + 50, y + 50, 25, 0, 2 * Math.PI);
+        ctx.fill();
+
     }
 
     function drawRectanglePerpendicularly(x, y) {
@@ -139,8 +153,11 @@ function runSlideScript() {
         ctx.lineTo(100, 250);
         ctx.closePath();
         ctx.fill();
-    
 
+        ctx.fillStyle = 'grey';
+        ctx.beginPath();
+        ctx.arc(100, 200, 25, 0, 2 * Math.PI);
+        ctx.fill();
     }
     
     const canvWidth = canvas.width;
@@ -148,64 +165,49 @@ function runSlideScript() {
 
     const moveRange = 50;
 
-    let bigsquareX = 50;
-    let bigsquareY = 0;
-
-    let square1X = 0;
-    let square1Y = 0;
-
-    let square2X = 150;
-    let square2Y = 0;
-
-    let square3X = 0;
-    let square3Y = 50;
-
-    let square4X = 150;
-    let square4Y = 50;
-
-    let square5X = 0;
-    let square5Y = 100;
-
-    let square6X = 150;
-    let square6Y = 100;
-
-    let square7X = 0;
-    let square7Y = 150;
-
-    let square8X = 50;
-    let square8Y = 150;
-
-    let square9X = 100;
-    let square9Y = 150;
-
-    let square10X = 150;
-    let square10Y = 150;
-
-    let square11X = 0;
-    let square11Y = 200;
-
-    let square12X = 150;
-    let square12Y = 200;
-
-    let rectangle1X = 50;
-    let rectangle1Y = 100;
-
-    let rectangle2X = 0;
-    let rectangle2Y = 100;
-
-    let rectangle3X = 150;
-    let rectangle3Y = 100;
-
-    let rectangle4X = 0;
-    let rectangle4Y = 0;
-
-    let rectangle5X = 150;
-    let rectangle5Y = 0;
-
-    /*drawBackground();
-    drawSquare(0,0);
-    drawBigSquare(bigsquareX,bigsquareY);
-    drawRectangle(0,50);*/
+    let bigsquareX, bigsquareY;
+    let square1X, square1Y;
+    let square2X, square2Y;
+    let square3X, square3Y;
+    let square4X, square4Y;
+    let square5X, square5Y;
+    let square6X, square6Y;
+    let square7X, square7Y;
+    let square8X, square8Y;
+    let square9X, square9Y;
+    let square10X, square10Y;
+    let square11X, square11Y;
+    let square12X, square12Y;
+    let rectangle1X, rectangle1Y;
+    let rectangle2X, rectangle2Y;
+    let rectangle3X, rectangle3Y;
+    let rectangle4X, rectangle4Y;
+    let rectangle5X, rectangle5Y;
+    let freeSpace1X, freeSpace1Y;
+    let freeSpace2X, freeSpace2Y;
+    
+    function resetPositions() {
+        bigsquareX = 50, bigsquareY = 0;
+        square1X = 0, square1Y = 0;
+        square2X = 150, square2Y = 0;
+        square3X = 0, square3Y = 50;
+        square4X = 150, square4Y = 50;
+        square5X = 0, square5Y = 100;
+        square6X = 150, square6Y = 100;
+        square7X = 0, square7Y = 150;
+        square8X = 50, square8Y = 150;
+        square9X = 100, square9Y = 150;
+        square10X = 150, square10Y = 150;
+        square11X = 0, square11Y = 200;
+        square12X = 150, square12Y = 200;
+        rectangle1X = 50, rectangle1Y = 100;
+        rectangle2X = 0, rectangle2Y = 100;
+        rectangle3X = 150, rectangle3Y = 100;
+        rectangle4X = 0, rectangle4Y = 0;
+        rectangle5X = 150, rectangle5Y = 0;
+        freeSpace1X = 50, freeSpace1Y = 200;
+        freeSpace2X = 100, freeSpace2Y = 200;
+    }
 
     function drawStageOne() {
         drawBackground();
@@ -256,8 +258,12 @@ function runSlideScript() {
         drawRectanglePerpendicularly(rectangle5X,rectangle5Y);
     }
 
+    square12X = freeSpace2X;
+    square12Y = freeSpace2Y;
 
-
+    //bigsquareX = square8X;
+    //bigsquareY = square8Y;
+    resetPositions();
     drawStageOne();
     //drawStageTwo();
     //drawStageTree();

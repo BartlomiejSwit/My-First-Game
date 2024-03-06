@@ -24,23 +24,28 @@ function runPongScript() {
     let ballX = canvWidth / 2 - ballSize / 2;
     let ballY = canvHeight / 2 - ballSize / 2;
 
-    let ballSpeedX = 1;
-    let ballSpeedY = 1;
+    let ballSpeedX = 3;
+    let ballSpeedY = 3;
 
-    function drawBall() {
+    function drawBall(x, y) {
+        //ctx.fillStyle = 'yellow';
+        //ctx.fillRect(x, y, ballSize, ballSize);
         ctx.fillStyle = 'red';
-        ctx.fillRect(ballX, ballY, ballSize, ballSize);
+        ctx.beginPath(x, y);
+        ctx.arc(x + 10, y + 10, 10, 0, 2 * Math.PI);
+        ctx.fill();
 
         ballX += ballSpeedX;
         ballY += ballSpeedY;
 
-        if (ballY < 0 + ballSize) {
+        if (ballY <= 0  || ballY >= canvHeight - ballSize) {
             ballSpeedY = -ballSpeedY;
         }
 
-        if (ballY > canvHeight - ballSize) {
-            ballSpeedY = -ballSpeedY;
+        if (ballX <= 0 || ballX >= canvWidth - ballSize) {
+            ballSpeedX = -ballSpeedX;
         }
+
     }
 
     const paddleHeight = 100;
@@ -61,10 +66,19 @@ function runPongScript() {
         //drawEverything();
         //moveEverything();
         drawBackground();
-        drawBall();
+        drawBall(ballX, ballY);
         drawPaddle(leftPaddleX, leftPaddleY);
         drawPaddle(rightPaddleX, rightPaddleY);
     }
+
+    window.addEventListener("click", 
+    function () {
+        console.log("click");
+    });
+
+    canvas.addEventListener("mousemove", function() {
+        console.log("mousemove");
+    });
 
     function moveEverything() {
         ballX += ballSpeedX;
