@@ -38,9 +38,14 @@ function runPongScript() {
         ctx.fill();
     }
 
-    function drawPaddle(x, y) {
-        ctx.fillStyle = 'white';
-        ctx.fillRect(x, y, paddleWidth, paddleHeight);
+    function drawPaddle(x, y, side) {
+        if (side === "left") {
+            ctx.fillStyle = 'white';
+            ctx.fillRect(x, y, paddleWidth, paddleHeight);
+        } else if (side === "right") { 
+            ctx.fillStyle = 'red';
+            ctx.fillRect(x, y, paddleWidth, paddleHeight);
+        }
     }
 
     function blinkBall() {
@@ -117,8 +122,8 @@ function runPongScript() {
         ballY = canvHeight / 2 - ballSize / 2;
     }
 
-    canvasPosition = canvas.getBoundingClientRect();
-    console.log(canvasPosition);
+    let canvasPosition = canvas.getBoundingClientRect();
+    //console.log(canvasPosition);
 
     function leftPaddlePosition(e) {
         //console.log("mousemove is: " + (e.clientY - canvasPosition.top))
@@ -182,8 +187,8 @@ function runPongScript() {
         aiCalculate();
         drawBackground();
         drawBall(ballX, ballY);
-        drawPaddle(leftPaddleX, leftPaddleY);
-        drawPaddle(rightPaddleX, rightPaddleY);        
+        drawPaddle(leftPaddleX, leftPaddleY, "left");
+        drawPaddle(rightPaddleX, rightPaddleY, "right");        
     }
 
     canvas.addEventListener("mousemove", leftPaddlePosition);
