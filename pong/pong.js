@@ -5,7 +5,7 @@ function runPongScript() {
     const canvWidth = canvas.width;
     const canvHeight = canvas.height;
 
-    const linaWidth = 5;
+    const lineWidth = 5;
     const lineHeight = 10;
 
     function drawBackground() {
@@ -13,10 +13,27 @@ function runPongScript() {
         ctx.fillRect(0, 0, canvWidth, canvHeight);
 
         ctx.fillStyle = 'white';
+        ctx.beginPath();
+        ctx.arc(canvWidth / 2, canvHeight / 2, 80 / 2, 0, 2 * Math.PI);
+        ctx.fill();
+
+        ctx.fillStyle = 'black';
+        ctx.beginPath();
+        ctx.arc(canvWidth / 2, canvHeight / 2, 75 / 2, 0, 2 * Math.PI);
+        ctx.fill();
+
+        ctx.fillStyle = 'white';
         //ctx.fillRect(canvWidth / 2, 0, 2, canvHeight);
         for (let i = 5; i < canvHeight; i += 20) {
-            ctx.fillRect(canvWidth / 2 - linaWidth / 2, i, linaWidth, lineHeight);
+            ctx.fillRect(canvWidth / 2 - lineWidth / 2, i, lineWidth, lineHeight);
         }
+
+        ctx.fillStyle = 'white';
+        ctx.fillRect(rightPaddleX, 0, lineWidth, canvHeight);
+
+        ctx.fillStyle = 'red';
+        ctx.fillRect(leftPaddleX + paddleWidth - lineWidth, 0, lineWidth, canvHeight);
+
 
     }
 
@@ -61,6 +78,9 @@ function runPongScript() {
     let leftPaddleY = canvHeight / 2 - paddleHeight / 2;
     let rightPaddleY = canvHeight / 2 - paddleHeight / 2;
 
+    let leftPoints = 0;
+    let rightPoints = 0;
+
 
     function moveBall() {
         ballX += ballSpeedX;
@@ -81,6 +101,7 @@ function runPongScript() {
             ballSpeedUp();
             blinkBall();
         } else if (ballX <= 0) {
+            rightPoints++;
             ballReset();
             ballSpeedX = -1;
             ballSpeedY = -1;
@@ -91,12 +112,16 @@ function runPongScript() {
             ballSpeedUp();
             blinkBall();
         } else if (ballX >= canvWidth - ballSize) {
+            leftPoints++;
             ballReset();
             ballSpeedX = 1;
             ballSpeedY = 1;
         }
 
     }
+
+    //console.log("leftPoints: " + leftPoints);
+    //console.log("rightPoints: " + rightPoints);
 
     /*window.addEventListener("click", 
     function () {
@@ -120,6 +145,8 @@ function runPongScript() {
     function ballReset() {
         ballX = canvWidth / 2 - ballSize / 2;
         ballY = canvHeight / 2 - ballSize / 2;
+        console.log("leftPoints: " + leftPoints);
+        console.log("rightPoints: " + rightPoints);
     }
 
     let canvasPosition = canvas.getBoundingClientRect();
@@ -143,32 +170,44 @@ function runPongScript() {
         const rightPaddleYCenter = rightPaddleY + paddleHeight / 2;
         const ballYCenter = ballY + ballSize / 2;
 
-        if (rightPaddleYCenter < ballY - 35) {
+        /*if (rightPaddleYCenter < ballY - 35) {
             rightPaddleY += 9;
         } else if (rightPaddleYCenter > ballY + 35) {
             rightPaddleY -= 9;
-        }
+        }*/
+
+        /* To do smart AI for right paddle Testing
+        const leftPaaadleYCenter = leftPaddleY + paddleHeight / 2;
+        if (leftPaaadleYCenter < ballY - 35) {
+            leftPaddleY += 11;
+        } else if (leftPaaadleYCenter < ballY - 100) {
+            leftPaddleY += 9;
+        } else if (leftPaaadleYCenter > ballY + 35) {
+            leftPaddleY -= 11;
+        } else if (leftPaaadleYCenter > ballY + 100) {
+            leftPaddleY -= 9;
+        }*/
         
-        /*
+        
         if (ballX > canvWidth / 2) {
             if (rightPaddleYCenter - ballYCenter > 200) {
-                rightPaddleY -= 2;
+                rightPaddleY -= 30;
             } else if (rightPaddleYCenter - ballYCenter > 50) {
-                rightPaddleY -= 5;
+                rightPaddleY -= 30;
             } else if (rightPaddleYCenter - ballYCenter < -200) {
-                rightPaddleY += 20;
+                rightPaddleY += 30;
             } else if (rightPaddleYCenter - ballYCenter < -50) {
-                rightPaddleY += 5;
+                rightPaddleY += 30;
             }       
 
-        }if (ballX <= canvWidth / 2 && ballX > 200) {
+        }if (ballX <= canvWidth / 2 && ballX > 150) {
             if (rightPaddleYCenter - ballYCenter > 100) {
                 rightPaddleY -= 10;
             } else if (rightPaddleYCenter - ballYCenter < -100) {
                 rightPaddleY += 10;
             }
         }
-        */        
+               
     }
 
     //To do smart AI for right paddle
@@ -180,7 +219,7 @@ function runPongScript() {
     //To do add start game
     //To do add pause game
     //To do add restart game
-    //To do change speed ball change !!!!!!!!!
+    //To do change ball sped up !!!!!!!!!
 
     function gameRuning() {
         moveBall();
