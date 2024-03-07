@@ -1,1 +1,2 @@
 # My-First-Game
+Projekt został stworzony w ramach wyzwania "100 Commits on GitHub", które zostało utworzone przez "DevMentors" - grupę bardzo utalentowanych osób założoną przez Dariusza Pawlikiewicza, Michała Wilczyńskiego i Piotra Gankiewicza. Zdecydowałem się stworzyć dynamiczną stronę internetową, prezentującą kilka klasycznych gier, takich jak Snake, Pong, Slide i wiele innych. Celem projektu jest nie tylko nabycie umiejętności w zakresie JavaScript, CSS i HTML, ale także dostarczenie rozrywki poprzez interaktywne gry.
