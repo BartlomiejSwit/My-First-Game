@@ -221,6 +221,12 @@ function runPongScript() {
     //To do add restart game
     //To do change ball sped up !!!!!!!!!
 
+    function startGame() {
+        console.log("Game started");
+        canvas.addEventListener("mousemove", leftPaddlePosition);
+        setInterval(gameRuning, 1000 / 60);
+    }
+
     function gameRuning() {
         moveBall();
         aiCalculate();
@@ -230,7 +236,21 @@ function runPongScript() {
         drawPaddle(rightPaddleX, rightPaddleY, "right");        
     }
 
-    canvas.addEventListener("mousemove", leftPaddlePosition);
-    setInterval(gameRuning, 1000 / 60);
+
+
+    function endGame() {
+        if (leftPoints >= 10 || rightPoints >= 10) {
+            console.log("Game over");
+        }
+    }
+
+    function closeGame() {
+        //setInterval.close();
+        console.log("Game closed");
+        startGame.close();
+   
+    }
+
+    startGame();
 
 }
