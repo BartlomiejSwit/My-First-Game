@@ -8,7 +8,8 @@ function runPongScript() {
     const lineWidth = 5;
     const lineHeight = 10;
 
-    var audio = new Audio('pong/sound/Ball.mp3');
+    var audioHit = new Audio('pong/sound/Ball.mp3');
+    var audioMiss = new Audio('pong/sound/Miss.mp3');
     //audio.play();
 
     /*
@@ -102,7 +103,7 @@ function runPongScript() {
 
         if (ballY <= 0  || ballY >= canvHeight - ballSize) {
             ballSpeedY = -ballSpeedY;
-            audio.play();
+            audioHit.play();
             ballSpeedUp();
         }
 
@@ -113,10 +114,11 @@ function runPongScript() {
 
         if (ballX <= leftPaddleX + paddleWidth && ballY >= leftPaddleY && ballY <= leftPaddleY + paddleHeight) {
             ballSpeedX = -ballSpeedX;
-            audio.play();
+            audioHit.play();
             ballSpeedUp();
             blinkBall();
         } else if (ballX <= 0) {
+            audioMiss.play();
             rightPoints++;
             ballReset();
             ballSpeedX = -1;
@@ -125,10 +127,11 @@ function runPongScript() {
 
         if (ballX >= rightPaddleX - paddleWidth && ballY >= rightPaddleY && ballY <= rightPaddleY + paddleHeight) {
             ballSpeedX = -ballSpeedX;
-            audio.play();
+            audioHit.play();
             ballSpeedUp();
             blinkBall();
         } else if (ballX >= canvWidth - ballSize) {
+            audioMiss.play();
             leftPoints++;
             ballReset();
             ballSpeedX = 1;
