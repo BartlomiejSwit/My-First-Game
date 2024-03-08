@@ -8,6 +8,21 @@ function runPongScript() {
     const lineWidth = 5;
     const lineHeight = 10;
 
+    var audio = new Audio('pong/sound/Ball.mp3');
+    //audio.play();
+
+    /*
+    var audio = new Audio();
+    audio.crossOrigin = 'anonymous';
+    audio.src = 'pong/Ball.wav';
+    audio.play();
+    */
+    /*
+    var audio = new Audio('pong/sound/Ball.mp3');
+    audio.onerror = function(event) {
+        console.error('Błąd ładowania pliku dźwiękowego', event);
+    };  
+    */
     function drawBackground() {
         ctx.fillStyle = 'black';
         ctx.fillRect(0, 0, canvWidth, canvHeight);
@@ -80,14 +95,14 @@ function runPongScript() {
 
     let leftPoints = 0;
     let rightPoints = 0;
-
-
+   
     function moveBall() {
         ballX += ballSpeedX;
         ballY += ballSpeedY;
 
         if (ballY <= 0  || ballY >= canvHeight - ballSize) {
             ballSpeedY = -ballSpeedY;
+            audio.play();
             ballSpeedUp();
         }
 
@@ -98,6 +113,7 @@ function runPongScript() {
 
         if (ballX <= leftPaddleX + paddleWidth && ballY >= leftPaddleY && ballY <= leftPaddleY + paddleHeight) {
             ballSpeedX = -ballSpeedX;
+            audio.play();
             ballSpeedUp();
             blinkBall();
         } else if (ballX <= 0) {
@@ -109,6 +125,7 @@ function runPongScript() {
 
         if (ballX >= rightPaddleX - paddleWidth && ballY >= rightPaddleY && ballY <= rightPaddleY + paddleHeight) {
             ballSpeedX = -ballSpeedX;
+            audio.play();
             ballSpeedUp();
             blinkBall();
         } else if (ballX >= canvWidth - ballSize) {
@@ -127,6 +144,22 @@ function runPongScript() {
     function () {
         console.log("click");
     });*/
+
+    /*window.addEventListener("keydown",
+        function (e) {
+            //console.log("key is: " + e.code);
+            if (e.code === "Space") {
+                console.log("Space is pressed");
+                //ballSpeedUp();
+                pauseGame();
+
+            }
+            if (e.code === "P") {
+                console.log("Escape is pressed");
+                pauseGame();
+            }
+        }); */
+        
 
     function ballSpeedUp() {
         if (ballSpeedX > 0 && ballSpeedX < 16) {
@@ -210,11 +243,9 @@ function runPongScript() {
                
     }
 
-    //To do smart AI for right paddle
     //To do add arrow keys for right and left paddle
     //To do add score
     //To do add two players mode
-    //To do add sound
     //To do add game over
     //To do add start game
     //To do add pause game
@@ -225,6 +256,7 @@ function runPongScript() {
         console.log("Game started");
         canvas.addEventListener("mousemove", leftPaddlePosition);
         setInterval(gameRuning, 1000 / 60);
+
     }
 
     function gameRuning() {
@@ -234,6 +266,10 @@ function runPongScript() {
         drawBall(ballX, ballY);
         drawPaddle(leftPaddleX, leftPaddleY, "left");
         drawPaddle(rightPaddleX, rightPaddleY, "right");        
+    }
+
+    function pauseGame() {
+        console.log("Game paused");
     }
 
 
