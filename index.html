@@ -50,7 +50,8 @@
         playGame.innerHTML = "Snake Game";
         document.getElementById("gameContainer").appendChild(canvasSnake);
         //runSnakeScript();
-        currentGame = runSnakeScript(); // Przypisz aktualną grę do zmiennej
+        //currentGame = runSnakeScript(); // Przypisz aktualną grę do zmiennej
+        currentGame = runSnakeScript().stop;
       }
 
       function runSlideGame() {
@@ -63,7 +64,8 @@
         playGame.innerHTML = "Slide Game";
         document.getElementById("gameContainer").appendChild(canvasSlide);
         //runSlideScript();
-        currentGame = runSlideScript();
+        //currentGame = runSlideScript();
+        currentGame = runSlideScript().stop;
       }
 
       function runPongGame() {

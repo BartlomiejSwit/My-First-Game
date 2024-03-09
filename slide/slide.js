@@ -73,6 +73,9 @@
 function runSlideScript() {
     const canvas = document.getElementById('slideCanvas');
     const ctx = canvas.getContext('2d');
+
+    var gameInterval;
+    let canvasPosition = canvas.getBoundingClientRect();
     
     const square = {
         width: 50,
@@ -258,15 +261,114 @@ function runSlideScript() {
         drawRectanglePerpendicularly(rectangle5X,rectangle5Y);
     }
 
+    function addKeyEventListener() {
+
+    }
+
+    let mousePosition = {x: 0, y: 0};
+    let mouseMove = {x: 0, y: 0};
+    let moveDirection = '';
+
+    function mouseEvent(event) {
+        //console.log(event);
+        if (event.buttons === 1) {
+            console.log("Mouse left button clicked");
+            mousePosition.x = event.clientX - canvasPosition.left;
+            mousePosition.y = event.clientY - canvasPosition.top;
+            console.log("mousePositionX: " + mousePosition.x);
+            console.log("mousePositionY: " + mousePosition.y);
+            mouseMove.x = event.movementX;
+            mouseMove.y = event.movementY;
+            console.log("mouseMoveX: " + mouseMove.x);
+            console.log("mouseMoveY: " + mouseMove.y);
+            
+            if (mouseMove.x > 0) {
+                console.log("Mouse move right");
+                moveDirection = 'right';
+                moveBlock('right');
+            } else if (mouseMove.x < 0) {
+                console.log("Mouse move left");
+                moveDirection = 'left';
+                moveBlock('left');
+            } else if (mouseMove.y > 0) { 
+                console.log("Mouse move down");
+                moveDirection = 'down';
+                moveBlock('down');
+            } else if (mouseMove.y < 0) {
+                console.log("Mouse move up");
+                moveDirection = 'up';
+                moveBlock('up');
+            }
+
+        }
+        if (event.buttons === 2) {
+            console.log("Mouse right button clicked");
+
+        }
+
+    }
+
+
     square12X = freeSpace2X;
     square12Y = freeSpace2Y;
 
     //bigsquareX = square8X;
     //bigsquareY = square8Y;
-    resetPositions();
-    drawStageOne();
+    //resetPositions();
+    //drawStageOne();
     //drawStageTwo();
     //drawStageTree();
+
+    function startGame() {
+        console.log("Game started");
+        addKeyEventListener();
+        canvas.addEventListener("mousemove", mouseEvent);
+        gameRuning();
+
+    }
+
+    function gameRuning() {
+        resetPositions();
+        drawStageOne();
+  
+  
+    }
+
+
+    function moveBlock(direction) {
+        if (direction === 'left' && bigsquareX - moveRange >= 0) {
+            bigsquareX -= moveRange;
+        } else if (direction === 'right' && bigsquareX + squarebIG.width + moveRange <= canvas.width) {
+            bigsquareX += moveRange;
+        }else if (direction === 'up' && bigsquareY - moveRange >= 0) {
+            bigsquareY -= moveRange;
+        } else if (direction === 'down' && bigsquareY + squarebIG.height + moveRange <= canvas.height) {
+            bigsquareY += moveRange;
+        }
+        drawStageOne();
+    }
+
+    function pauseGame() {
+        console.log("Game paused");
+    }
+
+    function endGame() {
+        console.log("Game over");
+    }
+
+    function closeGame() {
+        stop();
+        console.log("Game closed");
+    }
+
+    function stop() {
+
+
+    }
+
+    startGame();
+
+    return {stop};
 
 
 }

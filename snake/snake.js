@@ -1,12 +1,13 @@
 
 function runSnakeScript() {
     let points, snake, running, apple, move, nextmove, canMove, blink = false, itemSize = 18;
-    const ctx = document.getElementById('snakeCanvas').getContext('2d');
+   // const ctx = document.getElementById('snakeCanvas').getContext('2d');
+    const canvas = document.getElementById('snakeCanvas');
+    const ctx = canvas.getContext('2d');
 
-    setDefaults();
-    addKeyEventListener();
-    setInterval(randomFrame, 100);
-    setInterval(blinkApple, 300)
+    var gameInterval;
+    var appleInterval;
+
 
     function randomFrame() {
         if (canMove) {
@@ -40,9 +41,7 @@ function runSnakeScript() {
 
     function blinkApple() {
         blink = !blink; // Odwraca wartość zmiennej blink
-    }        
-
-    
+    }    
 
     function getHead() {
         return snake[snake.length - 1];
@@ -104,4 +103,43 @@ function runSnakeScript() {
             }
         });
     }
+
+
+    function startGame() {
+        console.log("Game started");
+        addKeyEventListener();
+        gameRuning();
+
+    }
+
+    function gameRuning() {
+        setDefaults();
+        gameInterval = setInterval(randomFrame, 100);
+        appleInterval = setInterval(blinkApple, 300);        
+        //setInterval(randomFrame, 100);
+        //setInterval(blinkApple, 300)     
+    }
+
+    function pauseGame() {
+        console.log("Game paused");
+    }
+
+    function endGame() {
+        console.log("Game over");
+    }
+
+    function closeGame() {
+        stop();
+        console.log("Game closed");
+    }
+
+    function stop() {
+        clearInterval(gameInterval);
+        clearInterval(appleInterval);
+
+    }
+
+    startGame();
+
+    return {stop};
 }
