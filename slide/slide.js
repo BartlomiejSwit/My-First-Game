@@ -76,28 +76,61 @@ function runSlideScript() {
 
     var gameInterval;
     let canvasPosition = canvas.getBoundingClientRect();
+
+    class Block {
+        constructor(x, y, width, height, color) {
+            this.x = x;
+            this.y = y;
+            this.width = width;
+            this.height = height;
+            this.color = color;
+        }
     
-    const square = {
-        width: 50,
-        height: 50
-    };
-
-    const squarebIG = {
-        width: 100,
-        height: 100,
-    };
-
-    const rectanglePerpendicularly = {
-        width: 50,
-        height: 100
-    };
-
-    const rectangleHorizontally = {
-        width: 100,
-        height: 50
-    };
+        draw() {
+            ctx.fillStyle = 'black';
+            ctx.fillRect(this.x, this.y, this.width, this.height);
+            ctx.fillStyle = this.color;
+            ctx.fillRect(this.x + 1, this.y + 1, this.width - 2, this.height - 2);
+        }
+    }
     
+    class Square extends Block {
+        constructor(x, y, width, height, color) {
+            super(x, y, width, height, color);
+        }
+    
+        draw() {
+            super.draw(); // Wywołanie metody draw z klasy nadrzędnej
+    
+            // Rysowanie dodatkowych elementów kwadratu
+            ctx.fillStyle = 'grey';
+            ctx.beginPath();
+            ctx.moveTo(this.x, this.y + this.height / 2);
+            ctx.lineTo(this.x + this.width / 2, this.y + this.height);
+            ctx.lineTo(this.x + this.width, this.y + this.height / 2);
+            ctx.lineTo(this.x + this.width / 2, this.y);
+            ctx.closePath();
+            ctx.fill();
+    
+            ctx.fillStyle = this.color;
+            ctx.beginPath();
+            ctx.arc(this.x + this.width / 2, this.y + this.height / 2, this.width / 4, 0, 2 * Math.PI);
+            ctx.fill();
+        }
+    }
 
+    let bigSquare = new Square(0, 0, 100, 100, 'red');
+    let square1 = new Block(0, 100, 50, 50, 'yellow');
+    let square2 = new Square(150, 100, 50, 50, 'yellow');
+    let rectanglePerpendicularly = new Block(0, 150, 50, 100, 'blue');
+    let rectanglePerpendicularly2 = new Square(150, 0, 50, 100, 'blue');
+    let rectangleHorizontally = new Block(100, 150, 100, 50, 'blue');
+    let rectangleHorizontally2 = new Square(50, 200, 100, 50, 'blue');
+
+    //rectangleHorizontally.x = 50 , rectangleHorizontally.y = 200;
+        
+    
+    /*
     function drawSquare(x, y) {
         ctx.fillStyle = 'black';
         ctx.fillRect(x, y, square.width, square.height);
@@ -140,7 +173,7 @@ function runSlideScript() {
         ctx.fillStyle = 'blue';
         ctx.fillRect(x + 1, y + 1, rectangleHorizontally.width - 2, rectangleHorizontally.height - 2);        
     }
-
+    */
     function drawBackground() {
         ctx.fillStyle = 'black';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -188,7 +221,7 @@ function runSlideScript() {
     let rectangle5X, rectangle5Y;
     let freeSpace1X, freeSpace1Y;
     let freeSpace2X, freeSpace2Y;
-    
+    /*
     function resetPositions() {
         bigsquareX = 50, bigsquareY = 0;
         square1X = 0, square1Y = 0;
@@ -260,7 +293,7 @@ function runSlideScript() {
         drawRectanglePerpendicularly(rectangle4X,rectangle4Y);
         drawRectanglePerpendicularly(rectangle5X,rectangle5Y);
     }
-
+    */
     function addKeyEventListener() {
 
     }
@@ -328,13 +361,35 @@ function runSlideScript() {
     }
 
     function gameRuning() {
-        resetPositions();
-        drawStageOne();
+        //resetPositions();
+        //drawStageOne();
+        drawBackground();
+        bigSquare.draw();
+        square1.draw();
+        square2.draw();
+        rectanglePerpendicularly.draw();
+        rectanglePerpendicularly2.draw();
+        rectangleHorizontally.draw();
+        rectangleHorizontally2.draw();
   
   
     }
 
+    function moveBlock(direction) {
+        if (direction === 'left' && bigSquare.x - moveRange >= 0) {
+            bigSquare.x -= moveRange;
+        } else if (direction === 'right' && bigSquare.x + bigSquare.width + moveRange <= canvas.width) {
+            bigSquare.x += moveRange;
+        }else if (direction === 'up' && bigSquare.y - moveRange >= 0) {
+            bigSquare.y -= moveRange;
+        } else if (direction === 'down' && bigSquare.y + bigSquare.height + moveRange <= canvas.height) {
+            bigSquare.y += moveRange;
+        }
+        gameRuning();
+        
+    }
 
+    /*
     function moveBlock(direction) {
         if (direction === 'left' && bigsquareX - moveRange >= 0) {
             bigsquareX -= moveRange;
@@ -345,8 +400,10 @@ function runSlideScript() {
         } else if (direction === 'down' && bigsquareY + squarebIG.height + moveRange <= canvas.height) {
             bigsquareY += moveRange;
         }
-        drawStageOne();
-    }
+        //drawStageOne();
+        gameRuning();
+        
+    }*/
 
     function pauseGame() {
         console.log("Game paused");
