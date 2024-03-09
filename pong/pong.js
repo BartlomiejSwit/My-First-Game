@@ -2,6 +2,8 @@ function runPongScript() {
     const canvas = document.getElementById('pongCanvas');
     const ctx = canvas.getContext('2d');
 
+    var gameInterval;
+
     const canvWidth = canvas.width;
     const canvHeight = canvas.height;
 
@@ -255,11 +257,17 @@ function runPongScript() {
     //To do add restart game
     //To do change ball sped up !!!!!!!!!
 
-    function startGame() {
+    /*function startGame() {
         console.log("Game started");
         canvas.addEventListener("mousemove", leftPaddlePosition);
         setInterval(gameRuning, 1000 / 60);
 
+    }*/
+
+    function startGame() {
+        console.log("Game started");
+        canvas.addEventListener("mousemove", leftPaddlePosition);
+        gameInterval = setInterval(gameRuning, 1000 / 60);
     }
 
     function gameRuning() {
@@ -284,12 +292,17 @@ function runPongScript() {
     }
 
     function closeGame() {
-        //setInterval.close();
+        stop();
         console.log("Game closed");
-        startGame.close();
-   
+    }
+
+    function stop() {
+        clearInterval(gameInterval);
+        canvas.removeEventListener("mousemove", leftPaddlePosition);
     }
 
     startGame();
+
+    return {stop};
 
 }

@@ -12,11 +12,12 @@
   <body>
     <h1>Game Selector</h1>
     <button class="myButton" onclick="clearGameContainer()">Clear Game</button>
+    <button class="myButton" onclick="stopCurrentGame()">Stop Game</button> <!-- Dodany przycisk Stop Game -->
 
     <div class="container">
       <div class="box">
         <h2 id="playGame">GAME</h2>
-        <div id="gameContainer">
+        <div id="gameContainer">          
           <!-- Tutaj będą wyświetlane gry -->
         </div>
       </div>
@@ -27,7 +28,7 @@
         <button class="myButton" onclick="runAnotherGame()">Run Another Game</button>
         <!-- Dodać więcej przycisków dla innych gier -->
       </div>
-    </div>
+    </div>    
 
     <script src="snake/snake.js"></script>
     <script src="slide/slide.js"></script>
@@ -37,6 +38,7 @@
     <script>
       //var audio = new Audio('pong/Ball.mp3');
       //audio.play();
+      var currentGame = null; // Globalna zmienna do przechowywania aktualnej gry
 
       function runSnakeGame() {
         clearGameContainer();
@@ -47,7 +49,8 @@
         canvasSnake.style.border = "5px solid red";
         playGame.innerHTML = "Snake Game";
         document.getElementById("gameContainer").appendChild(canvasSnake);
-        runSnakeScript();
+        //runSnakeScript();
+        currentGame = runSnakeScript(); // Przypisz aktualną grę do zmiennej
       }
 
       function runSlideGame() {
@@ -59,7 +62,8 @@
         canvasSlide.style.border = "5px solid red";
         playGame.innerHTML = "Slide Game";
         document.getElementById("gameContainer").appendChild(canvasSlide);
-        runSlideScript();
+        //runSlideScript();
+        currentGame = runSlideScript();
       }
 
       function runPongGame() {
@@ -71,7 +75,9 @@
         canvasPong.style.border = "5px solid red";
         playGame.innerHTML = "Pong Game";
         document.getElementById("gameContainer").appendChild(canvasPong);
-        runPongScript();
+        //runPongScript();
+        //currentGame = runPongScript();
+        currentGame = runPongScript().stop;
       }
 
       // Dodać funkcje runThirdGame(), runFourthGame() itd. dla reszty gier
@@ -79,8 +85,17 @@
 
       function clearGameContainer() {
         document.getElementById("gameContainer").innerHTML = "";
-        playGame.innerHTML = "";         
+        playGame.innerHTML = "";
+        stopCurrentGame();        
       }
+  
+      function stopCurrentGame() {
+        if (currentGame) {
+          currentGame();
+          currentGame = null;
+        }
+      }
+
     </script>
       <footer>
         <img src="game/icons/author.ico" alt="Ikonka">
