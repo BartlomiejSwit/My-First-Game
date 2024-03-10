@@ -92,6 +92,20 @@ function runSlideScript() {
             ctx.fillStyle = this.color;
             ctx.fillRect(this.x + 1, this.y + 1, this.width - 2, this.height - 2);
         }
+
+        move(x, y) {
+            this.x = x;
+            this.y = y;        
+        }
+
+        selected(spaceX, spaceY) {
+            return (
+                spaceX >= this.x &&
+                spaceX <= this.x + this.width &&
+                spaceY >= this.y &&
+                spaceY <= this.y + this.height
+            );            
+        }
     }
     
     class Square extends Block {
@@ -100,8 +114,7 @@ function runSlideScript() {
         }
     
         draw() {
-            super.draw(); // Wywołanie metody draw z klasy nadrzędnej
-    
+            super.draw(); // Wywołanie metody draw z klasy nadrzędnej    
             // Rysowanie dodatkowych elementów kwadratu
             ctx.fillStyle = 'grey';
             ctx.beginPath();
@@ -120,12 +133,25 @@ function runSlideScript() {
     }
 
     let bigSquare = new Square(0, 0, 100, 100, 'red');
-    let square1 = new Block(0, 100, 50, 50, 'yellow');
-    let square2 = new Square(150, 100, 50, 50, 'yellow');
-    let rectanglePerpendicularly = new Block(0, 150, 50, 100, 'blue');
-    let rectanglePerpendicularly2 = new Square(150, 0, 50, 100, 'blue');
-    let rectangleHorizontally = new Block(100, 150, 100, 50, 'blue');
-    let rectangleHorizontally2 = new Square(50, 200, 100, 50, 'blue');
+    let square1 = new Block(0, 0, 50, 50, 'yellow');
+    let square2 = new Block(0, 0, 50, 50, 'yellow');
+    let square3 = new Block(0, 0, 50, 50, 'yellow');
+    let square4 = new Block(0, 0, 50, 50, 'yellow');
+    let square5 = new Block(0, 0, 50, 50, 'yellow');
+    let square6 = new Block(0, 0, 50, 50, 'yellow');
+    let square7 = new Block(0, 0, 50, 50, 'yellow');
+    let square8 = new Block(0, 0, 50, 50, 'yellow');
+    let square9 = new Block(0, 0, 50, 50, 'yellow');
+    let square10 = new Block(0, 0, 50, 50, 'yellow');
+    let square11 = new Block(0, 0, 50, 50, 'yellow');
+    let square12 = new Block(0, 0, 50, 50, 'yellow');
+    let rectangle1 = new Block(0, 0, 100, 50, 'blue');
+    let rectangle2 = new Block(0, 0, 50, 100, 'blue');
+    let rectangle3 = new Block(0, 0, 50, 100, 'blue');
+    let rectangle4 = new Block(0, 0, 50, 100, 'blue');
+    let rectangle5 = new Block(0, 0, 50, 100, 'blue');  
+    let freeSpace1 = new Block(0, 0, 50, 50, 'grey');
+    let freeSpace2 = new Block(0, 0, 50, 50, 'grey');
 
     //rectangleHorizontally.x = 50 , rectangleHorizontally.y = 200;
         
@@ -201,99 +227,81 @@ function runSlideScript() {
 
     const moveRange = 50;
 
-    let bigsquareX, bigsquareY;
-    let square1X, square1Y;
-    let square2X, square2Y;
-    let square3X, square3Y;
-    let square4X, square4Y;
-    let square5X, square5Y;
-    let square6X, square6Y;
-    let square7X, square7Y;
-    let square8X, square8Y;
-    let square9X, square9Y;
-    let square10X, square10Y;
-    let square11X, square11Y;
-    let square12X, square12Y;
-    let rectangle1X, rectangle1Y;
-    let rectangle2X, rectangle2Y;
-    let rectangle3X, rectangle3Y;
-    let rectangle4X, rectangle4Y;
-    let rectangle5X, rectangle5Y;
-    let freeSpace1X, freeSpace1Y;
-    let freeSpace2X, freeSpace2Y;
-    /*
+    bigSquare.x = 50, bigSquare.y = 0;
+
     function resetPositions() {
-        bigsquareX = 50, bigsquareY = 0;
-        square1X = 0, square1Y = 0;
-        square2X = 150, square2Y = 0;
-        square3X = 0, square3Y = 50;
-        square4X = 150, square4Y = 50;
-        square5X = 0, square5Y = 100;
-        square6X = 150, square6Y = 100;
-        square7X = 0, square7Y = 150;
-        square8X = 50, square8Y = 150;
-        square9X = 100, square9Y = 150;
-        square10X = 150, square10Y = 150;
-        square11X = 0, square11Y = 200;
-        square12X = 150, square12Y = 200;
-        rectangle1X = 50, rectangle1Y = 100;
-        rectangle2X = 0, rectangle2Y = 100;
-        rectangle3X = 150, rectangle3Y = 100;
-        rectangle4X = 0, rectangle4Y = 0;
-        rectangle5X = 150, rectangle5Y = 0;
-        freeSpace1X = 50, freeSpace1Y = 200;
-        freeSpace2X = 100, freeSpace2Y = 200;
+        bigSquare.move(50, 0);
+        square1.move(0, 0);
+        square2.move(150, 0);
+        square3.move(0, 50);
+        square4.move(150, 50);
+        square5.move(0, 100);
+        square6.move(150, 100);
+        square7.move(0, 150);
+        square8.move(50, 150);
+        square9.move(100, 150);
+        square10.move(150, 150);
+        square11.move(0, 200);
+        square12.move(150, 200);
+        rectangle1.move(50, 100);
+        rectangle2.move(0, 100);
+        rectangle3.move(150, 100);
+        rectangle4.move(0, 0);
+        rectangle5.move(150, 0);
+        freeSpace1.move(50, 200);
+        freeSpace2.move(100, 200);
+
     }
 
     function drawStageOne() {
         drawBackground();
-        drawSquare(square1X,square1Y);
-        drawSquare(square2X,square2Y);
-        drawSquare(square3X,square3Y);
-        drawSquare(square4X,square4Y);
-        drawSquare(square5X,square5Y);
-        drawSquare(square6X,square6Y);
-        drawSquare(square7X,square7Y);
-        drawSquare(square8X,square8Y);
-        drawSquare(square9X,square9Y);
-        drawSquare(square10X,square10Y);
-        drawSquare(square11X,square11Y);
-        drawSquare(square12X,square12Y);
-        drawBigSquare(bigsquareX,bigsquareY);
-        drawRectangleHorizontally(rectangle1X,rectangle1Y);
+        bigSquare.draw();
+        square1.draw();
+        square2.draw();
+        square3.draw();
+        square4.draw();
+        square5.draw();
+        square6.draw();
+        square7.draw();
+        square8.draw();
+        square9.draw();
+        square10.draw();
+        square11.draw();
+        square12.draw();
+        rectangle1.draw();
     }
 
     function drawStageTwo() {
         drawBackground();
-        drawSquare(square1X,square1Y);
-        drawSquare(square2X,square2Y);
-        drawSquare(square3X,square3Y);
-        drawSquare(square4X,square4Y);
-        drawSquare(square8X,square8Y);
-        drawSquare(square9X,square9Y);
-        drawSquare(square11X,square11Y);
-        drawSquare(square12X,square12Y);
-        drawBigSquare(bigsquareX,bigsquareY);
-        drawRectangleHorizontally(rectangle1X,rectangle1Y);
-        drawRectanglePerpendicularly(rectangle2X,rectangle2Y);
-        drawRectanglePerpendicularly(rectangle3X,rectangle3Y);
+        square1.draw();
+        square2.draw();
+        square3.draw();
+        square4.draw();
+        square8.draw();
+        square9.draw();
+        square11.draw();
+        square12.draw();
+        bigSquare.draw();
+        rectangle1.draw();
+        rectangle2.draw();
+        rectangle3.draw();
 
     }
 
     function drawStageTree() {
         drawBackground();
-        drawSquare(square8X,square8Y);
-        drawSquare(square9X,square9Y);
-        drawSquare(square11X,square11Y);
-        drawSquare(square12X,square12Y);
-        drawBigSquare(bigsquareX,bigsquareY);
-        drawRectangleHorizontally(rectangle1X,rectangle1Y);
-        drawRectanglePerpendicularly(rectangle2X,rectangle2Y);
-        drawRectanglePerpendicularly(rectangle3X,rectangle3Y);
-        drawRectanglePerpendicularly(rectangle4X,rectangle4Y);
-        drawRectanglePerpendicularly(rectangle5X,rectangle5Y);
+        square8.draw();
+        square9.draw();
+        square11.draw();
+        square12.draw();
+        bigSquare.draw();
+        rectangle1.draw();
+        rectangle2.draw();
+        rectangle3.draw();
+        rectangle4.draw();
+        rectangle5.draw();
     }
-    */
+
     function addKeyEventListener() {
 
     }
@@ -342,8 +350,8 @@ function runSlideScript() {
     }
 
 
-    square12X = freeSpace2X;
-    square12Y = freeSpace2Y;
+    //square12X = freeSpace2X;
+    //square12Y = freeSpace2Y;
 
     //bigsquareX = square8X;
     //bigsquareY = square8Y;
@@ -354,56 +362,42 @@ function runSlideScript() {
 
     function startGame() {
         console.log("Game started");
+        resetPositions();
         addKeyEventListener();
         canvas.addEventListener("mousemove", mouseEvent);
-        gameRuning();
+        gameInterval = setInterval(gameRuning, 1000 / 60);
+        //gameRuning();
+        console.log(bigSquare.selected(0, 0));
 
     }
 
     function gameRuning() {
         //resetPositions();
-        //drawStageOne();
-        drawBackground();
-        bigSquare.draw();
-        square1.draw();
-        square2.draw();
-        rectanglePerpendicularly.draw();
-        rectanglePerpendicularly2.draw();
-        rectangleHorizontally.draw();
-        rectangleHorizontally2.draw();
+        drawStageOne();
+        //bigSquare.draw();
+        //square1.draw();
+        //square2.draw();
+        //rectanglePerpendicularly.draw();
+        //rectanglePerpendicularly2.draw();
+        //rectangleHorizontally.draw();
+        //rectangleHorizontally2.draw();
   
   
     }
 
     function moveBlock(direction) {
         if (direction === 'left' && bigSquare.x - moveRange >= 0) {
-            bigSquare.x -= moveRange;
+            bigSquare.x -= 25;
         } else if (direction === 'right' && bigSquare.x + bigSquare.width + moveRange <= canvas.width) {
-            bigSquare.x += moveRange;
+            bigSquare.x += 25;
         }else if (direction === 'up' && bigSquare.y - moveRange >= 0) {
-            bigSquare.y -= moveRange;
+            bigSquare.y -= moveRange / 2;
         } else if (direction === 'down' && bigSquare.y + bigSquare.height + moveRange <= canvas.height) {
-            bigSquare.y += moveRange;
+            bigSquare.y += moveRange / 2;
         }
-        gameRuning();
+        drawStageOne();
         
     }
-
-    /*
-    function moveBlock(direction) {
-        if (direction === 'left' && bigsquareX - moveRange >= 0) {
-            bigsquareX -= moveRange;
-        } else if (direction === 'right' && bigsquareX + squarebIG.width + moveRange <= canvas.width) {
-            bigsquareX += moveRange;
-        }else if (direction === 'up' && bigsquareY - moveRange >= 0) {
-            bigsquareY -= moveRange;
-        } else if (direction === 'down' && bigsquareY + squarebIG.height + moveRange <= canvas.height) {
-            bigsquareY += moveRange;
-        }
-        //drawStageOne();
-        gameRuning();
-        
-    }*/
 
     function pauseGame() {
         console.log("Game paused");
