@@ -151,11 +151,26 @@ function runSlideScript() {
     let rectangle4 = new Block(0, 0, 50, 100, 'blue');
     let rectangle5 = new Block(0, 0, 50, 100, 'blue');  
     let freeSpace1 = new Block(0, 0, 50, 50, 'grey');
-    let freeSpace2 = new Block(0, 0, 50, 50, 'grey');
-
-    //rectangleHorizontally.x = 50 , rectangleHorizontally.y = 200;
-        
+    let freeSpace2 = new Block(0, 0, 50, 50, 'grey');  
     
+    const blocks = [];
+    blocks.push(bigSquare, square1, square2, square3, square4, 
+        square5, square6, square7, square8, square9, square10, 
+        square11, square12, rectangle1, rectangle2, rectangle3, 
+        rectangle4, rectangle5, freeSpace1, freeSpace2);
+        
+    function selectedCheck(x, y) {
+        blocks.forEach(block => {
+            if (block.selected(x, y)) {
+                console.log(block);
+            }
+        });
+        console.log("X: " + x + " Y: " + y);
+        blocks.forEach(block => {
+            console.log(block);
+        });
+    }
+
     /*
     function drawSquare(x, y) {
         ctx.fillStyle = 'black';
@@ -368,6 +383,7 @@ function runSlideScript() {
         gameInterval = setInterval(gameRuning, 1000 / 60);
         //gameRuning();
         console.log(bigSquare.selected(0, 0));
+        selectedCheck(50, 200);
 
     }
 
@@ -387,13 +403,13 @@ function runSlideScript() {
 
     function moveBlock(direction) {
         if (direction === 'left' && bigSquare.x - moveRange >= 0) {
-            bigSquare.x -= 25;
+            bigSquare.x -= moveRange;
         } else if (direction === 'right' && bigSquare.x + bigSquare.width + moveRange <= canvas.width) {
-            bigSquare.x += 25;
+            bigSquare.x += moveRange;
         }else if (direction === 'up' && bigSquare.y - moveRange >= 0) {
-            bigSquare.y -= moveRange / 2;
+            bigSquare.y -= moveRange;
         } else if (direction === 'down' && bigSquare.y + bigSquare.height + moveRange <= canvas.height) {
-            bigSquare.y += moveRange / 2;
+            bigSquare.y += moveRange;
         }
         drawStageOne();
         
