@@ -3,7 +3,6 @@ function runSlideScript() {
     const ctx = canvas.getContext('2d');
 
     var blockSlide = new Audio('slide/sound/slide_block.mp3');
-    //blockSlide.play();
 
     var gameInterval;
 
@@ -32,17 +31,31 @@ function runSlideScript() {
         }
 
         move(x, y) {
+            if (x < 0) {
+                x = 0;
+            } else if (x + this.width > canvWidth) {
+                x = canvWidth - this.width;
+            } else if (y < 0) {
+                y = 0;
+            } else if (y + this.height > canvHeight) {
+                y = canvHeight - this.height;
+            }
             this.x = x;
-            this.y = y;        
+            this.y = y;
         }
 
         selected(spaceX, spaceY) {            
             return (
-                spaceX >= this.x &&
-                spaceX <= this.x + this.width &&
-                spaceY >= this.y &&
-                spaceY <= this.y + this.height
+                spaceX >= this.x + 1 &&
+                spaceX <= this.x + this.width -1 &&
+                spaceY >= this.y + 1 &&
+                spaceY <= this.y + this.height -1
             );  
+        }
+
+        positioning() {
+            this.x = Math.round(this.x / 50) * 50;
+            this.y = Math.round(this.y / 50) * 50;
         }
     }
     
@@ -177,44 +190,7 @@ function runSlideScript() {
             console.log(block);
         });*/
         return selectedBlock;
-    }
-
-    
-    /*
-    let isDragging = false;
-    let offsetX, offsetY;
-
-    canvas.addEventListener('mousedown', function (e) {
-        const mx = e.clientX - canvasPosition.left;
-        const my = e.clientY - canvasPosition.top;
-
-        // Sprawdzanie, czy myszka jest nad którymś z bloków
-        let selectedBlock = selectedCheck(mx, my, currentStage);
-        if (selectedBlock != undefined) {
-            isDragging = true;
-            offsetX = mx - selectedBlock.x;
-            offsetY = my - selectedBlock.y;            
-        }
-    });
-
-    canvas.addEventListener('mousemove', function (e) {
-        if (isDragging) {
-            const mx = e.clientX - canvasPosition.left;
-            const my = e.clientY - canvasPosition.top;
-            const draggedBlock = currentStage.find(block => block.contains(mx, my));
-
-            if (draggedBlock) {
-                draggedBlock.move(mx - offsetX, my - offsetY);
-                drawBlocks();
-            }
-        }
-    });
-
-    canvas.addEventListener('mouseup', function () {
-        isDragging = false;
-    });*/
-    
-    
+    }    
 
     function drawBackground() {
         ctx.fillStyle = 'black';
@@ -271,87 +247,79 @@ function runSlideScript() {
     }
 
     let mousePosition = {x: 0, y: 0};
-    let mouseMove = {x: 0, y: 0};
-    let moveDirection = '';
-    /*
-    function mouseEvent(event) {
-        //console.log(event);
-        if (event.buttons === 1) {
-            console.log("Mouse left button clicked");
-            mousePosition.x = event.clientX - canvasPosition.left;
-            mousePosition.y = event.clientY - canvasPosition.top;
-            console.log("mousePositionX: " + mousePosition.x);
-            console.log("mousePositionY: " + mousePosition.y);
-            mouseMove.x = event.movementX;
-            mouseMove.y = event.movementY;
-            console.log("mouseMoveX: " + mouseMove.x);
-            console.log("mouseMoveY: " + mouseMove.y);
-            
-            if (mouseMove.x > 0) {
-                console.log("Mouse move right");
-                moveDirection = 'right';
-                moveBlock('right');
-            } else if (mouseMove.x < 0) {
-                console.log("Mouse move left");
-                moveDirection = 'left';
-                moveBlock('left');
-            } else if (mouseMove.y > 0) { 
-                console.log("Mouse move down");
-                moveDirection = 'down';
-                moveBlock('down');
-            } else if (mouseMove.y < 0) {
-                console.log("Mouse move up");
-                moveDirection = 'up';
-                moveBlock('up');
-            }
+    let mouseClick = {x: 0, y: 0};
+    let cursorPositionOnBlock = {x: 0, y: 0};
 
-        }
-        if (event.buttons === 2) {
-            console.log("Mouse right button clicked");
-
-        }
-
-    }*/
-
+    let selectedBlock 
     
     function mouseDownEvent(event) {
         console.log("Mouse left button clicked");
-        mousePosition.x = event.clientX - canvasPosition.left;
-        mousePosition.y = event.clientY - canvasPosition.top
-        let selectedBlock = selectedCheck(mousePosition.x, mousePosition.y, currentStage);
-        console.log("mousePositionX: " + mousePosition.x);
-        console.log("mousePositionY: " + mousePosition.y);
+        //mousePosition.x = event.clientX - canvasPosition.left;
+        //mousePosition.y = event.clientY - canvasPosition.top
+        selectedBlock = selectedCheck(mousePosition.x, mousePosition.y, currentStage);
+        //console.log("mousePositionX: " + mousePosition.x);
+        //console.log("mousePositionY: " + mousePosition.y);
         //bigSquare.move(mousePosition.x, mousePosition.y);
-        selectedBlock.move(mousePosition.x, mousePosition.y);
+        //selectedBlock.move(mousePosition.x, mousePosition.y);
+        mouseClick.x = event.clientX - canvasPosition.left;
+        mouseClick.y = event.clientY - canvasPosition.top;
+        console.log("mouseClickX: " + mouseClick.x);
+        console.log("mouseClickY: " + mouseClick.y);
+        cursorPositionOnBlock.x = mouseClick.x - selectedBlock.x;
+        cursorPositionOnBlock.y = mouseClick.y - selectedBlock.y;
+        console.log("cursorPositionX: " + cursorPositionOnBlock.x);
+        console.log("cursorPositionY: " + cursorPositionOnBlock.y);
 
     }
 
     function mouseMoveEvent(event) {
         console.log("Mouse move");
-        mouseMove.x = mousePosition.x + event.clientX - canvasPosition.left;
-        mouseMove.y = mousePosition.y + event.clientY - canvasPosition.top;
+        //mouseMove.x = mousePosition.x + event.clientX - canvasPosition.left;
+        //mouseMove.y = mousePosition.y + event.clientY - canvasPosition.top;
         //console.log("mouseMoveX: " + mouseMove.x);
         //console.log("mouseMoveY: " + mouseMove.y);
         //bigSquare.move(mouseMove.x, mouseMove.y);
+        mousePosition.x = event.clientX - canvasPosition.left;
+        mousePosition.y = event.clientY - canvasPosition.top
 
-        /*
-        if (event.movementX > 0) {
-            console.log("Mouse move right");
-            moveDirection = 'right';
-            moveBlock('right');
-        } else if (event.movementX < 0) {
-            console.log("Mouse move left");
-            moveDirection = 'left';
-            moveBlock('left');
-        } else if (event.movementY > 0) { 
-            console.log("Mouse move down");
-            moveDirection = 'down';
-            moveBlock('down');
-        } else if (event.movementY < 0) {
-            console.log("Mouse move up");
-            moveDirection = 'up';
-            moveBlock('up');
-        }*/
+        if (selectedBlock != undefined && selectedBlock.canMoveBlock === true) {
+            let moveBlockRight = selectedBlock.x + selectedBlock.width + 25;
+            let moveBlockLeft = selectedBlock.x - 25;
+            let moveBlockDown = selectedBlock.y + selectedBlock.height + 25;
+            let moveBlockUp = selectedBlock.y - 25;
+            
+            if (event.movementX > 0) {
+                blockSlide.play();
+                console.log("Mouse move right");
+                selectedBlock.move(mousePosition.x - cursorPositionOnBlock.x, selectedBlock.y);
+
+            } else if (event.movementX < 0) {
+                blockSlide.play();
+                console.log("Mouse move left");
+                selectedBlock.move(mousePosition.x - cursorPositionOnBlock.x, selectedBlock.y);
+
+            } else if (event.movementY > 0) {                 
+                blockSlide.play(); 
+                console.log("Mouse move down");
+                selectedBlock.move(selectedBlock.x, mousePosition.y - cursorPositionOnBlock.y);
+
+            } else if (event.movementY < 0) {
+                blockSlide.play();
+                console.log("Mouse move up");
+                selectedBlock.move(selectedBlock.x, mousePosition.y - cursorPositionOnBlock.y);
+
+            }
+        }
+        
+        if (mousePosition.x < 0) {
+            mousePosition.x = 0;
+        } else if (mousePosition.x > canvWidth) {
+            mousePosition.x = canvWidth;
+        } else if (mousePosition.y < 0) {
+            mousePosition.y = 0;
+        } else if (mousePosition.y > canvHeight) {
+            mousePosition.y = canvHeight;
+        }
     }
 
     
@@ -359,6 +327,8 @@ function runSlideScript() {
     function mouseUpEvent(event) {
         console.log("mousePositionX: " + mousePosition.x);
         console.log("mousePositionY: " + mousePosition.y);
+        selectedBlock.canMoveBlock = false;
+        selectedBlock.positioning();
 
     }
 
@@ -387,8 +357,8 @@ function runSlideScript() {
         //selectedCheck(0, 100, blocksStageOne);
         //selectedCheck(0, 100, blocksStageTwo);
         //selectedCheck(0, 100, blocksStageTree);
-        let test = selectedCheck(50, 150, blocksStageOne);
-        console.log("Test: ", test);
+        //let test = selectedCheck(50, 150, blocksStageOne);
+        //console.log("Test: ", test);
 
     }
 
