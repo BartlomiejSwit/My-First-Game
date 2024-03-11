@@ -12,7 +12,7 @@ function runSlideScript() {
     const canvWidth = canvas.width;
     const canvHeight = canvas.height;
 
-    const moveRange = 50;   
+    const moveRange = 50;    
 
     class Block {
         constructor(x, y, width, height, color) {
@@ -21,10 +21,11 @@ function runSlideScript() {
             this.width = width;
             this.height = height;
             this.color = color;
+            this.canMoveBlock = false;
         }
     
         draw() {
-            ctx.fillStyle = 'black';
+            ctx.fillStyle = (this.canMoveBlock) ? 'red' : 'black';
             ctx.fillRect(this.x, this.y, this.width, this.height);
             ctx.fillStyle = this.color;
             ctx.fillRect(this.x + 1, this.y + 1, this.width - 2, this.height - 2);
@@ -37,11 +38,11 @@ function runSlideScript() {
 
         selected(spaceX, spaceY) {            
             return (
-                spaceX === this.x &&
+                spaceX >= this.x &&
                 spaceX <= this.x + this.width &&
-                spaceY === this.y &&
+                spaceY >= this.y &&
                 spaceY <= this.y + this.height
-            );           
+            );  
         }
     }
     
@@ -123,15 +124,23 @@ function runSlideScript() {
         rectangle1, rectangle2, rectangle3, rectangle4, rectangle5, 
         freeSpace1, freeSpace2);
         
+    let currentStage = blocksStageOne;
+
     function selectedCheck(x, y, blocks) {
         // Sprawdzanie, czy myszka jest nad którymś z bloków
+        let selectedBlock = undefined;
         blocks.forEach(block => {
             if (block.selected(x, y) === true) {
                 console.log(block);
-                console.log("X: " + x + " Y: " + y);
-                console.log("blok to: " + block);
+                //console.log("X: " + x + " Y: " + y);
+                //console.log("blok to: " + block);
+                block.canMoveBlock = true;
+                selectedBlock = block;
+                //console.log("Selected Block: ", selectedBlock);
             }
         });
+
+
 
         /*
         // Sprawdzanie, czy myszka jest nad którymś z bloków
@@ -167,33 +176,32 @@ function runSlideScript() {
         blocks.forEach(block => {
             console.log(block);
         });*/
+        return selectedBlock;
     }
 
+    
     /*
-
     let isDragging = false;
     let offsetX, offsetY;
 
     canvas.addEventListener('mousedown', function (e) {
-        const mx = e.clientX - canvas.getBoundingClientRect().left;
-        const my = e.clientY - canvas.getBoundingClientRect().top;
+        const mx = e.clientX - canvasPosition.left;
+        const my = e.clientY - canvasPosition.top;
 
         // Sprawdzanie, czy myszka jest nad którymś z bloków
-        for (let i = blocks.length - 1; i >= 0; i--) {
-            if (blocks[i].contains(mx, my)) {
-                isDragging = true;
-                offsetX = mx - blocks[i].x;
-                offsetY = my - blocks[i].y;
-                break;
-            }
+        let selectedBlock = selectedCheck(mx, my, currentStage);
+        if (selectedBlock != undefined) {
+            isDragging = true;
+            offsetX = mx - selectedBlock.x;
+            offsetY = my - selectedBlock.y;            
         }
     });
 
     canvas.addEventListener('mousemove', function (e) {
         if (isDragging) {
-            const mx = e.clientX - canvas.getBoundingClientRect().left;
-            const my = e.clientY - canvas.getBoundingClientRect().top;
-            const draggedBlock = blocks.find(block => block.contains(mx, my));
+            const mx = e.clientX - canvasPosition.left;
+            const my = e.clientY - canvasPosition.top;
+            const draggedBlock = currentStage.find(block => block.contains(mx, my));
 
             if (draggedBlock) {
                 draggedBlock.move(mx - offsetX, my - offsetY);
@@ -204,8 +212,9 @@ function runSlideScript() {
 
     canvas.addEventListener('mouseup', function () {
         isDragging = false;
-    });
-    */
+    });*/
+    
+    
 
     function drawBackground() {
         ctx.fillStyle = 'black';
@@ -227,9 +236,7 @@ function runSlideScript() {
         ctx.beginPath();
         ctx.arc(100, 200, 25, 0, 2 * Math.PI);
         ctx.fill();
-    }
-    
- 
+    }     
 
     function resetPositions() {
         bigSquare.move(50, 0);
@@ -252,7 +259,6 @@ function runSlideScript() {
         rectangle5.move(150, 0);
         freeSpace1.move(50, 200);
         freeSpace2.move(100, 200);
-
     }
 
     function drawStage(stageArray) {
@@ -307,13 +313,16 @@ function runSlideScript() {
 
     }*/
 
+    
     function mouseDownEvent(event) {
         console.log("Mouse left button clicked");
         mousePosition.x = event.clientX - canvasPosition.left;
         mousePosition.y = event.clientY - canvasPosition.top
+        let selectedBlock = selectedCheck(mousePosition.x, mousePosition.y, currentStage);
         console.log("mousePositionX: " + mousePosition.x);
         console.log("mousePositionY: " + mousePosition.y);
-        bigSquare.move(mousePosition.x, mousePosition.y);
+        //bigSquare.move(mousePosition.x, mousePosition.y);
+        selectedBlock.move(mousePosition.x, mousePosition.y);
 
     }
 
@@ -345,6 +354,8 @@ function runSlideScript() {
         }*/
     }
 
+    
+
     function mouseUpEvent(event) {
         console.log("mousePositionX: " + mousePosition.x);
         console.log("mousePositionY: " + mousePosition.y);
@@ -360,7 +371,7 @@ function runSlideScript() {
     //resetPositions();
     //drawStageOne();
     //drawStageTwo();
-    //drawStageTree();
+    //drawStageTree();    
 
     function startGame() {
         console.log("Game started");
@@ -376,15 +387,17 @@ function runSlideScript() {
         //selectedCheck(0, 100, blocksStageOne);
         //selectedCheck(0, 100, blocksStageTwo);
         //selectedCheck(0, 100, blocksStageTree);
+        let test = selectedCheck(50, 150, blocksStageOne);
+        console.log("Test: ", test);
 
     }
 
     function gameRuning() {
         //resetPositions();
-        drawStage(blocksStageOne); 
+        drawStage(currentStage); 
   
     }
-
+    /*
     function moveBlock(direction) {
         if (direction === 'left' && bigSquare.x - moveRange >= 0) {
             bigSquare.x -= mouseMove.x;
@@ -398,7 +411,7 @@ function runSlideScript() {
         //drawStage(blocksStageOne);
         console.log(bigSquare.win());
         
-    }
+    }*/
 
     function pauseGame() {
         console.log("Game paused");
