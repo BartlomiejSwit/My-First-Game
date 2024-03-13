@@ -265,7 +265,9 @@ function runSlideScript() {
     let cursorPositionOnBlock = {x: 0, y: 0};
     let blockPosition = {x: 0, y: 0};
 
-    let selectedBlock 
+    let switchCases;
+    let selectedBlock;
+    let selectedFreeSpace;
 
     function checkSelectionEvent(params) {
         if (params != undefined) {
@@ -277,16 +279,23 @@ function runSlideScript() {
         }
     }
 
-    function mouseRangeCheck() {
-        if (mousePosition.x < 0) {
+    function mouseRangeCheck(blockSlelected) {
+        if (mousePosition.x < 0 && blockSlelected.canMoveBlock === true) {
             mousePosition.x = 0;
-        } else if (mousePosition.x > canvWidth) {
+            blockSlelected.move(blockPosition.x, blockPosition.y);
+            blockSlelected.canMoveBlock = false;
+        } else if (mousePosition.x > canvWidth && blockSlelected.canMoveBlock === true) {
             mousePosition.x = canvWidth;
-        }
-        if (mousePosition.y < 0) {
+            blockSlelected.move(blockPosition.x, blockPosition.y);
+            blockSlelected.canMoveBlock = false;
+        } else if (mousePosition.y < 0 && blockSlelected.canMoveBlock === true) {
             mousePosition.y = 0;
-        } else if (mousePosition.y > canvHeight) {
+            blockSlelected.move(blockPosition.x, blockPosition.y);
+            blockSlelected.canMoveBlock = false;
+        } else if (mousePosition.y > canvHeight && blockSlelected.canMoveBlock === true) {
             mousePosition.y = canvHeight;
+            blockSlelected.move(blockPosition.x, blockPosition.y);
+            blockSlelected.canMoveBlock = false;
         }
     }
     
@@ -321,8 +330,10 @@ function runSlideScript() {
         //console.log("mouseMoveY: " + mouseMove.y);
         //bigSquare.move(mouseMove.x, mouseMove.y);
         mousePosition.x = event.clientX - canvasPosition.left;
-        mousePosition.y = event.clientY - canvasPosition.top
-        mouseRangeCheck();
+        mousePosition.y = event.clientY - canvasPosition.top       
+        if (checkSelectionEvent(selectedBlock)) {
+            mouseRangeCheck(selectedBlock);
+        }
         /*
         if (mousePosition.x < 0) {
             mousePosition.x = 0;
@@ -335,66 +346,90 @@ function runSlideScript() {
         }*/
 
         if (checkSelectionEvent(selectedBlock) && selectedBlock.canMoveBlock === true) {
-            let moveBlockRight = selectedBlock.x + selectedBlock.width + 15;
-            let moveBlockLeft = selectedBlock.x - 15;
-            let moveBlockDown = selectedBlock.y + selectedBlock.height + 15;
-            let moveBlockUp = selectedBlock.y - 15;
+            let moveBlockRight = selectedBlock.x + selectedBlock.width + 3;
+            let moveBlockLeft = selectedBlock.x - 3;
+            let moveBlockDown = selectedBlock.y + selectedBlock.height + 3;
+            let moveBlockUp = selectedBlock.y - 3;
             
-            let switchCases;
-            if (selectedBlock.width > 50 && selectedBlock.height > 50) {
-                switchCases === 1;
-            } else if (selectedBlock.width > 50 && selectedBlock.height <= 50) {
-                switchCases === 2;
-            } else if (selectedBlock.width <= 50 && selectedBlock.height > 50) {
-                switchCases === 3;
+            
+            if (selectedBlock.width > moveRange && selectedBlock.height > moveRange) {
+                switchCases = 1;
+            } else if (selectedBlock.width > moveRange && selectedBlock.height <= moveRange) {
+                switchCases = 2;
+            } else if (selectedBlock.width <= moveRange && selectedBlock.height > moveRange) {
+                switchCases = 3;
             } else {
-                switchCases === 4;
+                switchCases = 4;
             }
 
             switch (switchCases) {
-                case 1:
+                case 1: {
 
-
-                case 2:
-
-
-                case 3:
-
-
-                case 4:
-
-
-            }
-            
-            if (event.movementX > 0) {
-                if (freeSpace1.selected(moveBlockRight, selectedBlock.y + 15) || freeSpace2.selected(moveBlockRight, selectedBlock.y + 15)) {
-                    blockSlide.play();
-                    console.log("Mouse move right");
-                    selectedBlock.move(mousePosition.x - cursorPositionOnBlock.x, selectedBlock.y);
+                    break;
                 }
 
-            } else if (event.movementX < 0) {
-                if (freeSpace1.selected(moveBlockLeft, selectedBlock.y + 15) || freeSpace2.selected(moveBlockLeft, selectedBlock.y + 15)) {
-                    blockSlide.play();
-                    console.log("Mouse move left");
-                    selectedBlock.move(mousePosition.x - cursorPositionOnBlock.x, selectedBlock.y);
+                case 2: {
+
+                    break;
                 }
 
+                case 3: {
 
-            } else if (event.movementY > 0) {        
-                if (freeSpace1.selected(selectedBlock.x + 15, moveBlockDown) || freeSpace2.selected(selectedBlock.x + 15, moveBlockDown)) {         
-                    blockSlide.play(); 
-                    console.log("Mouse move down");
-                    selectedBlock.move(selectedBlock.x, mousePosition.y - cursorPositionOnBlock.y);
+                    break;
                 }
 
-            } else if (event.movementY < 0) {
-                if (freeSpace1.selected(selectedBlock.x + 15, moveBlockUp) || freeSpace2.selected(selectedBlock.x + 15, moveBlockUp)) {
-                    blockSlide.play();
-                    console.log("Mouse move up");
-                    selectedBlock.move(selectedBlock.x, mousePosition.y - cursorPositionOnBlock.y);
-                }
+                case 4: {
+                    if (event.movementX > 0) {
+                        blockSlide.play();
+                        console.log("Mouse move right");
+                        if (freeSpace1.selected(moveBlockRight, selectedBlock.y + 3)) {
+                            selectedFreeSpace = freeSpace1;
+                            selectedBlock.move(mousePosition.x - cursorPositionOnBlock.x, selectedBlock.y);                            
+                        } else if (freeSpace2.selected(moveBlockRight, selectedBlock.y + 3)) {
+                            selectedFreeSpace = freeSpace2;
+                            selectedBlock.move(mousePosition.x - cursorPositionOnBlock.x, selectedBlock.y);
+                        }
+        
+                    } else if (event.movementX < 0) {
+                        blockSlide.play();
+                        console.log("Mouse move left");
+                        if (freeSpace1.selected(moveBlockLeft, selectedBlock.y + 3)) {
+                            selectedFreeSpace = freeSpace1;
+                            selectedBlock.move(mousePosition.x - cursorPositionOnBlock.x, selectedBlock.y);
+                        } else if (freeSpace2.selected(moveBlockLeft, selectedBlock.y + 3)) {
+                            selectedFreeSpace = freeSpace2;
+                            selectedBlock.move(mousePosition.x - cursorPositionOnBlock.x, selectedBlock.y);
+                        }
+        
+        
+                    } else if (event.movementY > 0) {
+                        blockSlide.play(); 
+                        console.log("Mouse move down");        
+                        if (freeSpace1.selected(selectedBlock.x + 3, moveBlockDown)) {     
+                            selectedFreeSpace = freeSpace1;
+                            selectedBlock.move(selectedBlock.x, mousePosition.y - cursorPositionOnBlock.y);
+                        } else if (freeSpace2.selected(selectedBlock.x + 3, moveBlockDown)) {
+                            selectedFreeSpace = freeSpace2;
+                            selectedBlock.move(selectedBlock.x, mousePosition.y - cursorPositionOnBlock.y);
+                        }
+        
+                    } else if (event.movementY < 0) {
+                        blockSlide.play();
+                        console.log("Mouse move up");
+                        if (freeSpace1.selected(selectedBlock.x + 3, moveBlockUp)) {
+                            selectedFreeSpace = freeSpace1;
+                            selectedBlock.move(selectedBlock.x, mousePosition.y - cursorPositionOnBlock.y);
+                        } else if (freeSpace2.selected(selectedBlock.x + 3, moveBlockUp)) {
+                            selectedFreeSpace = freeSpace2;                            
+                            selectedBlock.move(selectedBlock.x, mousePosition.y - cursorPositionOnBlock.y);
+                        }
+        
+                    }
 
+                    break;
+                }
+                default:
+                    console.log("Nieobsługiwany przypadek.");
             }
         }
     }
@@ -408,9 +443,34 @@ function runSlideScript() {
             selectedBlock.canMoveBlock = false;
             selectedBlock.positioning();
             if (blockPosition.x !== selectedBlock.x || blockPosition.y !== selectedBlock.y) {
+                switch (switchCases) {
+                    case 1: {
+    
+                        break;
+                    }
+    
+                    case 2: {
+    
+                        break;
+                    }
+    
+                    case 3: {
+    
+                        break;
+                    }
+    
+                    case 4: {
+                        selectedFreeSpace.move(blockPosition.x, blockPosition.y);
+    
+                        break;
+                    }
+                    default:
+                        console.log("Nieobsługiwany przypadek.");
+                }
+                /*
                 if (selectedBlock.width > 50) {
                     //freeSpace1.move(blockPosition.x, blockPosition.y);
-                    freeSpace2.move(blockPosition.x + 50, blockPosition.y);
+                    selectedFreeSpace.move(blockPosition.x, blockPosition.y);
                 } else if (selectedBlock.height > 50) {
                     //freeSpace1.move(blockPosition.x, blockPosition.y);
                     freeSpace2.move(blockPosition.x, blockPosition.y + 50);
@@ -418,7 +478,7 @@ function runSlideScript() {
                     //freeSpace1.move(blockPosition.x, blockPosition.y);
                     freeSpace2.move(blockPosition.x, blockPosition.y);
                 }
-                
+                */
             }
             moveCounter++;
             //bigSquare.win();
