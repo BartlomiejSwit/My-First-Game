@@ -11,7 +11,9 @@ function runSlideScript() {
     const canvWidth = canvas.width;
     const canvHeight = canvas.height;
 
-    const moveRange = 50;    
+    const moveRange = 50;
+
+    let moveCounter = 0;
 
     class Block {
         constructor(x, y, width, height, color) {
@@ -21,12 +23,15 @@ function runSlideScript() {
             this.height = height;
             this.color = color;
             this.canMoveBlock = false;
+            this.selectedColorBorder = 'red';
+            this.selectedColorBlock = '#4CAF50';
+            this.defaultColor = 'black';
         }
     
         draw() {
-            ctx.fillStyle = (this.canMoveBlock) ? 'red' : 'black';
+            ctx.fillStyle = (this.canMoveBlock) ?  this.selectedColorBorder : this.defaultColor;
             ctx.fillRect(this.x, this.y, this.width, this.height);
-            ctx.fillStyle = this.color;
+            ctx.fillStyle = (this.canMoveBlock) ? this.selectedColorBlock : this.color;
             ctx.fillRect(this.x + 1, this.y + 1, this.width - 2, this.height - 2);
         }
 
@@ -62,12 +67,13 @@ function runSlideScript() {
     class Square extends Block {
         constructor(x, y, width, height, color) {
             super(x, y, width, height, color);
+            this.fillColor = 'grey';
         }
     
         draw() {
             super.draw(); // Wywołanie metody draw z klasy nadrzędnej    
             // Rysowanie dodatkowych elementów kwadratu
-            ctx.fillStyle = 'grey';
+            ctx.fillStyle = this.fillColor;
             ctx.beginPath();
             ctx.moveTo(this.x, this.y + this.height / 2);
             ctx.lineTo(this.x + this.width / 2, this.y + this.height);
@@ -76,7 +82,7 @@ function runSlideScript() {
             ctx.closePath();
             ctx.fill();
     
-            ctx.fillStyle = this.color;
+            ctx.fillStyle = (this.canMoveBlock) ? this.selectedColorBlock : this.color;
             ctx.beginPath();
             ctx.arc(this.x + this.width / 2, this.y + this.height / 2, this.width / 4, 0, 2 * Math.PI);
             ctx.fill();
@@ -94,11 +100,19 @@ function runSlideScript() {
         constructor(x, y, width, height, color) {
             super(x, y, width, height, color);
         }
+        /*
 
         draw() {
             // Nadpisuje rysowanie kwadratu, aby było pustą przestrzenią
-        }
+        }*/
 
+    }
+
+    class Mouse {
+        constructor(x, y) {
+            this.x = x;
+            this.y = y;
+        }
     }
 
     let bigSquare = new Square(0, 0, 100, 100, 'red');
@@ -249,10 +263,34 @@ function runSlideScript() {
     let mousePosition = {x: 0, y: 0};
     let mouseClick = {x: 0, y: 0};
     let cursorPositionOnBlock = {x: 0, y: 0};
+    let blockPosition = {x: 0, y: 0};
 
     let selectedBlock 
+
+    function checkSelectionEvent(params) {
+        if (params != undefined) {
+            console.log("Selected block: ", selectedBlock);
+            return true;
+        } else {
+            console.log("No block selected");
+            return false;
+        }
+    }
+
+    function mouseRangeCheck() {
+        if (mousePosition.x < 0) {
+            mousePosition.x = 0;
+        } else if (mousePosition.x > canvWidth) {
+            mousePosition.x = canvWidth;
+        }
+        if (mousePosition.y < 0) {
+            mousePosition.y = 0;
+        } else if (mousePosition.y > canvHeight) {
+            mousePosition.y = canvHeight;
+        }
+    }
     
-    function mouseDownEvent(event) {
+    function mouseDownEvent(event) {        
         console.log("Mouse left button clicked");
         //mousePosition.x = event.clientX - canvasPosition.left;
         //mousePosition.y = event.clientY - canvasPosition.top
@@ -261,15 +299,18 @@ function runSlideScript() {
         //console.log("mousePositionY: " + mousePosition.y);
         //bigSquare.move(mousePosition.x, mousePosition.y);
         //selectedBlock.move(mousePosition.x, mousePosition.y);
-        mouseClick.x = event.clientX - canvasPosition.left;
-        mouseClick.y = event.clientY - canvasPosition.top;
-        console.log("mouseClickX: " + mouseClick.x);
-        console.log("mouseClickY: " + mouseClick.y);
-        cursorPositionOnBlock.x = mouseClick.x - selectedBlock.x;
-        cursorPositionOnBlock.y = mouseClick.y - selectedBlock.y;
-        console.log("cursorPositionX: " + cursorPositionOnBlock.x);
-        console.log("cursorPositionY: " + cursorPositionOnBlock.y);
-
+        if (checkSelectionEvent(selectedBlock)){
+            mouseClick.x = event.clientX - canvasPosition.left;
+            mouseClick.y = event.clientY - canvasPosition.top;
+            console.log("mouseClickX: " + mouseClick.x);
+            console.log("mouseClickY: " + mouseClick.y);
+            cursorPositionOnBlock.x = mouseClick.x - selectedBlock.x;
+            cursorPositionOnBlock.y = mouseClick.y - selectedBlock.y;
+            console.log("cursorPositionX: " + cursorPositionOnBlock.x);
+            console.log("cursorPositionY: " + cursorPositionOnBlock.y);
+            blockPosition.x = selectedBlock.x;
+            blockPosition.y = selectedBlock.y;
+        }
     }
 
     function mouseMoveEvent(event) {
@@ -281,36 +322,8 @@ function runSlideScript() {
         //bigSquare.move(mouseMove.x, mouseMove.y);
         mousePosition.x = event.clientX - canvasPosition.left;
         mousePosition.y = event.clientY - canvasPosition.top
-
-        if (selectedBlock != undefined && selectedBlock.canMoveBlock === true) {
-            let moveBlockRight = selectedBlock.x + selectedBlock.width + 25;
-            let moveBlockLeft = selectedBlock.x - 25;
-            let moveBlockDown = selectedBlock.y + selectedBlock.height + 25;
-            let moveBlockUp = selectedBlock.y - 25;
-            
-            if (event.movementX > 0) {
-                blockSlide.play();
-                console.log("Mouse move right");
-                selectedBlock.move(mousePosition.x - cursorPositionOnBlock.x, selectedBlock.y);
-
-            } else if (event.movementX < 0) {
-                blockSlide.play();
-                console.log("Mouse move left");
-                selectedBlock.move(mousePosition.x - cursorPositionOnBlock.x, selectedBlock.y);
-
-            } else if (event.movementY > 0) {                 
-                blockSlide.play(); 
-                console.log("Mouse move down");
-                selectedBlock.move(selectedBlock.x, mousePosition.y - cursorPositionOnBlock.y);
-
-            } else if (event.movementY < 0) {
-                blockSlide.play();
-                console.log("Mouse move up");
-                selectedBlock.move(selectedBlock.x, mousePosition.y - cursorPositionOnBlock.y);
-
-            }
-        }
-        
+        mouseRangeCheck();
+        /*
         if (mousePosition.x < 0) {
             mousePosition.x = 0;
         } else if (mousePosition.x > canvWidth) {
@@ -319,19 +332,107 @@ function runSlideScript() {
             mousePosition.y = 0;
         } else if (mousePosition.y > canvHeight) {
             mousePosition.y = canvHeight;
+        }*/
+
+        if (checkSelectionEvent(selectedBlock) && selectedBlock.canMoveBlock === true) {
+            let moveBlockRight = selectedBlock.x + selectedBlock.width + 15;
+            let moveBlockLeft = selectedBlock.x - 15;
+            let moveBlockDown = selectedBlock.y + selectedBlock.height + 15;
+            let moveBlockUp = selectedBlock.y - 15;
+            
+            let switchCases;
+            if (selectedBlock.width > 50 && selectedBlock.height > 50) {
+                switchCases === 1;
+            } else if (selectedBlock.width > 50 && selectedBlock.height <= 50) {
+                switchCases === 2;
+            } else if (selectedBlock.width <= 50 && selectedBlock.height > 50) {
+                switchCases === 3;
+            } else {
+                switchCases === 4;
+            }
+
+            switch (switchCases) {
+                case 1:
+
+
+                case 2:
+
+
+                case 3:
+
+
+                case 4:
+
+
+            }
+            
+            if (event.movementX > 0) {
+                if (freeSpace1.selected(moveBlockRight, selectedBlock.y + 15) || freeSpace2.selected(moveBlockRight, selectedBlock.y + 15)) {
+                    blockSlide.play();
+                    console.log("Mouse move right");
+                    selectedBlock.move(mousePosition.x - cursorPositionOnBlock.x, selectedBlock.y);
+                }
+
+            } else if (event.movementX < 0) {
+                if (freeSpace1.selected(moveBlockLeft, selectedBlock.y + 15) || freeSpace2.selected(moveBlockLeft, selectedBlock.y + 15)) {
+                    blockSlide.play();
+                    console.log("Mouse move left");
+                    selectedBlock.move(mousePosition.x - cursorPositionOnBlock.x, selectedBlock.y);
+                }
+
+
+            } else if (event.movementY > 0) {        
+                if (freeSpace1.selected(selectedBlock.x + 15, moveBlockDown) || freeSpace2.selected(selectedBlock.x + 15, moveBlockDown)) {         
+                    blockSlide.play(); 
+                    console.log("Mouse move down");
+                    selectedBlock.move(selectedBlock.x, mousePosition.y - cursorPositionOnBlock.y);
+                }
+
+            } else if (event.movementY < 0) {
+                if (freeSpace1.selected(selectedBlock.x + 15, moveBlockUp) || freeSpace2.selected(selectedBlock.x + 15, moveBlockUp)) {
+                    blockSlide.play();
+                    console.log("Mouse move up");
+                    selectedBlock.move(selectedBlock.x, mousePosition.y - cursorPositionOnBlock.y);
+                }
+
+            }
         }
     }
 
     
 
     function mouseUpEvent(event) {
-        console.log("mousePositionX: " + mousePosition.x);
-        console.log("mousePositionY: " + mousePosition.y);
-        selectedBlock.canMoveBlock = false;
-        selectedBlock.positioning();
+        if (checkSelectionEvent(selectedBlock)){
+            console.log("mousePositionX: " + mousePosition.x);
+            console.log("mousePositionY: " + mousePosition.y);            
+            selectedBlock.canMoveBlock = false;
+            selectedBlock.positioning();
+            if (blockPosition.x !== selectedBlock.x || blockPosition.y !== selectedBlock.y) {
+                if (selectedBlock.width > 50) {
+                    //freeSpace1.move(blockPosition.x, blockPosition.y);
+                    freeSpace2.move(blockPosition.x + 50, blockPosition.y);
+                } else if (selectedBlock.height > 50) {
+                    //freeSpace1.move(blockPosition.x, blockPosition.y);
+                    freeSpace2.move(blockPosition.x, blockPosition.y + 50);
+                } else {
+                    //freeSpace1.move(blockPosition.x, blockPosition.y);
+                    freeSpace2.move(blockPosition.x, blockPosition.y);
+                }
+                
+            }
+            moveCounter++;
+            //bigSquare.win();
+            console.log("Win: ", bigSquare.win());
+            console.log("Move Counter: ", moveCounter);
+        }
 
     }
-
+/*
+    function freeSpaceMove(block, direction) {
+        freeSpace1.move(50, 200);
+        freeSpace2.move(100, 200);
+    }
+*/
 
     //square12X = freeSpace2X;
     //square12Y = freeSpace2Y;
@@ -367,21 +468,6 @@ function runSlideScript() {
         drawStage(currentStage); 
   
     }
-    /*
-    function moveBlock(direction) {
-        if (direction === 'left' && bigSquare.x - moveRange >= 0) {
-            bigSquare.x -= mouseMove.x;
-        } else if (direction === 'right' && bigSquare.x + bigSquare.width + moveRange <= canvas.width) {
-            bigSquare.x += mouseMove.x;
-        }else if (direction === 'up' && bigSquare.y - moveRange >= 0) {
-            bigSquare.y -= moveRange;
-        } else if (direction === 'down' && bigSquare.y + bigSquare.height + moveRange <= canvas.height) {
-            bigSquare.y += moveRange;
-        }
-        //drawStage(blocksStageOne);
-        console.log(bigSquare.win());
-        
-    }*/
 
     function pauseGame() {
         console.log("Game paused");
@@ -398,7 +484,9 @@ function runSlideScript() {
 
     function stop() {
         clearInterval(gameInterval);
-        //canvas.removeEventListener("mousemove", mouseEvent);        
+        canvas.removeEventListener("mousedown", mouseDownEvent);
+        canvas.removeEventListener("mouseup", mouseUpEvent);
+        canvas.removeEventListener("mousemove", mouseMoveEvent);       
     }
 
     startGame();
