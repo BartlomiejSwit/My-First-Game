@@ -124,8 +124,11 @@ function runSlideScript() {
 
     class Mouse {
         constructor(x, y) {
-            this.x = x;
-            this.y = y;
+            this.mousePosition = {x, y};
+            this.mouseClick = {x, y};
+            this.cursorPositionOnBlock = {x, y};
+            this.blockPosition = {x, y};
+
         }
     }
 
