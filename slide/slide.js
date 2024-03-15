@@ -1,6 +1,13 @@
+
+
 function runSlideScript() {
     const canvas = document.getElementById('slideCanvas');
     const ctx = canvas.getContext('2d');
+
+    //const Block = require('structure/slide_class.js');
+   // const Mouse = require('structure/slide_class.js');
+    //const Square = require('structure/slide_class.js');
+   // const FreeSpace = require('structure/slide_class.js');
 
     var blockSlide = new Audio('slide/sound/slide_block.mp3');
 
@@ -15,6 +22,7 @@ function runSlideScript() {
 
     let moveCounter = 0;
 
+    /*
     class Block {
         constructor(x, y, width, height, color) {
             this.x = x;
@@ -52,10 +60,10 @@ function runSlideScript() {
                 this.y = y;
             }
 
-            /*
-            this.x = x;
-            this.y = y;
-            */
+            
+            //this.x = x;
+            //this.y = y;
+            
         }
 
         setPosition(x, y) {
@@ -114,11 +122,11 @@ function runSlideScript() {
         constructor(x, y, width, height, color) {
             super(x, y, width, height, color);
         }
-        /*
+        
 
-        draw() {
-            // Nadpisuje rysowanie kwadratu, aby było pustą przestrzenią
-        }*/
+        //draw() {
+        //    // Nadpisuje rysowanie kwadratu, aby było pustą przestrzenią
+        //}
 
         draw() {
             super.draw(); 
@@ -134,7 +142,7 @@ function runSlideScript() {
 
 
     }
-
+    /*
     class Mouse {
         constructor(x, y) {
             this.mousePosition = {x, y};
@@ -148,7 +156,7 @@ function runSlideScript() {
             this.cursorPositionOnBlock.x = this.mouseClick.x - selectedBlock.x;
             this.cursorPositionOnBlock.y = this.mouseClick.y - selectedBlock.y;
         }
-    }
+    }*/
 
     let bigSquare = new Square(0, 0, 100, 100, 'red');
     let square1 = new Block(0, 0, 50, 50, 'yellow');
@@ -598,6 +606,6 @@ function runSlideScript() {
     startGame();
 
     return {stop};
-
-
 }
+
+
