@@ -120,6 +120,19 @@ function runSlideScript() {
             // Nadpisuje rysowanie kwadratu, aby było pustą przestrzenią
         }*/
 
+        draw() {
+            super.draw(); 
+            ctx.font = '20px Arial';
+            ctx.fillStyle = this.defaultColor;
+
+            // Wyświetl numer na obiekcie
+            var number = 12;
+            var x = this.x + 15; // Pozycja x obiektu
+            var y = this.y + 15; // Pozycja y obiektu
+            ctx.fillText(number, x, y);
+        }
+
+
     }
 
     class Mouse {
@@ -129,6 +142,11 @@ function runSlideScript() {
             this.cursorPositionOnBlock = {x, y};
             this.blockPosition = {x, y};
 
+        }
+
+        cursorPositionOnBlock(selectedBlock) {
+            this.cursorPositionOnBlock.x = this.mouseClick.x - selectedBlock.x;
+            this.cursorPositionOnBlock.y = this.mouseClick.y - selectedBlock.y;
         }
     }
 
@@ -152,6 +170,7 @@ function runSlideScript() {
     let rectangle5 = new Block(0, 0, 50, 100, 'blue');
     let freeSpace1 = new FreeSpace(0, 0, 50, 50, 'grey');
     let freeSpace2 = new FreeSpace(0, 0, 50, 50, 'grey');  
+    let mouse = new Mouse(0, 0);
     
     const blocksStageOne = [];
     blocksStageOne.push(bigSquare, square1, square2, square3, square4, 
@@ -396,6 +415,8 @@ function runSlideScript() {
                 }
 
                 case 4: {
+                    //Prznieść do funkcji mouseUpEvent logike zatwierdzającą ruch tu tylko kordynaty przekazywać dalej i tam wszystko sprawdzać JUTRO :D
+                    //rozdzielić kod na pliki przestaje być czytelny
                     if (event.movementX > 0) {
                         blockSlide.play();
                         console.log("Mouse move right");
@@ -481,7 +502,11 @@ function runSlideScript() {
                     }
     
                     case 4: {
-                        selectedFreeSpace.setPosition(blockPosition.x, blockPosition.y);
+                        //selectedFreeSpace.setPosition(blockPosition.x, blockPosition.y);
+                        if (selectedBlock.x === selectedFreeSpace.x && selectedBlock.y === selectedFreeSpace.y) { 
+                            selectedFreeSpace.setPosition(blockPosition.x, blockPosition.y);
+                        }
+
     
                         break;
                     }
