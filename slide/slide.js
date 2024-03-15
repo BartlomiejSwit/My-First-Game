@@ -1,8 +1,12 @@
+//import { Block, Mouse, Square, FreeSpace } from 'slide/structure/slide_class.js';
+
 
 
 function runSlideScript() {
     const canvas = document.getElementById('slideCanvas');
     const ctx = canvas.getContext('2d');
+
+
 
     //const Block = require('structure/slide_class.js');
    // const Mouse = require('structure/slide_class.js');
@@ -22,7 +26,7 @@ function runSlideScript() {
 
     let moveCounter = 0;
 
-    /*
+    
     class Block {
         constructor(x, y, width, height, color) {
             this.x = x;
@@ -142,7 +146,7 @@ function runSlideScript() {
 
 
     }
-    /*
+    
     class Mouse {
         constructor(x, y) {
             this.mousePosition = {x, y};
@@ -156,7 +160,7 @@ function runSlideScript() {
             this.cursorPositionOnBlock.x = this.mouseClick.x - selectedBlock.x;
             this.cursorPositionOnBlock.y = this.mouseClick.y - selectedBlock.y;
         }
-    }*/
+    }
 
     let bigSquare = new Square(0, 0, 100, 100, 'red');
     let square1 = new Block(0, 0, 50, 50, 'yellow');

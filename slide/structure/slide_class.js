@@ -1,3 +1,6 @@
+const canvas = document.getElementById('slideCanvas');
+const ctx = canvas.getContext('2d');
+
 class Block {
     constructor(x, y, width, height, color) {
         this.x = x;
@@ -60,7 +63,7 @@ class Block {
         this.y = Math.round(this.y / 50) * 50;
     }
 }
-export default Block;
+
 
 class Square extends Block {
     constructor(x, y, width, height, color) {
@@ -133,4 +136,7 @@ class Mouse {
         this.cursorPositionOnBlock.y = this.mouseClick.y - selectedBlock.y;
     }
 }
+
+//export default Block;
+//export {Block, Square, FreeSpace, Mouse};
 
