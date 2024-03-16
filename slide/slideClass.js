@@ -1,7 +1,8 @@
-const canvas = document.getElementById('slideCanvas');
-const ctx = canvas.getContext('2d');
+//var canvas = document.getElementById('slideCanvas');
+import {canvas} from './slide.js';
+export var ctx = canvas.getContext('2d');
 
-class Block {
+export class Block {
     constructor(x, y, width, height, color) {
         this.x = x;
         this.y = y;
@@ -65,7 +66,7 @@ class Block {
 }
 
 
-class Square extends Block {
+export class Square extends Block {
     constructor(x, y, width, height, color) {
         super(x, y, width, height, color);
         this.fillColor = 'grey';
@@ -97,7 +98,7 @@ class Square extends Block {
     }
 }
 
-class FreeSpace extends Block {
+export class FreeSpace extends Block {
     constructor(x, y, width, height, color) {
         super(x, y, width, height, color);
     }
@@ -122,7 +123,7 @@ class FreeSpace extends Block {
 
 }
 
-class Mouse {
+export class Mouse {
     constructor(x, y) {
         this.mousePosition = {x, y};
         this.mouseClick = {x, y};
@@ -137,6 +138,5 @@ class Mouse {
     }
 }
 
-//export default Block;
-//export {Block, Square, FreeSpace, Mouse};
 
+//export {Block, Square, FreeSpace, Mouse};

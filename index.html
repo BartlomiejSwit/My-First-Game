@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="game/body.css">
     <link rel="stylesheet" href="game/footer.css">
     <link rel="icon" href="game/icons/game.ico" type="image/x-icon">
+    <base href=".">
   </head>
   <body>
     <h1>Game Selector</h1>
@@ -31,8 +32,7 @@
     </div>    
 
     <script src="snake/snake.js"></script>
-    <script src="slide/structure/slide_class.js"></script>
-    <script src="slide/slide.js"></script>
+    <script type="module" src="slide/slide.js"></script>
     <script src="pong/pong.js"></script>
     <!-- Dodać więcej skryptów dla innych gier -->
 
@@ -66,7 +66,7 @@
         document.getElementById("gameContainer").appendChild(canvasSlide);
         //runSlideScript();
         //currentGame = runSlideScript();
-        currentGame = runSlideScript().stop;
+        currentGame = window.runSlideScript().stop;
       }
 
       function runPongGame() {
