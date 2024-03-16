@@ -1,19 +1,6 @@
-//import { Block, Mouse, Square, FreeSpace } from 'slide/structure/slide_class.js';
-import { Block } from './slideClass.js';
-import { Mouse } from './slideClass.js';
-import { Square } from './slideClass.js';
-import { FreeSpace } from './slideClass.js';
-import { ctx } from './slideClass.js';
-/*
-window.printTest = function () {console.log("Test")};
-export function printSlide() {
-    console.log("Slide");
-}*/
-export const canvas = document.getElementById('slideCanvas');
-
 window.runSlideScript = function () {
     const canvas = document.getElementById('slideCanvas');
-    //const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext('2d');
 
     var blockSlide = new Audio('slide/sound/slide_block.mp3');
 
@@ -28,7 +15,6 @@ window.runSlideScript = function () {
 
     let moveCounter = 0;
 
-    /*
     class Block {
         constructor(x, y, width, height, color) {
             this.x = x;
@@ -64,12 +50,9 @@ window.runSlideScript = function () {
             }
             if (y < this.y + 45 && y > this.y - 45) {
                 this.y = y;
-            }
-
-            
+            }            
             //this.x = x;
-            //this.y = y;
-            
+            //this.y = y;            
         }
 
         setPosition(x, y) {
@@ -162,7 +145,7 @@ window.runSlideScript = function () {
             this.cursorPositionOnBlock.x = this.mouseClick.x - selectedBlock.x;
             this.cursorPositionOnBlock.y = this.mouseClick.y - selectedBlock.y;
         }
-    }*/
+    }
 
     let bigSquare = new Square(0, 0, 100, 100, 'red');
     let square1 = new Block(0, 0, 50, 50, 'yellow');
