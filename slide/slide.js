@@ -133,7 +133,7 @@ window.runSlideScript = function () {
     }
     
     class Mouse {
-        constructor(x, y) {
+        constructor() {
             this.mousePosition = {x, y};
             this.mouseClick = {x, y};
             this.cursorPositionOnBlock = {x, y};
@@ -167,7 +167,7 @@ window.runSlideScript = function () {
     let rectangle5 = new Block(0, 0, 50, 100, 'blue');
     let freeSpace1 = new FreeSpace(0, 0, 50, 50, 'grey');
     let freeSpace2 = new FreeSpace(0, 0, 50, 50, 'grey');  
-    let mouse = new Mouse(0, 0);
+    let mouse = new Mouse();
     
     const blocksStageOne = [];
     blocksStageOne.push(bigSquare, square1, square2, square3, square4, 
@@ -363,22 +363,10 @@ window.runSlideScript = function () {
         //console.log("mouseMoveY: " + mouseMove.y);
         //bigSquare.move(mouseMove.x, mouseMove.y);
         mousePosition.x = event.clientX - canvasPosition.left;
-        mousePosition.y = event.clientY - canvasPosition.top       
-        if (checkSelectionEvent(selectedBlock)) {
-            mouseRangeCheck(selectedBlock);
-        }
-        /*
-        if (mousePosition.x < 0) {
-            mousePosition.x = 0;
-        } else if (mousePosition.x > canvWidth) {
-            mousePosition.x = canvWidth;
-        } else if (mousePosition.y < 0) {
-            mousePosition.y = 0;
-        } else if (mousePosition.y > canvHeight) {
-            mousePosition.y = canvHeight;
-        }*/
+        mousePosition.y = event.clientY - canvasPosition.top  
 
         if (checkSelectionEvent(selectedBlock) && selectedBlock.canMoveBlock === true) {
+            mouseRangeCheck(selectedBlock);
             let moveBlockRight = selectedBlock.x + selectedBlock.width + 3;
             let moveBlockLeft = selectedBlock.x - 3;
             let moveBlockDown = selectedBlock.y + selectedBlock.height + 3;
@@ -413,7 +401,6 @@ window.runSlideScript = function () {
 
                 case 4: {
                     //Prznieść do funkcji mouseUpEvent logike zatwierdzającą ruch tu tylko kordynaty przekazywać dalej i tam wszystko sprawdzać JUTRO :D
-                    //rozdzielić kod na pliki przestaje być czytelny
                     if (event.movementX > 0) {
                         blockSlide.play();
                         console.log("Mouse move right");
