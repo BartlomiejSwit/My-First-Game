@@ -402,8 +402,8 @@ window.runSlideScript = function () {
                 case 4: {
                     //Prznieść do funkcji mouseUpEvent logike zatwierdzającą ruch tu tylko kordynaty przekazywać dalej i tam wszystko sprawdzać JUTRO :D
                     if (event.movementX > 0) {
-                        blockSlide.play();
-                        console.log("Mouse move right");
+                        //blockSlide.play();
+                        console.log("Mouse move right");                        
                         if (freeSpace1.selected(moveBlockRight, selectedBlock.y + 2)) {
                             selectedFreeSpace = freeSpace1;
                             selectedBlock.move(mousePosition.x - cursorPositionOnBlock.x, selectedBlock.y);   
@@ -415,8 +415,8 @@ window.runSlideScript = function () {
                         }
         
                     } else if (event.movementX < 0) {
-                        blockSlide.play();
-                        console.log("Mouse move left");
+                        //blockSlide.play();
+                        console.log("Mouse move left");                        
                         if (freeSpace1.selected(moveBlockLeft, selectedBlock.y + 2)) {
                             selectedFreeSpace = freeSpace1;
                             selectedBlock.move(mousePosition.x - cursorPositionOnBlock.x, selectedBlock.y);
@@ -429,19 +429,19 @@ window.runSlideScript = function () {
         
         
                     } else if (event.movementY > 0) {
-                        blockSlide.play(); 
-                        console.log("Mouse move down");        
+                        //blockSlide.play(); 
+                        console.log("Mouse move down");                        
                         if (freeSpace1.selected(selectedBlock.x + 2, moveBlockDown)) {     
                             selectedFreeSpace = freeSpace1;
                             selectedBlock.move(selectedBlock.x, mousePosition.y - cursorPositionOnBlock.y);
                         } else if (freeSpace2.selected(selectedBlock.x + 2, moveBlockDown)) {
                             selectedFreeSpace = freeSpace2;
                             selectedBlock.move(selectedBlock.x, mousePosition.y - cursorPositionOnBlock.y);
-                        }
+                        }                   
         
                     } else if (event.movementY < 0) {
-                        blockSlide.play();
-                        console.log("Mouse move up");
+                        //blockSlide.play();
+                        console.log("Mouse move up");                        
                         if (freeSpace1.selected(selectedBlock.x + 2, moveBlockUp)) {
                             selectedFreeSpace = freeSpace1;
                             selectedBlock.move(selectedBlock.x, mousePosition.y - cursorPositionOnBlock.y);
@@ -468,6 +468,7 @@ window.runSlideScript = function () {
             console.log("mousePositionY: " + mousePosition.y);            
             selectedBlock.canMoveBlock = false;
             selectedBlock.positioning();
+
             if (blockPosition.x !== selectedBlock.x || blockPosition.y !== selectedBlock.y) {
                 switch (switchCases) {
                     case 1: {
@@ -485,11 +486,12 @@ window.runSlideScript = function () {
                         break;
                     }
     
-                    case 4: {
-                        //selectedFreeSpace.setPosition(blockPosition.x, blockPosition.y);
+                    case 4: {    
+                        selectedFreeSpace.setPosition(blockPosition.x, blockPosition.y);
+                        /*
                         if (selectedBlock.x === selectedFreeSpace.x && selectedBlock.y === selectedFreeSpace.y) { 
                             selectedFreeSpace.setPosition(blockPosition.x, blockPosition.y);
-                        }
+                        }*/
 
     
                         break;
@@ -510,10 +512,15 @@ window.runSlideScript = function () {
                 }
                 */
             }
+
+
+
             moveCounter++;
             //bigSquare.win();
             console.log("Win: ", bigSquare.win());
             console.log("Move Counter: ", moveCounter);
+
+
         }
 
     }
@@ -523,16 +530,7 @@ window.runSlideScript = function () {
         freeSpace2.move(100, 200);
     }
 */
-
-    //square12X = freeSpace2X;
-    //square12Y = freeSpace2Y;
-
-    //bigsquareX = square8X;
-    //bigsquareY = square8Y;
-    //resetPositions();
-    //drawStageOne();
-    //drawStageTwo();
-    //drawStageTree();    
+  
 
     function startGame() {
         console.log("Game started");
