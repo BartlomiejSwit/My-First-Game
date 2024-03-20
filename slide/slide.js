@@ -14,6 +14,8 @@ window.runSlideScript = function () {
     const moveRange = 50;
 
     let moveCounter = 0;
+    let currentStage;
+    let stageCounter = 0;
 
     class Block {
         constructor(x, y, width, height, color) {
@@ -182,9 +184,25 @@ window.runSlideScript = function () {
     const blocksStageTree = [];
     blocksStageTree.push(square8, square9, square11, square12, bigSquare,
         rectangle1, rectangle2, rectangle3, rectangle4, rectangle5, 
-        freeSpace1, freeSpace2);
-        
-    let currentStage = blocksStageOne;
+        freeSpace1, freeSpace2);        
+
+
+    function nextStage() {
+        stageCounter++;
+        switch (stageCounter) {
+            case 1:
+                currentStage = blocksStageOne;
+                break;
+            case 2:
+                currentStage = blocksStageTwo;
+                break;
+            case 3:
+                currentStage = blocksStageTree;
+                break;
+            default:
+                console.log("Nieobsługiwany przypadek.");
+        }
+    }
 
     function selectedCheck(x, y, blocks) {
         // Sprawdzanie, czy myszka jest nad którymś z bloków
@@ -298,7 +316,8 @@ window.runSlideScript = function () {
     let cursorPositionOnBlock = {x: 0, y: 0};
     let blockPosition = {x: 0, y: 0};
 
-    let switchCases;
+    let switchCasesBlock;
+    let switchCasesMovement;
     let selectedBlock;
     let selectedFreeSpace;
 
@@ -374,16 +393,27 @@ window.runSlideScript = function () {
             
             
             if (selectedBlock.width > moveRange && selectedBlock.height > moveRange) {
-                switchCases = 1;
+                switchCasesBlock = 1;
             } else if (selectedBlock.width > moveRange && selectedBlock.height <= moveRange) {
-                switchCases = 2;
+                switchCasesBlock = 2;
             } else if (selectedBlock.width <= moveRange && selectedBlock.height > moveRange) {
-                switchCases = 3;
+                switchCasesBlock = 3;
             } else {
-                switchCases = 4;
+                switchCasesBlock = 4;
+            }
+            
+            if (event.movementX > 0) {
+                switchCasesMovement = "right";
+            } else if (event.movementX < 0) {
+                switchCasesMovement = "left";
+            } else if (event.movementY > 0) {
+                switchCasesMovement = "down";
+            } else if (event.movementY < 0) {
+                switchCasesMovement = "up";
             }
 
-            switch (switchCases) {
+
+            switch (switchCasesBlock) {
                 case 1: {
 
                     break;
@@ -395,63 +425,110 @@ window.runSlideScript = function () {
                 }
 
                 case 3: {
-
+                    switch (switchCasesMovement) {
+                        case "right": {
+                            console.log("Mouse move right");                        
+                            if (freeSpace1.selected(moveBlockRight, selectedBlock.y + 2) && freeSpace2.selected(moveBlockRight, selectedBlock.y + 52)) {
+                                selectedFreeSpace = freeSpace1;
+                                selectedBlock.move(mousePosition.x - cursorPositionOnBlock.x, selectedBlock.y);                          
+                            } else if (freeSpace2.selected(moveBlockRight, selectedBlock.y + 2) && freeSpace1.selected(moveBlockRight, selectedBlock.y + 52)) {
+                                selectedFreeSpace = freeSpace2;
+                                selectedBlock.move(mousePosition.x - cursorPositionOnBlock.x, selectedBlock.y);
+                            }
+                            break;
+                        }
+                        case "left": {
+                            console.log("Mouse move left");                        
+                            if (freeSpace1.selected(moveBlockLeft, selectedBlock.y + 2)) {
+                                selectedFreeSpace = freeSpace1;
+                                selectedBlock.move(mousePosition.x - cursorPositionOnBlock.x, selectedBlock.y);
+                            } else if (freeSpace2.selected(moveBlockLeft, selectedBlock.y + 2)) {
+                                selectedFreeSpace = freeSpace2;
+                                selectedBlock.move(mousePosition.x - cursorPositionOnBlock.x, selectedBlock.y);
+                            }
+                            break;
+                        }
+                        case "down": {
+                            console.log("Mouse move down");                        
+                            if (freeSpace1.selected(selectedBlock.x + 2, moveBlockDown)) {     
+                                selectedFreeSpace = freeSpace1 - moveRange;
+                                selectedBlock.move(selectedBlock.x, mousePosition.y - cursorPositionOnBlock.y);
+                            } else if (freeSpace2.selected(selectedBlock.x + 2, moveBlockDown)) {
+                                selectedFreeSpace = freeSpace2 - moveRange;
+                                selectedBlock.move(selectedBlock.x, mousePosition.y - cursorPositionOnBlock.y);
+                            } 
+                            break;
+                        }
+                        case "up": {
+                            console.log("Mouse move up");                        
+                            if (freeSpace1.selected(selectedBlock.x + 2, moveBlockUp)) {
+                                selectedFreeSpace = freeSpace1 + moveRange;
+                                selectedBlock.move(selectedBlock.x, mousePosition.y - cursorPositionOnBlock.y);
+                            } else if (freeSpace2.selected(selectedBlock.x + 2, moveBlockUp)) {
+                                selectedFreeSpace = freeSpace2 + moveRange;                            
+                                selectedBlock.move(selectedBlock.x, mousePosition.y - cursorPositionOnBlock.y);
+                            }
+                            break;
+                        }
+                        default:
+                            console.log("Nieobsługiwany przypadek.");
+                    }
                     break;
                 }
 
                 case 4: {
-                    //Prznieść do funkcji mouseUpEvent logike zatwierdzającą ruch tu tylko kordynaty przekazywać dalej i tam wszystko sprawdzać JUTRO :D
-                    if (event.movementX > 0) {
-                        //blockSlide.play();
-                        console.log("Mouse move right");                        
-                        if (freeSpace1.selected(moveBlockRight, selectedBlock.y + 2)) {
-                            selectedFreeSpace = freeSpace1;
-                            selectedBlock.move(mousePosition.x - cursorPositionOnBlock.x, selectedBlock.y);   
-                            console.log("Selected Free Space: ", selectedFreeSpace);                         
-                        } else if (freeSpace2.selected(moveBlockRight, selectedBlock.y + 2)) {
-                            selectedFreeSpace = freeSpace2;
-                            selectedBlock.move(mousePosition.x - cursorPositionOnBlock.x, selectedBlock.y);
-                            console.log("Selected Free Space: ", selectedFreeSpace);
+                    switch (switchCasesMovement) {
+                        case "right": {
+                            console.log("Mouse move right");                        
+                            if (freeSpace1.selected(moveBlockRight, selectedBlock.y + 2)) {
+                                selectedFreeSpace = freeSpace1;
+                                selectedBlock.move(mousePosition.x - cursorPositionOnBlock.x, selectedBlock.y);   
+                                console.log("Selected Free Space: ", selectedFreeSpace);                         
+                            } else if (freeSpace2.selected(moveBlockRight, selectedBlock.y + 2)) {
+                                selectedFreeSpace = freeSpace2;
+                                selectedBlock.move(mousePosition.x - cursorPositionOnBlock.x, selectedBlock.y);
+                                console.log("Selected Free Space: ", selectedFreeSpace);
+                            }
+                            break;
                         }
-        
-                    } else if (event.movementX < 0) {
-                        //blockSlide.play();
-                        console.log("Mouse move left");                        
-                        if (freeSpace1.selected(moveBlockLeft, selectedBlock.y + 2)) {
-                            selectedFreeSpace = freeSpace1;
-                            selectedBlock.move(mousePosition.x - cursorPositionOnBlock.x, selectedBlock.y);
-                            console.log("Selected Free Space: ", selectedFreeSpace);
-                        } else if (freeSpace2.selected(moveBlockLeft, selectedBlock.y + 2)) {
-                            selectedFreeSpace = freeSpace2;
-                            selectedBlock.move(mousePosition.x - cursorPositionOnBlock.x, selectedBlock.y);
-                            console.log("Selected Free Space: ", selectedFreeSpace);
+                        case "left": {
+                            console.log("Mouse move left");                        
+                            if (freeSpace1.selected(moveBlockLeft, selectedBlock.y + 2)) {
+                                selectedFreeSpace = freeSpace1;
+                                selectedBlock.move(mousePosition.x - cursorPositionOnBlock.x, selectedBlock.y);
+                                console.log("Selected Free Space: ", selectedFreeSpace);
+                            } else if (freeSpace2.selected(moveBlockLeft, selectedBlock.y + 2)) {
+                                selectedFreeSpace = freeSpace2;
+                                selectedBlock.move(mousePosition.x - cursorPositionOnBlock.x, selectedBlock.y);
+                                console.log("Selected Free Space: ", selectedFreeSpace);
+                            }
+                            break;
                         }
-        
-        
-                    } else if (event.movementY > 0) {
-                        //blockSlide.play(); 
-                        console.log("Mouse move down");                        
-                        if (freeSpace1.selected(selectedBlock.x + 2, moveBlockDown)) {     
-                            selectedFreeSpace = freeSpace1;
-                            selectedBlock.move(selectedBlock.x, mousePosition.y - cursorPositionOnBlock.y);
-                        } else if (freeSpace2.selected(selectedBlock.x + 2, moveBlockDown)) {
-                            selectedFreeSpace = freeSpace2;
-                            selectedBlock.move(selectedBlock.x, mousePosition.y - cursorPositionOnBlock.y);
-                        }                   
-        
-                    } else if (event.movementY < 0) {
-                        //blockSlide.play();
-                        console.log("Mouse move up");                        
-                        if (freeSpace1.selected(selectedBlock.x + 2, moveBlockUp)) {
-                            selectedFreeSpace = freeSpace1;
-                            selectedBlock.move(selectedBlock.x, mousePosition.y - cursorPositionOnBlock.y);
-                        } else if (freeSpace2.selected(selectedBlock.x + 2, moveBlockUp)) {
-                            selectedFreeSpace = freeSpace2;                            
-                            selectedBlock.move(selectedBlock.x, mousePosition.y - cursorPositionOnBlock.y);
+                        case "down": {
+                            console.log("Mouse move down");                        
+                            if (freeSpace1.selected(selectedBlock.x + 2, moveBlockDown)) {     
+                                selectedFreeSpace = freeSpace1;
+                                selectedBlock.move(selectedBlock.x, mousePosition.y - cursorPositionOnBlock.y);
+                            } else if (freeSpace2.selected(selectedBlock.x + 2, moveBlockDown)) {
+                                selectedFreeSpace = freeSpace2;
+                                selectedBlock.move(selectedBlock.x, mousePosition.y - cursorPositionOnBlock.y);
+                            }   
+                            break;
                         }
-        
+                        case "up": {
+                            console.log("Mouse move up");                        
+                            if (freeSpace1.selected(selectedBlock.x + 2, moveBlockUp)) {
+                                selectedFreeSpace = freeSpace1;
+                                selectedBlock.move(selectedBlock.x, mousePosition.y - cursorPositionOnBlock.y);
+                            } else if (freeSpace2.selected(selectedBlock.x + 2, moveBlockUp)) {
+                                selectedFreeSpace = freeSpace2;                            
+                                selectedBlock.move(selectedBlock.x, mousePosition.y - cursorPositionOnBlock.y);
+                            }
+                            break;
+                        }
+                        default:
+                            console.log("Nieobsługiwany przypadek.");
                     }
-
                     break;
                 }
                 default:
@@ -470,7 +547,7 @@ window.runSlideScript = function () {
             selectedBlock.positioning();
 
             if (blockPosition.x !== selectedBlock.x || blockPosition.y !== selectedBlock.y) {
-                switch (switchCases) {
+                switch (switchCasesBlock) {
                     case 1: {
     
                         break;
@@ -482,6 +559,12 @@ window.runSlideScript = function () {
                     }
     
                     case 3: {
+                        if (selectedBlock.x === selectedFreeSpace.x && selectedBlock.y + 50 === selectedFreeSpace.y || 
+                            selectedBlock.x === selectedFreeSpace.x && selectedBlock.y === selectedFreeSpace.y) { 
+                            selectedFreeSpace.setPosition(blockPosition.x, blockPosition.y);
+                        } else {
+                            selectedBlock.setPosition(blockPosition.x, blockPosition.y);
+                        }
     
                         break;
                     }
@@ -538,6 +621,7 @@ window.runSlideScript = function () {
         console.log("Game started");
         resetPositions();
         addKeyEventListener();
+        nextStage();
         canvas.addEventListener("mousedown", mouseDownEvent);
         canvas.addEventListener("mousemove", mouseMoveEvent);
         canvas.addEventListener("mouseup", mouseUpEvent);
@@ -550,6 +634,7 @@ window.runSlideScript = function () {
         //selectedCheck(0, 100, blocksStageTree);
         //let test = selectedCheck(50, 150, blocksStageOne);
         //console.log("Test: ", test);
+        nextStage();        
 
     }
 
