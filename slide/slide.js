@@ -487,11 +487,13 @@ window.runSlideScript = function () {
                     }
     
                     case 4: {    
-                        selectedFreeSpace.setPosition(blockPosition.x, blockPosition.y);
-                        /*
+                        //selectedFreeSpace.setPosition(blockPosition.x, blockPosition.y);
+                        
                         if (selectedBlock.x === selectedFreeSpace.x && selectedBlock.y === selectedFreeSpace.y) { 
                             selectedFreeSpace.setPosition(blockPosition.x, blockPosition.y);
-                        }*/
+                        } else {
+                            selectedBlock.setPosition(blockPosition.x, blockPosition.y);
+                        }
 
     
                         break;
