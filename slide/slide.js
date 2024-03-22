@@ -135,11 +135,11 @@ window.runSlideScript = function () {
     }
     
     class Mouse {
-        constructor(x, y) {
-            this.mousePosition = {x, y};
-            this.mouseClick = {x, y};
-            this.cursorPositionOnBlock = {x, y};
-            this.blockPosition = {x, y};
+        constructor() {
+            this.mousePosition = {x: 0, y: 0};
+            this.mouseClick = {x: 0, y: 0};
+            this.cursorPositionOnBlock = {x: 0, y: 0};
+            this.blockPosition = {x: 0, y: 0};
 
         }
 
@@ -412,6 +412,11 @@ window.runSlideScript = function () {
                 switchCasesMovement = "up";
             }
 
+            let blueBlock1 = {x: 0, y: 0}, blueBlock2 = {x: 0, y: 0};
+            blueBlock1.x = selectedBlock.x;
+            blueBlock1.y = selectedBlock.y;
+            blueBlock2.x = selectedBlock.x + (selectedBlock.width - moveRange);
+            blueBlock2.y = selectedBlock.y + (selectedBlock.height - moveRange);
 
             switch (switchCasesBlock) {
                 case 1: {
@@ -425,6 +430,7 @@ window.runSlideScript = function () {
                 }
 
                 case 3: {
+
                     switch (switchCasesMovement) {
                         case "right": {
                             console.log("Mouse move right");                        
@@ -449,12 +455,12 @@ window.runSlideScript = function () {
                             break;
                         }
                         case "down": {
-                            console.log("Mouse move down");                        
+                            console.log("Mouse move down");             
                             if (freeSpace1.selected(selectedBlock.x + 2, moveBlockDown)) {     
-                                selectedFreeSpace = freeSpace1 - moveRange;
+                                selectedFreeSpace = freeSpace1;
                                 selectedBlock.move(selectedBlock.x, mousePosition.y - cursorPositionOnBlock.y);
                             } else if (freeSpace2.selected(selectedBlock.x + 2, moveBlockDown)) {
-                                selectedFreeSpace = freeSpace2 - moveRange;
+                                selectedFreeSpace = freeSpace2;
                                 selectedBlock.move(selectedBlock.x, mousePosition.y - cursorPositionOnBlock.y);
                             } 
                             break;
@@ -462,10 +468,10 @@ window.runSlideScript = function () {
                         case "up": {
                             console.log("Mouse move up");                        
                             if (freeSpace1.selected(selectedBlock.x + 2, moveBlockUp)) {
-                                selectedFreeSpace = freeSpace1 + moveRange;
+                                selectedFreeSpace = freeSpace1;
                                 selectedBlock.move(selectedBlock.x, mousePosition.y - cursorPositionOnBlock.y);
                             } else if (freeSpace2.selected(selectedBlock.x + 2, moveBlockUp)) {
-                                selectedFreeSpace = freeSpace2 + moveRange;                            
+                                selectedFreeSpace = freeSpace2;                            
                                 selectedBlock.move(selectedBlock.x, mousePosition.y - cursorPositionOnBlock.y);
                             }
                             break;
@@ -559,12 +565,41 @@ window.runSlideScript = function () {
                     }
     
                     case 3: {
-                        if (selectedBlock.x === selectedFreeSpace.x && selectedBlock.y + 50 === selectedFreeSpace.y || 
-                            selectedBlock.x === selectedFreeSpace.x && selectedBlock.y === selectedFreeSpace.y) { 
-                            selectedFreeSpace.setPosition(blockPosition.x, blockPosition.y);
-                        } else {
-                            selectedBlock.setPosition(blockPosition.x, blockPosition.y);
+
+                        switch (switchCasesMovement) {
+                            case "right": {
+
+                                break;
+                            }
+                            case "left": {
+
+                                break;
+                            }
+                            case "down": {
+                                if (selectedBlock.x === selectedFreeSpace.x && selectedBlock.y + 50 === selectedFreeSpace.y || 
+                                    selectedBlock.x === selectedFreeSpace.x && selectedBlock.y === selectedFreeSpace.y) { 
+                                    selectedFreeSpace.setPosition(blockPosition.x, blockPosition.y);
+                                } else {
+                                    selectedBlock.setPosition(blockPosition.x, blockPosition.y);
+                                }
+  
+                                break;
+                            }
+                            case "up": {
+                                if (selectedBlock.x === selectedFreeSpace.x && selectedBlock.y + 50 === selectedFreeSpace.y || 
+                                    selectedBlock.x === selectedFreeSpace.x && selectedBlock.y === selectedFreeSpace.y) { 
+                                    selectedFreeSpace.setPosition(blockPosition.x, blockPosition.y + 50);
+                                } else {
+                                    selectedBlock.setPosition(blockPosition.x, blockPosition.y);
+                                }
+
+                                break;
+                            }
+                            default:
+                                console.log("Nieobsługiwany przypadek.");
                         }
+
+
     
                         break;
                     }
