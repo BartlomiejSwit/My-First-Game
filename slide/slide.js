@@ -218,42 +218,6 @@ window.runSlideScript = function () {
             }
         });
 
-
-
-        /*
-        // Sprawdzanie, czy myszka jest nad którymś z bloków
-        for (let i = blocks.length - 1; i >= 0; i--) {
-            if (blocks[i].selected(x, y)) {
-                //isDragging = true;
-                //x = spaceX - blocks[i].x;
-                //y = spaceY - blocks[i].y;
-                console.log(blocks[i]);
-                break;
-            }
-        }
-        
-        console.log("Test: " );
-
-        // Sprawdzanie, czy myszka jest nad którymś z bloków - pętla for
-        for (let i = blocks.length - 1; i >= 0; i--) {
-            if (blocks[i].selected(x, y)) {
-                console.log("For Loop - Block: ", blocks[i]);
-                break;
-            }
-        }
-
-        // Sprawdzanie, czy myszka jest nad którymś z bloków - pętla forEach
-        blocks.forEach(block => {
-            if (block.selected(x, y)) {
-                console.log("ForEach Loop - Block: ", block);
-            }
-        });
-
-        
-        console.log("X: " + x + " Y: " + y);
-        blocks.forEach(block => {
-            console.log(block);
-        });*/
         return selectedBlock;
     }    
 
