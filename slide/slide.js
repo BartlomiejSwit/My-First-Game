@@ -316,7 +316,24 @@ window.runSlideScript = function () {
             blockSlelected.canMoveBlock = false;
         }
     }
-    
+
+    function mouseDownEvent(event) {
+        console.log("Mouse left button clicked");
+
+    }
+
+    function mouseMoveEvent(event) {
+        console.log("Mouse move");
+
+    }
+
+    function mouseUpEvent(event) {
+        console.log("Mouse left button released");
+
+    }
+
+
+    /*
     function mouseDownEvent(event) {        
         console.log("Mouse left button clicked");
         //mousePosition.x = event.clientX - canvasPosition.left;
@@ -410,14 +427,6 @@ window.runSlideScript = function () {
                                 selectedBlock.move(mousePosition.x - cursorPositionOnBlock.x, selectedBlock.y);
                             }
                             break;        
-                            if (freeSpace1.selected(moveBlockRight, selectedBlock.y + 2) && freeSpace2.selected(moveBlockRight, selectedBlock.y + 52)) {
-                                selectedFreeSpace1 = freeSpace1;
-                                selectedBlock.move(mousePosition.x - cursorPositionOnBlock.x, selectedBlock.y);                          
-                            } else if (freeSpace2.selected(moveBlockRight, selectedBlock.y + 2) && freeSpace1.selected(moveBlockRight, selectedBlock.y + 52)) {
-                                selectedFreeSpace1 = freeSpace2;
-                                selectedBlock.move(mousePosition.x - cursorPositionOnBlock.x, selectedBlock.y);
-                            }
-                            break;
                         }
                         case "left": {
                             console.log("Mouse move left");
@@ -428,14 +437,6 @@ window.runSlideScript = function () {
                             } else if (freeSpace2.selected(moveBlockLeft, blueBlock1.y + 2) && freeSpace1.selected(moveBlockLeft, selectedBlock.y + 52)) {
                                 selectedFreeSpace1 = freeSpace2;
                                 selectedFreeSpace2 = freeSpace1;
-                                selectedBlock.move(mousePosition.x - cursorPositionOnBlock.x, selectedBlock.y);
-                            }
-                            break;
-                            if (freeSpace1.selected(moveBlockLeft, selectedBlock.y + 2)) {
-                                selectedFreeSpace1 = freeSpace1;
-                                selectedBlock.move(mousePosition.x - cursorPositionOnBlock.x, selectedBlock.y);
-                            } else if (freeSpace2.selected(moveBlockLeft, selectedBlock.y + 2)) {
-                                selectedFreeSpace1 = freeSpace2;
                                 selectedBlock.move(mousePosition.x - cursorPositionOnBlock.x, selectedBlock.y);
                             }
                             break;
@@ -605,18 +606,6 @@ window.runSlideScript = function () {
                     default:
                         console.log("Nieobsługiwany przypadek.");
                 }
-                /*
-                if (selectedBlock.width > 50) {
-                    //freeSpace1.move(blockPosition.x, blockPosition.y);
-                    selectedFreeSpace.move(blockPosition.x, blockPosition.y);
-                } else if (selectedBlock.height > 50) {
-                    //freeSpace1.move(blockPosition.x, blockPosition.y);
-                    freeSpace2.move(blockPosition.x, blockPosition.y + 50);
-                } else {
-                    //freeSpace1.move(blockPosition.x, blockPosition.y);
-                    freeSpace2.move(blockPosition.x, blockPosition.y);
-                }
-                */
             }
 
 
@@ -630,12 +619,9 @@ window.runSlideScript = function () {
         }
 
     }
-/*
-    function freeSpaceMove(block, direction) {
-        freeSpace1.move(50, 200);
-        freeSpace2.move(100, 200);
-    }
-*/
+    */
+
+
   
 
     function startGame() {
