@@ -173,19 +173,35 @@ window.runSlideScript = function () {
     let mouse = new Mouse();
     
     const blocksStageOne = [];
+    /*
     blocksStageOne.push(bigSquare, square1, square2, square3, square4, 
         square5, square6, square7, square8, square9, square10, 
         square11, square12, rectangle1, freeSpace1, freeSpace2);
+        */
+    blocksStageOne.push(square1, square2, square3, square4, square5, square6, 
+        square7, square8, square9, square10, square11, square12, rectangle1, 
+        rectangle2, rectangle3, rectangle4, rectangle5);
 
     const blocksStageTwo = [];
+    /*
     blocksStageTwo.push(square1, square2, square3, square4, square8,
         square9, square11, square12, bigSquare, rectangle1, 
         rectangle2, rectangle3, freeSpace1, freeSpace2);
+        */
+    blocksStageTwo.push(square1, square2, square3, square4, square8,
+        square9, square11, square12, bigSquare, rectangle1, 
+        rectangle2, rectangle3);
+
 
     const blocksStageTree = [];
+    /*
     blocksStageTree.push(square8, square9, square11, square12, bigSquare,
         rectangle1, rectangle2, rectangle3, rectangle4, rectangle5, 
         freeSpace1, freeSpace2);        
+        */
+    blocksStageTree.push(square8, square9, square11, square12, bigSquare,
+        rectangle1, rectangle2, rectangle3, rectangle4, rectangle5);        
+
 
 
     function nextStage() {
@@ -337,9 +353,46 @@ window.runSlideScript = function () {
 
     function mouseMoveEvent(event) {
         console.log("Mouse move");
+        if (event.movementX > 0) {
+            switchCasesMovement = "right";
+        } else if (event.movementX < 0) {
+            switchCasesMovement = "left";
+        } else if (event.movementY > 0) {
+            switchCasesMovement = "down";
+        } else if (event.movementY < 0) {
+            switchCasesMovement = "up";
+        }
         mousePosition.x = event.clientX - canvasPosition.left;
         mousePosition.y = event.clientY - canvasPosition.top 
+        if (checkSelectionEvent(selectedBlock) && selectedBlock.canMoveBlock === true) {
+            mouseRangeCheck(selectedBlock);
+            let moveBlockRight = selectedBlock.x + selectedBlock.width + 3;
+            let moveBlockLeft = selectedBlock.x - 3;
+            let moveBlockDown = selectedBlock.y + selectedBlock.height + 3;
+            let moveBlockUp = selectedBlock.y - 3;
 
+            switch (switchCasesMovement) {
+                case "right": {
+                    selectedBlock.move(mousePosition.x - cursorPositionOnBlock.x, selectedBlock.y);
+                    break;
+                }
+                case "left": {
+                    selectedBlock.move(mousePosition.x - cursorPositionOnBlock.x, selectedBlock.y);
+                    break;
+                }
+                case "down": {
+                    selectedBlock.move(selectedBlock.x, mousePosition.y - cursorPositionOnBlock.y);
+                    break;
+                }
+                case "up": {
+                    selectedBlock.move(selectedBlock.x, mousePosition.y - cursorPositionOnBlock.y);
+                    break;
+                }
+                default:
+                    console.log("Nieobsługiwany przypadek.");
+            }
+        }
+        
     }
 
     function mouseUpEvent(event) {
