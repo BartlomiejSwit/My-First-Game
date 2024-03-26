@@ -319,16 +319,34 @@ window.runSlideScript = function () {
 
     function mouseDownEvent(event) {
         console.log("Mouse left button clicked");
+        selectedBlock = selectedCheck(mousePosition.x, mousePosition.y, currentStage);
+        if (checkSelectionEvent(selectedBlock)){
+            mouseClick.x = event.clientX - canvasPosition.left;
+            mouseClick.y = event.clientY - canvasPosition.top;
+            //console.log("mouseClickX: " + mouseClick.x);
+            //console.log("mouseClickY: " + mouseClick.y);
+            cursorPositionOnBlock.x = mouseClick.x - selectedBlock.x;
+            cursorPositionOnBlock.y = mouseClick.y - selectedBlock.y;
+            //console.log("cursorPositionX: " + cursorPositionOnBlock.x);
+            //console.log("cursorPositionY: " + cursorPositionOnBlock.y);
+            blockPosition.x = selectedBlock.x;
+            blockPosition.y = selectedBlock.y;
+        }
 
     }
 
     function mouseMoveEvent(event) {
         console.log("Mouse move");
+        mousePosition.x = event.clientX - canvasPosition.left;
+        mousePosition.y = event.clientY - canvasPosition.top 
 
     }
 
     function mouseUpEvent(event) {
         console.log("Mouse left button released");
+        selectedBlock.canMoveBlock = false;
+        selectedBlock.positioning();
+
 
     }
 
