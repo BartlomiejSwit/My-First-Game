@@ -23,6 +23,7 @@ window.runSlideScript = function () {
             this.y = y;
             this.width = width;
             this.height = height;
+            this.blockPosition = {x: 0, y: 0};
             this.color = color;
             this.canMoveBlock = false;
             this.selectedColorBorder = 'red';
@@ -37,9 +38,19 @@ window.runSlideScript = function () {
             ctx.fillRect(this.x + 1, this.y + 1, this.width - 2, this.height - 2);
         }
 
+        savePosition() {
+            this.blockPosition.x = this.x;
+            this.blockPosition.y = this.y;
+        }
+
+        loadPosition() {
+            this.x = this.blockPosition.x;
+            this.y = this.blockPosition.y;
+        }
+
         move(x, y) {
             if (x < 0) {
-                x = 0;
+                x = 0;                
             } else if (x + this.width > canvWidth) {
                 x = canvWidth - this.width;
             } 
@@ -48,12 +59,17 @@ window.runSlideScript = function () {
             } else if (y + this.height > canvHeight) {
                 y = canvHeight - this.height;
             }
-            if (x < this.x + 45 && x > this.x - 45 ) {
+            
+            if (x < this.blockPosition.x + 50 && x > this.blockPosition.x - 50 ) {
                 this.x = x;
+            } else {
+                this.x = this.x;
             }
-            if (y < this.y + 45 && y > this.y - 45) {
+            if (y < this.blockPosition.y + 50 && y > this.blockPosition.y - 50) {
                 this.y = y;
-            }            
+            } else {
+                this.y = this.y;
+            }
             //this.x = x;
             //this.y = y;            
         }
@@ -316,19 +332,23 @@ window.runSlideScript = function () {
     function mouseRangeCheck(blockSlelected) {
         if (mousePosition.x < 0 && blockSlelected.canMoveBlock === true) {
             mousePosition.x = 0;
-            blockSlelected.move(blockPosition.x, blockPosition.y);
+            blockSlelected.loadPosition();
+            //blockSlelected.move(blockPosition.x, blockPosition.y);
             blockSlelected.canMoveBlock = false;
         } else if (mousePosition.x > canvWidth && blockSlelected.canMoveBlock === true) {
             mousePosition.x = canvWidth;
-            blockSlelected.move(blockPosition.x, blockPosition.y);
+            blockSlelected.loadPosition();
+            //blockSlelected.move(blockPosition.x, blockPosition.y);
             blockSlelected.canMoveBlock = false;
         } else if (mousePosition.y < 0 && blockSlelected.canMoveBlock === true) {
             mousePosition.y = 0;
-            blockSlelected.move(blockPosition.x, blockPosition.y);
+            blockSlelected.loadPosition();
+            //blockSlelected.move(blockPosition.x, blockPosition.y);
             blockSlelected.canMoveBlock = false;
         } else if (mousePosition.y > canvHeight && blockSlelected.canMoveBlock === true) {
             mousePosition.y = canvHeight;
-            blockSlelected.move(blockPosition.x, blockPosition.y);
+            blockSlelected.loadPosition();
+            //blockSlelected.move(blockPosition.x, blockPosition.y);
             blockSlelected.canMoveBlock = false;
         }
     }
@@ -345,8 +365,9 @@ window.runSlideScript = function () {
             cursorPositionOnBlock.y = mouseClick.y - selectedBlock.y;
             //console.log("cursorPositionX: " + cursorPositionOnBlock.x);
             //console.log("cursorPositionY: " + cursorPositionOnBlock.y);
-            blockPosition.x = selectedBlock.x;
-            blockPosition.y = selectedBlock.y;
+            selectedBlock.savePosition();
+            //blockPosition.x = selectedBlock.x;
+            //blockPosition.y = selectedBlock.y;
         }
 
     }
@@ -399,7 +420,7 @@ window.runSlideScript = function () {
         console.log("Mouse left button released");
         selectedBlock.canMoveBlock = false;
         selectedBlock.positioning();
-
+        selectedBlock.savePosition();
 
     }
 
