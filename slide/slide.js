@@ -248,6 +248,11 @@ window.runSlideScript = function () {
                 block.canMoveBlock = true;
                 selectedBlock = block;
                 //console.log("Selected Block: ", selectedBlock);
+                blocks.forEach(block => {
+                if (block.selected(x, y) === false) {
+                    
+                }
+            });
             }
         });
 
