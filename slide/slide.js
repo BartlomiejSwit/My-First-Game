@@ -255,6 +255,25 @@ window.runSlideScript = function () {
         return selectedBlock;
     }    
 
+    function moveCheck(blocks, selectBlock) {
+        // Sprawdzanie, czy blok może się poruszać
+        let moveDirection = "";
+        blocks.forEach(block => {
+            if (block.selected(selectBlock.x + block.width + 25, selectBlock.y) === false) {
+                moveDirection = "right";
+            } else if (block.selected(selectBlock.x - 25, selectBlock.y) === false) {
+                moveDirection = "left";
+            } else if (block.selected(selectBlock.x, selectBlock.y + block.height + 25) === false) {
+                moveDirection = "down";
+            } else if (block.selected(selectBlock.x, selectBlock.y - 25) === false) {
+                moveDirection = "up";
+            }
+        });
+        return moveDirection;
+
+    }
+    
+    /*
     function moveCheck(x, y, blocks) {
         // Sprawdzanie, czy blok może się poruszać
         let moveDirection = "";
@@ -271,6 +290,7 @@ window.runSlideScript = function () {
         });
         return moveDirection;
     }
+    */
 
     function drawBackground() {
         ctx.fillStyle = 'black';
@@ -374,6 +394,8 @@ window.runSlideScript = function () {
     function mouseDownEvent(event) {
         console.log("Mouse left button clicked");
         selectedBlock = selectedCheck(mousePosition.x, mousePosition.y, currentStage);
+        let testy = moveCheck(selectedBlock, currentStage);
+        console.log("Selected block move: ", testy);
         if (checkSelectionEvent(selectedBlock)){
             mouseClick.x = event.clientX - canvasPosition.left;
             mouseClick.y = event.clientY - canvasPosition.top;
