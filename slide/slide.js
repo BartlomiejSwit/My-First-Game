@@ -259,13 +259,13 @@ window.runSlideScript = function () {
         // Sprawdzanie, czy blok może się poruszać
         let moveDirection = "";
         blocks.forEach(block => {
-            if (block.selected(selectBlock.x + selectBlock.width + selectBlock.width, selectBlock.y) === false) {
+            if (block.selected(selectBlock.x + selectBlock.width + moveRange, selectBlock.y) === false) {
                 moveDirection = "right";
-            } else if (block.selected(selectBlock.x - selectBlock.width, selectBlock.y) === false) {
+            } else if (block.selected(selectBlock.x - moveRange, selectBlock.y) === false) {
                 moveDirection = "left";
-            } else if (block.selected(selectBlock.x, selectBlock.y + selectBlock.height + selectBlock.height) === false) {
+            } else if (block.selected(selectBlock.x, selectBlock.y + selectBlock.height + moveRange) === false) {
                 moveDirection = "down";
-            } else if (block.selected(selectBlock.x, selectBlock.y - selectBlock.height) === false) {
+            } else if (block.selected(selectBlock.x, selectBlock.y - moveRange) === false) {
                 moveDirection = "up";
             }
         });
