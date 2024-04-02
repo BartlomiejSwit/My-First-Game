@@ -24,6 +24,10 @@ window.runSlideScript = function () {
             this.width = width;
             this.height = height;
             this.blockPosition = {x: 0, y: 0};
+            this.moveRight = false;
+            this.moveLeft = false;
+            this.moveDown = false;
+            this.moveUp = false;
             this.color = color;
             this.canMoveBlock = false;
             this.selectedColorBorder = 'red';
@@ -259,14 +263,29 @@ window.runSlideScript = function () {
         // Sprawdzanie, czy blok może się poruszać
         let moveDirection = "";
         blocks.forEach(block => {
-            if (block.selected(selectBlock.x + selectBlock.width + moveRange, selectBlock.y) === false) {
+            if (block.selected(selectBlock.x + selectBlock.width + moveRange, selectBlock.y) === true) {
+                selectBlock.moveRight = false;
                 moveDirection = "right";
-            } else if (block.selected(selectBlock.x - moveRange, selectBlock.y) === false) {
+            } else {
+                selectBlock.moveRight = true;
+            }
+            if (block.selected(selectBlock.x - moveRange, selectBlock.y) === true) {
+                selectBlock.moveLeft = false;
                 moveDirection = "left";
-            } else if (block.selected(selectBlock.x, selectBlock.y + selectBlock.height + moveRange) === false) {
+            } else {
+                selectBlock.moveLeft = true;
+            }
+            if (block.selected(selectBlock.x, selectBlock.y + selectBlock.height + moveRange) === true) {
+                selectBlock.moveDown = false;
                 moveDirection = "down";
-            } else if (block.selected(selectBlock.x, selectBlock.y - moveRange) === false) {
+            } else {
+                selectBlock.moveDown = true;
+            }
+            if (block.selected(selectBlock.x, selectBlock.y - moveRange) === true) {
+                selectBlock.moveUp = false;
                 moveDirection = "up";
+            } else {
+                selectBlock.moveUp = true;
             }
         });
         return moveDirection;
