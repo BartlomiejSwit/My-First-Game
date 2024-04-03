@@ -83,13 +83,19 @@ window.runSlideScript = function () {
             this.y = y;
         }
 
-        selected(spaceX, spaceY) {            
+        selected(spaceX, spaceY) {     
+            if (spaceX >= this.x && spaceX <= (this.x + this.width) && spaceY >= this.y && spaceY <= (this.y + this.height)) {
+                return true;
+            } else {
+                return false;
+            }
+            /*
             return (
                 spaceX >= this.x + 1 &&
-                spaceX <= this.x + this.width -1 &&
+                spaceX <= (this.x + this.width -1) &&
                 spaceY >= this.y + 1 &&
-                spaceY <= this.y + this.height -1
-            );  
+                spaceY <= (this.y + this.height -1)
+            );*/
         }
 
         positioning() {
@@ -249,46 +255,51 @@ window.runSlideScript = function () {
                 //console.log(block);
                 //console.log("X: " + x + " Y: " + y);
                 //console.log("blok to: " + block);
+                //moveCheck(blocks, block);
                 block.canMoveBlock = true;
                 selectedBlock = block;
                 //console.log("Selected Block: ", selectedBlock);
-
             }
         });
-
+        moveCheck(blocks, selectedBlock);
+        
         return selectedBlock;
     }    
 
-    function moveCheck(blocks, selectBlock) {
+    function moveCheck(blocks1, selectMoveBlock1) {
         // Sprawdzanie, czy blok może się poruszać
         let moveDirection = "";
-        blocks.forEach(block => {
-            if (block.selected(selectBlock.x + selectBlock.width + moveRange, selectBlock.y) === true) {
-                selectBlock.moveRight = false;
-                moveDirection = "right";
+        blocks1.forEach(block => {
+            if (block.selected(selectMoveBlock1.x + selectMoveBlock1.width + moveRange, selectMoveBlock1.y) == false) {
+                selectMoveBlock1.moveRight = true;
+                console.log("Move right: ", selectMoveBlock1.moveRight);
+                //moveDirection = "right";
             } else {
-                selectBlock.moveRight = true;
+                selectMoveBlock1.moveRight = false;
             }
-            if (block.selected(selectBlock.x - moveRange, selectBlock.y) === true) {
-                selectBlock.moveLeft = false;
-                moveDirection = "left";
+            if (block.selected(selectMoveBlock1.x - moveRange, selectMoveBlock1.y) == false) {
+                selectMoveBlock1.moveLeft = true;
+                console.log("Move left: ", selectMoveBlock1.moveLeft);
+                //moveDirection = "left";
             } else {
-                selectBlock.moveLeft = true;
+                selectMoveBlock1.moveLeft = false;
             }
-            if (block.selected(selectBlock.x, selectBlock.y + selectBlock.height + moveRange) === true) {
-                selectBlock.moveDown = false;
-                moveDirection = "down";
+            if (block.selected(selectMoveBlock1.x, selectMoveBlock1.y + selectMoveBlock1.height + moveRange) == false) {
+                selectMoveBlock1.moveDown = true;
+                console.log("Move down: ", selectMoveBlock1.moveDown);
+                //moveDirection = "down";
             } else {
-                selectBlock.moveDown = true;
+                selectMoveBlock1.moveDown = false;
             }
-            if (block.selected(selectBlock.x, selectBlock.y - moveRange) === true) {
-                selectBlock.moveUp = false;
-                moveDirection = "up";
+            if (block.selected(selectMoveBlock1.x, selectMoveBlock1.y - moveRange) == false) {
+                selectMoveBlock1.moveUp = true;
+                console.log("Move up: ", selectMoveBlock1.moveUp);
+                //moveDirection = "up";
             } else {
-                selectBlock.moveUp = true;
+                selectMoveBlock1.moveUp = false;
             }
         });
-        return moveDirection;
+        //return moveDirection;
 
     }
 
@@ -413,8 +424,8 @@ window.runSlideScript = function () {
     function mouseDownEvent(event) {
         console.log("Mouse left button clicked");
         selectedBlock = selectedCheck(mousePosition.x, mousePosition.y, currentStage);
-        let testy = moveCheck(selectedBlock, currentStage);
-        console.log("Selected block move: ", testy);
+        //let testy = moveCheck(selectedBlock, currentStage);
+        //console.log("Selected block move: ", testy);
         if (checkSelectionEvent(selectedBlock)){
             mouseClick.x = event.clientX - canvasPosition.left;
             mouseClick.y = event.clientY - canvasPosition.top;
@@ -792,7 +803,7 @@ window.runSlideScript = function () {
         //selectedCheck(0, 100, blocksStageTree);
         //let test = selectedCheck(50, 150, blocksStageOne);
         //console.log("Test: ", test);
-        nextStage();        
+        nextStage();
 
     }
 
