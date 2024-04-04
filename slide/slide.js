@@ -303,25 +303,6 @@ window.runSlideScript = function () {
 
     }
 
-    /*
-    function moveCheck(x, y, blocks) {
-        // Sprawdzanie, czy blok może się poruszać
-        let moveDirection = "";
-        blocks.forEach(block => {
-            if (block.selected(x + block.width + 25, y) === false) {
-                moveDirection = "right";
-            } else if (block.selected(x - 25, y) === false) {
-                moveDirection = "left";
-            } else if (block.selected(x, y + block.height + 25) === false) {
-                moveDirection = "down";
-            } else if (block.selected(x, y - 25) === false) {
-                moveDirection = "up";
-            }
-        });
-        return moveDirection;
-    }
-    */
-
     function drawBackground() {
         ctx.fillStyle = 'black';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
