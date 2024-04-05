@@ -671,9 +671,7 @@ window.runSlideScript = function () {
                     console.log("Nieobsługiwany przypadek.");
             }
         }
-    }
-
-    
+    }    
 
     function mouseUpEvent(event) {
         if (checkSelectionEvent(selectedBlock)){
@@ -727,10 +725,7 @@ window.runSlideScript = function () {
                             }
                             default:
                                 console.log("Nieobsługiwany przypadek.");
-                        }
-
-
-    
+                        }    
                         break;
                     }
     
@@ -741,9 +736,7 @@ window.runSlideScript = function () {
                             selectedFreeSpace1.setPosition(blockPosition.x, blockPosition.y);
                         } else {
                             selectedBlock.setPosition(blockPosition.x, blockPosition.y);
-                        }
-
-    
+                        }    
                         break;
                     }
                     default:
@@ -762,10 +755,7 @@ window.runSlideScript = function () {
         }
 
     }
-    */
-
-
-  
+    */  
 
     function startGame() {
         console.log("Game started");
@@ -779,13 +769,9 @@ window.runSlideScript = function () {
         gameInterval = setInterval(gameRuning, 1000 / 60);
         //gameRuning();
         //console.log(bigSquare.selected(50, 0));
-        //selectedCheck(0, 100, blocksStageOne);
-        //selectedCheck(0, 100, blocksStageTwo);
-        //selectedCheck(0, 100, blocksStageTree);
         //let test = selectedCheck(50, 150, blocksStageOne);
         //console.log("Test: ", test);
         nextStage();
-
     }
 
     //To do - zmienić całą koncepcje przesuwanie bloków, wywalić freeSpace, zrobić to na zasadzie przeszukania kolidujących bloków
