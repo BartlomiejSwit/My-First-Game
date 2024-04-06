@@ -776,6 +776,7 @@ window.runSlideScript = function () {
 
     //To do - zmienić całą koncepcje przesuwanie bloków, wywalić freeSpace, zrobić to na zasadzie przeszukania kolidujących bloków
     //To do - zrobić, żeby bloki nie mogły się nakładać na siebie
+    //dalej opracować kolizje, żeby bloki nie mogły się nakładać na siebie w nowym podejściu
 
     function gameRuning() {
         //resetPositions();
