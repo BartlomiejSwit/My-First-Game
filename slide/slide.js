@@ -261,12 +261,38 @@ window.runSlideScript = function () {
                 //console.log("Selected Block: ", selectedBlock);
             }
         });
-        moveCheck(blocks, selectedBlock);
+        //moveCheck(blocks, selectedBlock);
         
         return selectedBlock;
-    }    
-
+    }
+    
     function moveCheck(blocks1, selectMoveBlock1) {
+        // Ustawienie domyślnych wartości ruchu na false
+        selectMoveBlock1.moveRight = true;
+        selectMoveBlock1.moveLeft = true;
+        selectMoveBlock1.moveDown = true;
+        selectMoveBlock1.moveUp = true;
+    
+        // Sprawdzenie kolizji dla każdego bloku
+        blocks1.forEach(block => {
+            // Sprawdzenie, czy blok koliduje z innym blokiem w prawo
+            if (block !== selectMoveBlock1 && selectMoveBlock1.x + selectMoveBlock1.width + moveRange >= block.x && selectMoveBlock1.x <= block.x + block.width && selectMoveBlock1.y + selectMoveBlock1.height >= block.y && selectMoveBlock1.y <= block.y + block.height) {
+                selectMoveBlock1.moveRight = false;
+            }
+            // Analogicznie dla pozostałych kierunków
+            if (block !== selectMoveBlock1 && selectMoveBlock1.x - moveRange <= block.x + block.width && selectMoveBlock1.x >= block.x && selectMoveBlock1.y + selectMoveBlock1.height >= block.y && selectMoveBlock1.y <= block.y + block.height) {
+                selectMoveBlock1.moveLeft = false;
+            }
+            if (block !== selectMoveBlock1 && selectMoveBlock1.x + selectMoveBlock1.width >= block.x && selectMoveBlock1.x <= block.x + block.width && selectMoveBlock1.y + selectMoveBlock1.height + moveRange >= block.y && selectMoveBlock1.y <= block.y) {
+                selectMoveBlock1.moveDown = false;
+            }
+            if (block !== selectMoveBlock1 && selectMoveBlock1.x + selectMoveBlock1.width >= block.x && selectMoveBlock1.x <= block.x + block.width && selectMoveBlock1.y - moveRange <= block.y + block.height && selectMoveBlock1.y >= block.y) {
+                selectMoveBlock1.moveUp = false;
+            }
+        });
+    }
+
+/*     function moveCheck(blocks1, selectMoveBlock1) {
         // Sprawdzanie, czy blok może się poruszać
         let moveDirection = "";
         blocks1.forEach(block => {
@@ -301,7 +327,7 @@ window.runSlideScript = function () {
         });
         //return moveDirection;
 
-    }
+    } */
 
     function drawBackground() {
         ctx.fillStyle = 'black';
@@ -405,6 +431,8 @@ window.runSlideScript = function () {
     function mouseDownEvent(event) {
         console.log("Mouse left button clicked");
         selectedBlock = selectedCheck(mousePosition.x, mousePosition.y, currentStage);
+        moveCheck(currentStage, selectedBlock);
+        console.log("Selected block move: ", selectedBlock);    
         //let testy = moveCheck(selectedBlock, currentStage);
         //console.log("Selected block move: ", testy);
         if (checkSelectionEvent(selectedBlock)){
