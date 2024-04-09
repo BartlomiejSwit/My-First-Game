@@ -266,30 +266,69 @@ window.runSlideScript = function () {
         return selectedBlock;
     }
     
-    function moveCheck(blocks1, selectMoveBlock1) {
-        // Ustawienie domyślnych wartości ruchu na false
-        selectMoveBlock1.moveRight = true;
-        selectMoveBlock1.moveLeft = true;
-        selectMoveBlock1.moveDown = true;
-        selectMoveBlock1.moveUp = true;
+    function moveCheck(blocks, selectMoveBlock) {
+        // Resetowanie flag ruchu na true
+        selectMoveBlock.moveRight = true;
+        selectMoveBlock.moveLeft = true;
+        selectMoveBlock.moveDown = true;
+        selectMoveBlock.moveUp = true;
     
-        // Sprawdzenie kolizji dla każdego bloku
-        blocks1.forEach(block => {
-            // Sprawdzenie, czy blok koliduje z innym blokiem w prawo
-            if (block !== selectMoveBlock1 && selectMoveBlock1.x + selectMoveBlock1.width + moveRange >= block.x && selectMoveBlock1.x <= block.x + block.width && selectMoveBlock1.y + selectMoveBlock1.height >= block.y && selectMoveBlock1.y <= block.y + block.height) {
-                selectMoveBlock1.moveRight = false;
-            }
-            // Analogicznie dla pozostałych kierunków
-            if (block !== selectMoveBlock1 && selectMoveBlock1.x - moveRange <= block.x + block.width && selectMoveBlock1.x >= block.x && selectMoveBlock1.y + selectMoveBlock1.height >= block.y && selectMoveBlock1.y <= block.y + block.height) {
-                selectMoveBlock1.moveLeft = false;
-            }
-            if (block !== selectMoveBlock1 && selectMoveBlock1.x + selectMoveBlock1.width >= block.x && selectMoveBlock1.x <= block.x + block.width && selectMoveBlock1.y + selectMoveBlock1.height + moveRange >= block.y && selectMoveBlock1.y <= block.y) {
-                selectMoveBlock1.moveDown = false;
-            }
-            if (block !== selectMoveBlock1 && selectMoveBlock1.x + selectMoveBlock1.width >= block.x && selectMoveBlock1.x <= block.x + block.width && selectMoveBlock1.y - moveRange <= block.y + block.height && selectMoveBlock1.y >= block.y) {
-                selectMoveBlock1.moveUp = false;
+        // Iteracja po wszystkich blokach w celu sprawdzenia kolizji z wybranym blokiem
+        blocks.forEach(block => {
+            // Pomijamy sprawdzanie kolizji z samym sobą
+            if (block !== selectMoveBlock) {
+                // Sprawdzamy kolizję wzdłuż osi X
+                if (selectMoveBlock.x + selectMoveBlock.width >= block.x &&
+                    selectMoveBlock.x <= block.x + block.width) {
+                    // Kolizja z prawej strony
+                    if (selectMoveBlock.x + selectMoveBlock.width <= block.x + block.width &&
+                        selectMoveBlock.y + selectMoveBlock.height > block.y &&
+                        selectMoveBlock.y < block.y + block.height) {
+                        selectMoveBlock.moveRight = false;
+                    }
+                    // Kolizja z lewej strony
+                    if (selectMoveBlock.x >= block.x &&
+                        selectMoveBlock.y + selectMoveBlock.height > block.y &&
+                        selectMoveBlock.y < block.y + block.height) {
+                        selectMoveBlock.moveLeft = false;
+                    }
+                }
+                // Sprawdzamy kolizję wzdłuż osi Y
+                if (selectMoveBlock.y + selectMoveBlock.height >= block.y &&
+                    selectMoveBlock.y <= block.y + block.height) {
+                    // Kolizja z dołu
+                    if (selectMoveBlock.y + selectMoveBlock.height <= block.y + block.height &&
+                        selectMoveBlock.x + selectMoveBlock.width > block.x &&
+                        selectMoveBlock.x < block.x + block.width) {
+                        selectMoveBlock.moveDown = false;
+                    }
+                    // Kolizja z góry
+                    if (selectMoveBlock.y >= block.y &&
+                        selectMoveBlock.x + selectMoveBlock.width > block.x &&
+                        selectMoveBlock.x < block.x + block.width) {
+                        selectMoveBlock.moveUp = false;
+                    }
+                }
             }
         });
+        
+        // Sprawdzanie kolizji z granicami canvas
+        // Lewa granica
+        if (selectMoveBlock.x <= 0) {
+            selectMoveBlock.moveLeft = false;
+        }
+        // Górna granica
+        if (selectMoveBlock.y <= 0) {
+            selectMoveBlock.moveUp = false;
+        }
+        // Prawa granica
+        if (selectMoveBlock.x + selectMoveBlock.width >= canvWidth) {
+            selectMoveBlock.moveRight = false;
+        }
+        // Dolna granica
+        if (selectMoveBlock.y + selectMoveBlock.height >= canvHeight) {
+            selectMoveBlock.moveDown = false;
+        }
     }
 
 /*     function moveCheck(blocks1, selectMoveBlock1) {
@@ -473,19 +512,27 @@ window.runSlideScript = function () {
 
             switch (switchCasesMovement) {
                 case "right": {
+                    if (selectedBlock.moveRight === true) {
                     selectedBlock.move(mousePosition.x - cursorPositionOnBlock.x, selectedBlock.y);
+                    }
                     break;
                 }
                 case "left": {
+                    if (selectedBlock.moveLeft === true) {
                     selectedBlock.move(mousePosition.x - cursorPositionOnBlock.x, selectedBlock.y);
+                    }
                     break;
                 }
                 case "down": {
+                    if (selectedBlock.moveDown === true) {
                     selectedBlock.move(selectedBlock.x, mousePosition.y - cursorPositionOnBlock.y);
+                    }
                     break;
                 }
                 case "up": {
+                    if (selectedBlock.moveUp === true) {
                     selectedBlock.move(selectedBlock.x, mousePosition.y - cursorPositionOnBlock.y);
+                    }
                     break;
                 }
                 default:
