@@ -205,8 +205,7 @@ window.runSlideScript = function () {
         square11, square12, rectangle1, freeSpace1, freeSpace2);
         */
     blocksStageOne.push(square1, square2, square3, square4, square5, square6, 
-        square7, square8, square9, square10, square11, square12, rectangle1, 
-        rectangle2, rectangle3, rectangle4, rectangle5);
+        square7, square8, square9, square10, square11, square12, bigSquare, rectangle1);
 
     const blocksStageTwo = [];
     /*
@@ -547,6 +546,8 @@ window.runSlideScript = function () {
         selectedBlock.canMoveBlock = false;
         selectedBlock.positioning();
         selectedBlock.savePosition();
+        moveCounter++;
+        gameWinStage();
 
     }
 
@@ -846,12 +847,14 @@ window.runSlideScript = function () {
         //console.log(bigSquare.selected(50, 0));
         //let test = selectedCheck(50, 150, blocksStageOne);
         //console.log("Test: ", test);
-        nextStage();
     }
 
-    //To do - zmienić całą koncepcje przesuwanie bloków, wywalić freeSpace, zrobić to na zasadzie przeszukania kolidujących bloków
-    //To do - zrobić, żeby bloki nie mogły się nakładać na siebie
-    //dalej opracować kolizje, żeby bloki nie mogły się nakładać na siebie w nowym podejściu
+    function gameWinStage() {
+        if (bigSquare.win() === true) {
+            resetPositions();
+            nextStage();
+        }
+    }
 
     function gameRuning() {
         //resetPositions();
