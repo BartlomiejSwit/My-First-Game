@@ -31,7 +31,7 @@
   .myButton {
       display: inline-block;
       background-color: #4CAF50;
-      color: white;
+      color: black;
       padding: 14px 20px;
       margin: 8px 0;
       border: none;
@@ -52,4 +52,26 @@
       color: #4CAF50;
       text-align: center;
       margin: 20px;
+  }
+  .btn-group button {
+    background-color: #4CAF50;
+    border: 1px solid green; /* Green border */
+    border-radius: 12px;
+    color: black; /* White text */
+    padding: 14px 20px;
+    cursor: pointer; /* Pointer/hand icon */
+    width: 50%; /* Set a width if needed */
+    transition: background-color 0.3s;
+    font-size: 20px;
+    box-shadow: 0 5px #999;
+    display: block; /* Make the buttons appear below each other */
+  }
+  
+  .btn-group button:not(:last-child) {
+    border-bottom: none; /* Prevent double borders */
+  }
+  
+  /* Add a background color on hover */
+  .btn-group button:hover {
+    background-color: #3e8e41;
   }
