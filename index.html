@@ -26,6 +26,7 @@
         <button onclick="runSnakeGame()">Run Snake Game</button>
         <button onclick="runSlideGame()">Run Slide Game</button>
         <button onclick="runPongGame()">Run Pong Game</button>
+        <button onclick="runMergeGame()">Run Merge Game</button>
         <button onclick="runAnotherGame()">Run Another Game</button>
          <!-- Dodać więcej przycisków dla innych gier -->
       </div> 
@@ -87,6 +88,20 @@
         //runPongScript();
         //currentGame = runPongScript();
         currentGame = runPongScript().stop;
+      }
+
+      function runMergeGame() {
+        clearGameContainer();
+        const canvasMerge = document.createElement("canvas");
+        canvasMerge.id = "mergeCanvas";
+        canvasMerge.width = 400;
+        canvasMerge.height = 400;
+        canvasMerge.style.border = "5px solid green";
+        playGame.innerHTML = "Merge Game";
+        document.getElementById("gameContainer").appendChild(canvasMerge);
+        //runPongScript();
+        //currentGame = runPongScript();
+        currentGame = runMergeScript().stop;
       }
 
       // Dodać funkcje runThirdGame(), runFourthGame() itd. dla reszty gier
