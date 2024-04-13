@@ -41,6 +41,7 @@
     <script src="snake/snake.js"></script>
     <script type="module" src="slide/slide.js"></script>
     <script src="pong/pong.js"></script>
+    <script type="module" src="mergeNumbers/mergeNumbers.js"></script>
     <!-- Dodać więcej skryptów dla innych gier -->
 
     <script>
@@ -101,7 +102,8 @@
         document.getElementById("gameContainer").appendChild(canvasMerge);
         //runPongScript();
         //currentGame = runPongScript();
-        currentGame = runMergeScript().stop;
+        //currentGame = runMergeScript().stop;
+        currentGame = window.runMergeScript().stop;
       }
 
       // Dodać funkcje runThirdGame(), runFourthGame() itd. dla reszty gier

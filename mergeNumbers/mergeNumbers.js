@@ -1,8 +1,14 @@
 window.runMergeScript = function () {
-    const canvas = document.getElementById('slideCanvas');
+    const canvas = document.getElementById('mergeCanvas');
     const ctx = canvas.getContext('2d');
 
-    class square {
+    var gameInterval;
+    let canvasPosition = canvas.getBoundingClientRect();
+
+    const canvWidth = canvas.width;
+    const canvHeight = canvas.height;
+
+    class squareNumbers {
         constructor(x, y, value) {
             this.x = x;
             this.y = y;
@@ -11,7 +17,7 @@ window.runMergeScript = function () {
             this.leftSite = null;
             this.upSite = null;
             this.downSite = null;
-            this.color = "black";            
+            this.color = "white";            
         }
 
         draw() {
@@ -23,9 +29,28 @@ window.runMergeScript = function () {
         }
     }
 
-    let square = new square(50, 50, 2);
+    let squareN = new squareNumbers(50, 50, 2);
+
+    let squares = [];
+
+    squares.push(squareN);
+
+    function drawBackground() {
+        ctx.fillStyle = 'black';
+        ctx.fillRect(0, 0, canvWidth, canvHeight);
+    }
+
+    function drawSquare() {
+        squares.forEach(square => {
+            square.draw();
+        });
+    }
 
 
+    function draw() {
+        drawBackground();
+        drawSquare();
+    }
 
 
 
@@ -40,7 +65,7 @@ window.runMergeScript = function () {
     }
 
     function gameRuning() {
-  
+        draw();  
     }
 
     function pauseGame() {
@@ -57,7 +82,7 @@ window.runMergeScript = function () {
     }
 
     function stop() {
-      
+        clearInterval(gameInterval);    
     }
 
     startGame();
