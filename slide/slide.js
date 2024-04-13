@@ -271,6 +271,7 @@ window.runSlideScript = function () {
         selectMoveBlock.moveLeft = true;
         selectMoveBlock.moveDown = true;
         selectMoveBlock.moveUp = true;
+        blockSlide.play();
     
         // Iteracja po wszystkich blokach w celu sprawdzenia kolizji z wybranym blokiem
         blocks.forEach(block => {
