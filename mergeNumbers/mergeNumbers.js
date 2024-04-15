@@ -33,7 +33,8 @@ window.runMergeScript = function () {
             ctx.textAlign = "center";
             ctx.textBaseline = "middle";
             ctx.fillText(this.value, this.x + this.blockSize/2, this.y + this.blockSize/2);
-            //ctx.fillText(this.value, this.x/2 + this.blockSize/2, this.y/2 + this.blockSize/2);    */         
+            //ctx.fillText(this.value, this.x/2 + this.blockSize/2, this.y/2 + this.blockSize/2);    */
+
             var cornerRadius = 5; // Promień zaokrąglenia krawędzi
 
             ctx.fillStyle = this.colorBlock;
@@ -94,6 +95,32 @@ window.runMergeScript = function () {
             this.x = Math.round(this.x / 50) * 50;
             this.y = Math.round(this.y / 50) * 50;
         }
+
+        move(x, y) {
+            if (x < 0) {
+                x = 0;                
+            } else if (x + this.width > canvWidth) {
+                x = canvWidth - this.width;
+            } 
+            if (y < 0) {
+                y = 0;
+            } else if (y + this.height > canvHeight) {
+                y = canvHeight - this.height;
+            }
+            
+            if (x < this.blockPosition.x + 50 && x > this.blockPosition.x - 50 ) {
+                this.x = x;
+            } else {
+                this.x = this.x;
+            }
+            if (y < this.blockPosition.y + 50 && y > this.blockPosition.y - 50) {
+                this.y = y;
+            } else {
+                this.y = this.y;
+            }
+            //this.x = x;
+            //this.y = y;            
+        }
     }
 
     let squareN = new squareNumbers(50, 50, 2);
@@ -123,13 +150,10 @@ window.runMergeScript = function () {
         });
     }
 
-
     function draw() {
         drawBackground();
         drawSquare();
     }
-
-
 
     function startGame() {
         console.log("Game started");
