@@ -13,6 +13,8 @@ window.runMergeScript = function () {
     const gameAreaWidth = 200;
     const gameAreaHeight = 200;
 
+    let score = 0;
+
 
     class squareNumbers {
         constructor(x, y, value) {
@@ -62,7 +64,7 @@ window.runMergeScript = function () {
             ctx.stroke(); // Rysujemy obramowanie
         
             ctx.fillStyle = "Black";
-            ctx.font = this.blockSize / 2 + "px Arial";
+            ctx.font = this.blockSize / 3 + "px Arial";
             ctx.textAlign = "center";
             ctx.textBaseline = "middle";
             ctx.fillText(this.value, this.x + this.blockSize / 2, this.y + this.blockSize / 2);
@@ -149,7 +151,27 @@ window.runMergeScript = function () {
         ctx.fillStyle = 'black';
         ctx.fillRect(0, 0, canvWidth, canvHeight);
         ctx.fillStyle = 'white';
+        ctx.fillRect(50, 300, 50, 50);
+        ctx.fillStyle = 'black';
+        ctx.fillRect(51, 301, 48, 48);
+        ctx.fillStyle = 'white';
+        ctx.font = "30px Arial";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText("Score", 200, 315);
+        ctx.fillText(score, 200, 350);
+
+        ctx.fillStyle = 'white';
         ctx.fillRect(gameAreaStart.x, gameAreaStart.y, gameAreaWidth, gameAreaHeight);
+        ctx.fillStyle = 'white';
+        ctx.fillRect(gameAreaStart.x + 1, gameAreaStart.y + 1, gameAreaWidth - 2, gameAreaHeight - 2);
+        ctx.fillStyle = 'black';
+        for (var i = gameAreaStart.x; i < gameAreaEnd.x; i += 50) {
+            for (var j = gameAreaStart.y; j < gameAreaEnd.y; j += 50) {
+                ctx.fillRect(i + 1, j + 1, 48, 48);
+            }
+        }
+
     }
 
     function drawSquare() {
