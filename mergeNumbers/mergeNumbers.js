@@ -8,6 +8,12 @@ window.runMergeScript = function () {
     const canvWidth = canvas.width;
     const canvHeight = canvas.height;
 
+    const gameAreaStart = {x: 50, y: 50};
+    const gameAreaEnd = {x: 250, y: 250};
+    const gameAreaWidth = 200;
+    const gameAreaHeight = 200;
+
+
     class squareNumbers {
         constructor(x, y, value) {
             this.x = x;
@@ -99,13 +105,13 @@ window.runMergeScript = function () {
         move(x, y) {
             if (x < 0) {
                 x = 0;                
-            } else if (x + this.width > canvWidth) {
-                x = canvWidth - this.width;
+            } else if (x + this.width > gameAreaWidth) {
+                x = gameAreaWidth - this.width;
             } 
             if (y < 0) {
                 y = 0;
-            } else if (y + this.height > canvHeight) {
-                y = canvHeight - this.height;
+            } else if (y + this.height > gameAreaHeight) {
+                y = gameAreaHeight - this.height;
             }
             
             if (x < this.blockPosition.x + 50 && x > this.blockPosition.x - 50 ) {
@@ -142,6 +148,8 @@ window.runMergeScript = function () {
     function drawBackground() {
         ctx.fillStyle = 'black';
         ctx.fillRect(0, 0, canvWidth, canvHeight);
+        ctx.fillStyle = 'white';
+        ctx.fillRect(gameAreaStart.x, gameAreaStart.y, gameAreaWidth, gameAreaHeight);
     }
 
     function drawSquare() {
