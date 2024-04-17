@@ -33,16 +33,6 @@ window.runMergeScript = function () {
         }
 
         draw() {
-/*             ctx.fillStyle = this.colorBlock;
-            ctx.fillRect(this.x, this.y, this.blockSize, this.blockSize);
-            ctx.fillStyle = "Black";
-            ctx.font = this.blockSize/2 + "px Arial";
-            //ctx.font = "30px Arial";
-            ctx.textAlign = "center";
-            ctx.textBaseline = "middle";
-            ctx.fillText(this.value, this.x + this.blockSize/2, this.y + this.blockSize/2);
-            //ctx.fillText(this.value, this.x/2 + this.blockSize/2, this.y/2 + this.blockSize/2);    */
-
             var cornerRadius = 5; // Promień zaokrąglenia krawędzi
 
             ctx.fillStyle = this.colorBlock;
