@@ -14,6 +14,8 @@ window.runMergeScript = function () {
     const gameAreaHeight = 200;
 
     let score = 0;
+    let maxMergeNumber = 8;
+    const mergeNumbers = [2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048];
 
 
     class squareNumbers {
@@ -175,8 +177,52 @@ window.runMergeScript = function () {
         drawSquare();
     }
 
+    function generateSquare() {
+        let x = Math.floor(Math.random() * 4);
+        let y = Math.floor(Math.random() * 4);
+        let value = mergeNumbers[Math.floor(Math.random() * maxMergeNumber)];
+        let newSquare = new squareNumbers(x * 50 + 50, y * 50 + 50, value);
+        squares.push(newSquare);
+    }
+
+    function mouseDownEvent(event) {
+        let x = event.clientX - canvasPosition.left;
+        let y = event.clientY - canvasPosition.top;
+        squares.forEach(square => {
+            if (x > square.x && x < square.x + square.blockSize && y > square.y && y < square.y + square.blockSize) {
+                square.blockClick = true;
+            }
+        });
+    }
+
+    function mouseMoveEvent(event) {
+        let x = event.clientX - canvasPosition.left;
+        let y = event.clientY - canvasPosition.top;
+        squares.forEach(square => {
+            if (square.blockClick) {
+                square.move(x, y);
+            }
+        });
+    }
+
+    function mouseUpEvent(event) {
+        let x = event.clientX - canvasPosition.left;
+        let y = event.clientY - canvasPosition.top;
+        squares.forEach(square => {
+            if (square.blockClick) {
+                square.blockClick = false;
+                square.positioning();
+            }
+        });
+        generateSquare();
+    }
+
+
     function startGame() {
         console.log("Game started");
+        canvas.addEventListener("mousedown", mouseDownEvent);
+        canvas.addEventListener("mousemove", mouseMoveEvent);
+        canvas.addEventListener("mouseup", mouseUpEvent);
         gameInterval = setInterval(gameRuning, 1000 / 60);
 
     }
