@@ -17,6 +17,8 @@ window.runMergeScript = function () {
     let maxMergeNumber = 8;
     const mergeNumbers = [2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048];
 
+    let message = "";
+
 
     class squareNumbers {
         constructor(x, y, value) {
@@ -139,6 +141,12 @@ window.runMergeScript = function () {
 
     squares.push(squareN, squareN2, squareN3, squareN4, squareN5, squareN6, squareN7, squareN8, squareN9, squareN10, squareN11);
 
+    function VievList() {
+        squares.forEach(square => {
+            console.log(square);
+        });
+    }
+
     function drawBackground() {
         ctx.fillStyle = 'black';
         ctx.fillRect(0, 0, canvWidth, canvHeight);
@@ -152,6 +160,7 @@ window.runMergeScript = function () {
         ctx.textBaseline = "middle";
         ctx.fillText("Score", 200, 315);
         ctx.fillText(score, 200, 350);
+        ctx.fillText(message, 150, 25);
 
         ctx.fillStyle = 'white';
         ctx.fillRect(gameAreaStart.x, gameAreaStart.y, gameAreaWidth, gameAreaHeight);
@@ -178,48 +187,82 @@ window.runMergeScript = function () {
     }
 
     function generateSquare() {
-        let x = Math.floor(Math.random() * 4);
-        let y = Math.floor(Math.random() * 4);
-        let value = mergeNumbers[Math.floor(Math.random() * maxMergeNumber)];
-        let newSquare = new squareNumbers(x * 50 + 50, y * 50 + 50, value);
+/*         let x = Math.floor(Math.random() * 4);
+        let y = Math.floor(Math.random() * 4); */
+        let x = 50;
+        let y = 300;
+        /* let value = mergeNumbers[Math.floor(Math.random() * maxMergeNumber)]; */
+        let value = generateRandomNumber();
+        let newSquare = new squareNumbers(x, y, value);
         squares.push(newSquare);
+        endGame();
+        VievList();
+    }
+
+    function generateRandomNumber() {
+        let value;
+        do {
+            value = mergeNumbers[Math.floor(Math.random() * mergeNumbers.length)];
+        } while (value > maxMergeNumber);
+        return value;
+    }
+
+    let mousePosition = {x: 0, y: 0};
+    let cursorPositionOnBlock = {x: 0, y: 0};
+    let selectedSquare = undefined;
+
+    function selectedCheck(x, y, squers) {
+        let selectedSquer = undefined;
+        squers.forEach(block => {
+            if (block.selected(x, y) === true) {
+
+                block.blockClick = true;
+                selectedSquer = block;
+            }
+        });        
+        return selectedSquer;
+    }
+
+    function checkSelectionEvent(params) {
+        if (params != undefined) {
+            console.log("Selected block: ", selectedSquare);
+            return true;
+        } else {
+            console.log("No block selected");
+            return false;
+        }
+    }
+
+    function readMousePosition(event) {
+        mousePosition.x = event.clientX - canvasPosition.left;
+        mousePosition.y = event.clientY - canvasPosition.top;
     }
 
     function mouseDownEvent(event) {
-        let x = event.clientX - canvasPosition.left;
-        let y = event.clientY - canvasPosition.top;
-        squares.forEach(square => {
-            if (x > square.x && x < square.x + square.blockSize && y > square.y && y < square.y + square.blockSize) {
-                square.blockClick = true;
-            }
-        });
+        readMousePosition(event);
+        selectedSquare = selectedCheck(mousePosition.x, mousePosition.y, squares);
+        cursorPositionOnBlock.x = mouseClick.x - selectedBlock.x;
+        cursorPositionOnBlock.y = mouseClick.y - selectedBlock.y;
+
     }
 
     function mouseMoveEvent(event) {
-        let x = event.clientX - canvasPosition.left;
-        let y = event.clientY - canvasPosition.top;
-        squares.forEach(square => {
-            if (square.blockClick) {
-                square.move(x, y);
-            }
-        });
+        readMousePosition(event);
+        if (selectedSquare != undefined) {
+            selectedSquare.move(mousePosition.x - cursorPositionOnBlock.x, mousePosition.y - cursorPositionOnBlock.y);
+        }
+        
     }
 
-    function mouseUpEvent(event) {
-        let x = event.clientX - canvasPosition.left;
-        let y = event.clientY - canvasPosition.top;
-        squares.forEach(square => {
-            if (square.blockClick) {
-                square.blockClick = false;
-                square.positioning();
-            }
-        });
+    function mouseUpEvent(event) {       
+
         generateSquare();
     }
 
 
     function startGame() {
-        console.log("Game started");
+        /* console.log("Game started"); */
+        message = "Game started";
         canvas.addEventListener("mousedown", mouseDownEvent);
         canvas.addEventListener("mousemove", mouseMoveEvent);
         canvas.addEventListener("mouseup", mouseUpEvent);
@@ -239,13 +282,18 @@ window.runMergeScript = function () {
         console.log("Game paused");
     }
 
-    function endGame() {
-        console.log("Game over");
+    function endGame() {        
+        if (squares.length >= 17) {
+            squares = [];
+            /* console.log("Game over"); */
+            message = "Game over";
+        }
     }
 
     function closeGame() {
         stop();
-        console.log("Game closed");
+        /* console.log("Game closed"); */
+        message = "Game closed";
     }
 
     function stop() {
