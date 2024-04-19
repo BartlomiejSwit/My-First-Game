@@ -123,6 +123,13 @@ window.runMergeScript = function () {
             //this.x = x;
             //this.y = y;            
         }
+        selected(spaceX, spaceY) {     
+            if (spaceX >= this.x && spaceX <= (this.x + this.width) && spaceY >= this.y && spaceY <= (this.y + this.height)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 
     let squareN = new squareNumbers(50, 50, 2);
@@ -209,6 +216,7 @@ window.runMergeScript = function () {
 
     let mousePosition = {x: 0, y: 0};
     let cursorPositionOnBlock = {x: 0, y: 0};
+    let mouseClick = {x: 0, y: 0};
     let selectedSquare = undefined;
 
     function selectedCheck(x, y, squers) {
@@ -240,9 +248,13 @@ window.runMergeScript = function () {
 
     function mouseDownEvent(event) {
         readMousePosition(event);
+        mouseClick.x = event.clientX - canvasPosition.left;
+        mouseClick.y = event.clientY - canvasPosition.top;
         selectedSquare = selectedCheck(mousePosition.x, mousePosition.y, squares);
-        cursorPositionOnBlock.x = mouseClick.x - selectedBlock.x;
-        cursorPositionOnBlock.y = mouseClick.y - selectedBlock.y;
+        if (checkSelectionEvent(selectedSquare)){
+            cursorPositionOnBlock.x = mouseClick.x - selectedSquare.x;
+            cursorPositionOnBlock.y = mouseClick.y - selectedSquare.y;
+        } 
 
     }
 
