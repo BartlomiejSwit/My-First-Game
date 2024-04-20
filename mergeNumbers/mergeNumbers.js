@@ -25,6 +25,7 @@ window.runMergeScript = function () {
             this.x = x;
             this.y = y;
             this.value = value;
+            this.setPosition = {x: 0, y: 0};
             this.rightSite = null;
             this.leftSite = null;
             this.upSite = null;
@@ -33,7 +34,7 @@ window.runMergeScript = function () {
             this.colorBlock = this.blockColor(this.value);
             this.colorText = "black";
             this.blockSize = 50;
-            this.blockClick = false;
+            this.blockClick = true;
         }
 
         draw() {
@@ -99,35 +100,70 @@ window.runMergeScript = function () {
         }
 
         move(x, y) {
-            if (x < 0) {
+/*             if (x < 0) {
                 x = 0;                
-            } else if (x + this.width > gameAreaWidth) {
-                x = gameAreaWidth - this.width;
+            } else if (x + this.blockSize > gameAreaWidth) {
+                x = gameAreaWidth - this.blockSize;
             } 
             if (y < 0) {
                 y = 0;
-            } else if (y + this.height > gameAreaHeight) {
-                y = gameAreaHeight - this.height;
-            }
-            
-            if (x < this.blockPosition.x + 50 && x > this.blockPosition.x - 50 ) {
-                this.x = x;
-            } else {
-                this.x = this.x;
-            }
-            if (y < this.blockPosition.y + 50 && y > this.blockPosition.y - 50) {
-                this.y = y;
-            } else {
-                this.y = this.y;
-            }
-            //this.x = x;
-            //this.y = y;            
+            } else if (y + this.blockSize > gameAreaHeight) {
+                y = gameAreaHeight - this.blockSize;
+            } */
+            this.x = x;
+            this.y = y;            
         }
+
         selected(spaceX, spaceY) {     
-            if (spaceX >= this.x && spaceX <= (this.x + this.width) && spaceY >= this.y && spaceY <= (this.y + this.height)) {
+            if (spaceX >= this.x && spaceX <= (this.x + this.blockSize) && spaceY >= this.y && spaceY <= (this.y + this.blockSize)) {
                 return true;
             } else {
                 return false;
+            }
+        }
+
+        savePosition() {
+            this.setPosition.x = this.x;
+            this.setPosition.y = this.y;
+        }
+
+        loadPosition() {
+            this.x = this.setPosition.x;
+            this.y = this.setPosition.y;
+        }
+
+        merge() {
+            if (this.rightSite != null && this.rightSite.value === this.value) {
+                this.value = this.value * 2;
+                this.rightSite = null;
+                this.leftSite = null;
+                this.upSite = null;
+                this.downSite = null;
+                score += this.value;
+            }
+            if (this.leftSite != null && this.leftSite.value === this.value) {
+                this.value = this.value * 2;
+                this.rightSite = null;
+                this.leftSite = null;
+                this.upSite = null;
+                this.downSite = null;
+                score += this.value;
+            }
+            if (this.upSite != null && this.upSite.value === this.value) {
+                this.value = this.value * 2;
+                this.rightSite = null;
+                this.leftSite = null;
+                this.upSite = null;
+                this.downSite = null;
+                score += this.value;
+            }
+            if (this.downSite != null && this.downSite.value === this.value) {
+                this.value = this.value * 2;
+                this.rightSite = null;
+                this.leftSite = null;
+                this.upSite = null;
+                this.downSite = null;
+                score += this.value;
             }
         }
     }
@@ -203,7 +239,7 @@ window.runMergeScript = function () {
         let newSquare = new squareNumbers(x, y, value);
         squares.push(newSquare);
         endGame();
-        VievList();
+       /*  VievList(); */
     }
 
     function generateRandomNumber() {
@@ -223,8 +259,7 @@ window.runMergeScript = function () {
         let selectedSquer = undefined;
         squers.forEach(block => {
             if (block.selected(x, y) === true) {
-
-                block.blockClick = true;
+                /* block.blockClick = true; */
                 selectedSquer = block;
             }
         });        
@@ -233,7 +268,7 @@ window.runMergeScript = function () {
 
     function checkSelectionEvent(params) {
         if (params != undefined) {
-            console.log("Selected block: ", selectedSquare);
+            /* console.log("Selected block: ", selectedSquare); */
             return true;
         } else {
             console.log("No block selected");
@@ -247,27 +282,33 @@ window.runMergeScript = function () {
     }
 
     function mouseDownEvent(event) {
-        readMousePosition(event);
+        /* readMousePosition(event); */
         mouseClick.x = event.clientX - canvasPosition.left;
         mouseClick.y = event.clientY - canvasPosition.top;
         selectedSquare = selectedCheck(mousePosition.x, mousePosition.y, squares);
+/*         console.log("selectedSquare: ", selectedSquare); */
         if (checkSelectionEvent(selectedSquare)){
             cursorPositionOnBlock.x = mouseClick.x - selectedSquare.x;
             cursorPositionOnBlock.y = mouseClick.y - selectedSquare.y;
+            selectedSquare.savePosition();
         } 
 
     }
 
     function mouseMoveEvent(event) {
         readMousePosition(event);
-        if (selectedSquare != undefined) {
+        if (checkSelectionEvent(selectedSquare) && selectedSquare.blockClick === true) {
+/*             console.log("selectedSquare: ", selectedSquare, "mousePosition: ", mousePosition, "cursorPositionOnBlock: ", cursorPositionOnBlock); */
             selectedSquare.move(mousePosition.x - cursorPositionOnBlock.x, mousePosition.y - cursorPositionOnBlock.y);
-        }
-        
+        }       
     }
 
-    function mouseUpEvent(event) {       
-
+    function mouseUpEvent(event) {   
+        if (checkSelectionEvent(selectedSquare)) {
+            selectedSquare.blockClick = false;
+            selectedSquare.positioning();
+            selectedSquare.savePosition();
+        }
         generateSquare();
     }
 
