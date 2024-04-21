@@ -100,18 +100,12 @@ window.runMergeScript = function () {
         }
 
         move(x, y) {
-/*             if (x < 0) {
-                x = 0;                
-            } else if (x + this.blockSize > gameAreaWidth) {
-                x = gameAreaWidth - this.blockSize;
-            } 
-            if (y < 0) {
-                y = 0;
-            } else if (y + this.blockSize > gameAreaHeight) {
-                y = gameAreaHeight - this.blockSize;
+/*             if (x >= gameAreaStart.x && x <= gameAreaEnd.x && y >= gameAreaStart.y && y <= gameAreaEnd.y) {
+                this.x = x;
+                this.y = y;
             } */
             this.x = x;
-            this.y = y;            
+            this.y = y;         
         }
 
         selected(spaceX, spaceY) {     
@@ -229,13 +223,22 @@ window.runMergeScript = function () {
         drawSquare();
     }
 
-    function generateSquare() {
+    function generateSquare(x = null, y = null, value = null) {
 /*         let x = Math.floor(Math.random() * 4);
         let y = Math.floor(Math.random() * 4); */
-        let x = 50;
-        let y = 300;
+        if (x === null) {
+            x = 50;
+        }
+        if (y === null) {
+            y = 300;
+        }
+/*         let x = 50;
+        let y = 300; */
         /* let value = mergeNumbers[Math.floor(Math.random() * maxMergeNumber)]; */
-        let value = generateRandomNumber();
+        /* let value = generateRandomNumber(); */
+        if (value === null) {
+            value = generateRandomNumber();
+        }
         let newSquare = new squareNumbers(x, y, value);
         squares.push(newSquare);
         endGame();
@@ -276,6 +279,30 @@ window.runMergeScript = function () {
         }
     }
 
+    function checksCollisionSquare(squers, selectedSquare) {
+        let moveBlock = false;
+        squers.forEach(block => {
+            if (block !== selectedSquare) {
+                if (block.x === selectedSquare.x && block.y === selectedSquare.y) {
+                    moveBlock = true;
+                }
+            }
+        });
+        return moveBlock;
+
+    }
+
+    function checksCollisionWall(selectedSquare) {
+        let moveBlock = false;
+        if (selectedSquare.x < gameAreaStart.x || 
+            selectedSquare.x > gameAreaEnd.x - selectedSquare.blockSize || 
+            selectedSquare.y < gameAreaStart.y || 
+            selectedSquare.y > gameAreaEnd.y - selectedSquare.blockSize) {
+            moveBlock = true;
+        }
+        return moveBlock;
+    }
+
     function readMousePosition(event) {
         mousePosition.x = event.clientX - canvasPosition.left;
         mousePosition.y = event.clientY - canvasPosition.top;
@@ -304,18 +331,24 @@ window.runMergeScript = function () {
     }
 
     function mouseUpEvent(event) {   
-        if (checkSelectionEvent(selectedSquare)) {
-            selectedSquare.blockClick = false;
+        if (checkSelectionEvent(selectedSquare)) {            
             selectedSquare.positioning();
-            selectedSquare.savePosition();
+            if (checksCollisionSquare(squares, selectedSquare) || checksCollisionWall(selectedSquare)) {
+                /* selectedSquare.loadPosition(); */
+            } else {
+                selectedSquare.blockClick = false;
+                selectedSquare.savePosition();
+                generateSquare();
+            }
+            
         }
-        generateSquare();
+        
     }
-
 
     function startGame() {
         /* console.log("Game started"); */
         message = "Game started";
+        generateSquare();
         canvas.addEventListener("mousedown", mouseDownEvent);
         canvas.addEventListener("mousemove", mouseMoveEvent);
         canvas.addEventListener("mouseup", mouseUpEvent);
@@ -356,4 +389,6 @@ window.runMergeScript = function () {
     startGame();
 
     return {stop};
+    //TODO: Dodać alert z informacją o zakończeniu gry
+    //TODO: Dodać możliwość restartu gry
 }
