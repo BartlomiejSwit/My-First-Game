@@ -126,38 +126,11 @@ window.runMergeScript = function () {
             this.y = this.setPosition.y;
         }
 
-        merge() {
-            if (this.rightSite != null && this.rightSite.value === this.value) {
-                this.value = this.value * 2;
-                this.rightSite = null;
-                this.leftSite = null;
-                this.upSite = null;
-                this.downSite = null;
-                score += this.value;
-            }
-            if (this.leftSite != null && this.leftSite.value === this.value) {
-                this.value = this.value * 2;
-                this.rightSite = null;
-                this.leftSite = null;
-                this.upSite = null;
-                this.downSite = null;
-                score += this.value;
-            }
-            if (this.upSite != null && this.upSite.value === this.value) {
-                this.value = this.value * 2;
-                this.rightSite = null;
-                this.leftSite = null;
-                this.upSite = null;
-                this.downSite = null;
-                score += this.value;
-            }
-            if (this.downSite != null && this.downSite.value === this.value) {
-                this.value = this.value * 2;
-                this.rightSite = null;
-                this.leftSite = null;
-                this.upSite = null;
-                this.downSite = null;
-                score += this.value;
+        checkValue(sqare) {
+            if (this.value === sqare.value) {
+                return true;
+            } else {
+                return false;
             }
         }
     }
@@ -345,13 +318,64 @@ window.runMergeScript = function () {
             } else {
                 selectedSquare.blockClick = false;
                 selectedSquare.savePosition();
+                if (mergeSquires()) {
+                    generateSquare();
+                }
                 generateSquare();
-                generateSquare(0, 0 , 2);
             }
             
         }
         
     }
+
+    function mergeSquires(selectedSquare) {
+        let halfSize = selectedSquare.blockSize / 2;
+        let rightCheck = selectedSquare.x + selectedSquare.blockSize + halfSize;
+        let leftCheck = selectedSquare.x - halfSize;
+        let upCheck = selectedSquare.y - halfSize;
+        let downCheck = selectedSquare.y + selectedSquare.blockSize + halfSize;
+        let checkingSquare = undefined;
+        if (checkingSquare = selectedCheck(rightCheck, selectedSquare.y, squares)) {
+            if (selectedSquare.checkValue(checkingSquare)) {
+                selectedSquare.value += checkingSquare.value;
+                score += selectedSquare.value;
+                squares = squares.filter(block => block !== checkingSquare);
+                return true;
+            }
+        }
+        if (checkingSquare = selectedCheck(leftCheck, selectedSquare.y, squares)) {
+            if (selectedSquare.checkValue(checkingSquare)) {
+                selectedSquare.value += checkingSquare.value;
+                score += selectedSquare.value;
+                squares = squares.filter(block => block !== checkingSquare);
+                return true;
+            }
+        }
+        if (checkingSquare = selectedCheck(selectedSquare.x, upCheck, squares)) {
+            if (selectedSquare.checkValue(checkingSquare)) {
+                selectedSquare.value += checkingSquare.value;
+                score += selectedSquare.value;
+                squares = squares.filter(block => block !== checkingSquare);
+                return true;
+            }
+        }
+        if (checkingSquare = selectedCheck(selectedSquare.x, downCheck, squares)) {
+            if (selectedSquare.checkValue(checkingSquare)) {
+                selectedSquare.value += checkingSquare.value;
+                score += selectedSquare.value;
+                squares = squares.filter(block => block !== checkingSquare);
+                return true;
+            }
+        }
+        return false;
+    }
+
+        
+
+
+
+
+ 
 
     function startGame() {
         /* console.log("Game started"); */
