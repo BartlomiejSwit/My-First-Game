@@ -34,7 +34,7 @@ window.runMergeScript = function () {
             this.colorBlock = this.blockColor(this.value);
             this.colorText = "black";
             this.blockSize = 50;
-            this.blockClick = true;
+            this.blockClick = false;
         }
 
         draw() {
@@ -226,6 +226,10 @@ window.runMergeScript = function () {
     function generateSquare(x = null, y = null, value = null) {
 /*         let x = Math.floor(Math.random() * 4);
         let y = Math.floor(Math.random() * 4); */
+        let sealSquare = false;
+        if (x === null && y === null && value === null) {
+            sealSquare = true;
+        }
         if (x === null) {
             x = 50;
         }
@@ -240,6 +244,9 @@ window.runMergeScript = function () {
             value = generateRandomNumber();
         }
         let newSquare = new squareNumbers(x, y, value);
+        if (sealSquare === true) {
+            newSquare.blockClick = true;
+        }
         squares.push(newSquare);
         endGame();
        /*  VievList(); */
@@ -339,6 +346,7 @@ window.runMergeScript = function () {
                 selectedSquare.blockClick = false;
                 selectedSquare.savePosition();
                 generateSquare();
+                generateSquare(0, 0 , 2);
             }
             
         }
