@@ -40,7 +40,8 @@ window.runMergeScript = function () {
         draw() {
             var cornerRadius = 5; // Promień zaokrąglenia krawędzi
 
-            ctx.fillStyle = this.colorBlock;
+            //ctx.fillStyle = this.colorBlock;
+            ctx.fillStyle = this.blockColor(this.value); // Ustawiamy kolor wypełnienia
             ctx.strokeStyle = "Blue"; // Ustawiamy kolor obramowania
         
             // Rysujemy zaokrąglony prostokąt
@@ -135,7 +136,7 @@ window.runMergeScript = function () {
         }
     }
 
-    let squareN = new squareNumbers(50, 50, 2);
+/*     let squareN = new squareNumbers(50, 50, 2);
     let squareN2 = new squareNumbers(100, 50, 4);
     let squareN3 = new squareNumbers(150, 50, 8);
     let squareN4 = new squareNumbers(50, 100, 16);
@@ -145,11 +146,11 @@ window.runMergeScript = function () {
     let squareN8 = new squareNumbers(50, 150, 256);
     let squareN9 = new squareNumbers(100, 150, 512);
     let squareN10 = new squareNumbers(150, 150, 1024);
-    let squareN11 = new squareNumbers(200, 150, 2048);
+    let squareN11 = new squareNumbers(200, 150, 2048); */
 
     let squares = [];
 
-    squares.push(squareN, squareN2, squareN3, squareN4, squareN5, squareN6, squareN7, squareN8, squareN9, squareN10, squareN11);
+    //squares.push(squareN, squareN2, squareN3, squareN4, squareN5, squareN6, squareN7, squareN8, squareN9, squareN10, squareN11);
 
     function VievList() {
         squares.forEach(square => {
@@ -318,9 +319,7 @@ window.runMergeScript = function () {
             } else {
                 selectedSquare.blockClick = false;
                 selectedSquare.savePosition();
-                if (mergeSquires()) {
-                    generateSquare();
-                }
+                mergeSquires(selectedSquare);
                 generateSquare();
             }
             
@@ -329,53 +328,60 @@ window.runMergeScript = function () {
     }
 
     function mergeSquires(selectedSquare) {
-        let halfSize = selectedSquare.blockSize / 2;
-        let rightCheck = selectedSquare.x + selectedSquare.blockSize + halfSize;
-        let leftCheck = selectedSquare.x - halfSize;
-        let upCheck = selectedSquare.y - halfSize;
-        let downCheck = selectedSquare.y + selectedSquare.blockSize + halfSize;
-        let checkingSquare = undefined;
-        if (checkingSquare = selectedCheck(rightCheck, selectedSquare.y, squares)) {
-            if (selectedSquare.checkValue(checkingSquare)) {
-                selectedSquare.value += checkingSquare.value;
-                score += selectedSquare.value;
-                squares = squares.filter(block => block !== checkingSquare);
-                return true;
+        if (checkSelectionEvent(selectedSquare)) {
+            let halfSize = selectedSquare.blockSize / 2;
+            let rightCheck = selectedSquare.x + selectedSquare.blockSize + halfSize;
+            let leftCheck = selectedSquare.x - halfSize;
+            let upCheck = selectedSquare.y - halfSize;
+            let downCheck = selectedSquare.y + selectedSquare.blockSize + halfSize;
+            let checkingSquare = undefined;
+            if (checkingSquare = selectedCheck(rightCheck, selectedSquare.y, squares)) {
+                if (selectedSquare.checkValue(checkingSquare)) {
+                    selectedSquare.value += checkingSquare.value;
+                    score += selectedSquare.value;
+                    if (selectedSquare.value > maxMergeNumber) {
+                        maxMergeNumber = selectedSquare.value;
+                    }
+                    squares = squares.filter(block => block !== checkingSquare);
+                    return true;
+                }
             }
-        }
-        if (checkingSquare = selectedCheck(leftCheck, selectedSquare.y, squares)) {
-            if (selectedSquare.checkValue(checkingSquare)) {
-                selectedSquare.value += checkingSquare.value;
-                score += selectedSquare.value;
-                squares = squares.filter(block => block !== checkingSquare);
-                return true;
+            if (checkingSquare = selectedCheck(leftCheck, selectedSquare.y, squares)) {
+                if (selectedSquare.checkValue(checkingSquare)) {
+                    selectedSquare.value += checkingSquare.value;
+                    score += selectedSquare.value;
+                    if (selectedSquare.value > maxMergeNumber) {
+                        maxMergeNumber = selectedSquare.value;
+                    }
+                    squares = squares.filter(block => block !== checkingSquare);
+                    return true;
+                }
             }
-        }
-        if (checkingSquare = selectedCheck(selectedSquare.x, upCheck, squares)) {
-            if (selectedSquare.checkValue(checkingSquare)) {
-                selectedSquare.value += checkingSquare.value;
-                score += selectedSquare.value;
-                squares = squares.filter(block => block !== checkingSquare);
-                return true;
+            if (checkingSquare = selectedCheck(selectedSquare.x, upCheck, squares)) {
+                if (selectedSquare.checkValue(checkingSquare)) {
+                    selectedSquare.value += checkingSquare.value;
+                    score += selectedSquare.value;
+                    if (selectedSquare.value > maxMergeNumber) {
+                        maxMergeNumber = selectedSquare.value;
+                    }
+                    squares = squares.filter(block => block !== checkingSquare);
+                    return true;
+                }
             }
-        }
-        if (checkingSquare = selectedCheck(selectedSquare.x, downCheck, squares)) {
-            if (selectedSquare.checkValue(checkingSquare)) {
-                selectedSquare.value += checkingSquare.value;
-                score += selectedSquare.value;
-                squares = squares.filter(block => block !== checkingSquare);
-                return true;
+            if (checkingSquare = selectedCheck(selectedSquare.x, downCheck, squares)) {
+                if (selectedSquare.checkValue(checkingSquare)) {
+                    selectedSquare.value += checkingSquare.value;
+                    score += selectedSquare.value;
+                    if (selectedSquare.value > maxMergeNumber) {
+                        maxMergeNumber = selectedSquare.value;
+                    }
+                    squares = squares.filter(block => block !== checkingSquare);
+                    return true;
+                }
             }
+            return false;
         }
-        return false;
-    }
-
-        
-
-
-
-
- 
+    }  
 
     function startGame() {
         /* console.log("Game started"); */
