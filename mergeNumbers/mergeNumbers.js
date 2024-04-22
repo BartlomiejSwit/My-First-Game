@@ -319,7 +319,8 @@ window.runMergeScript = function () {
             } else {
                 selectedSquare.blockClick = false;
                 selectedSquare.savePosition();
-                mergeSquires(selectedSquare);
+                mergeSquares(selectedSquare);
+                //mergeSquires(selectedSquare);
                 generateSquare();
             }
             
@@ -327,7 +328,36 @@ window.runMergeScript = function () {
         
     }
 
-    function mergeSquires(selectedSquare) {
+    function mergeSquares(selectedSquare) {
+        if (!checkSelectionEvent(selectedSquare)) {
+            return false;
+        }
+        
+        let halfSize = selectedSquare.blockSize / 2;
+        let neighbors = [
+            { x: selectedSquare.x + selectedSquare.blockSize + halfSize, y: selectedSquare.y },
+            { x: selectedSquare.x - halfSize, y: selectedSquare.y },
+            { x: selectedSquare.x, y: selectedSquare.y - halfSize },
+            { x: selectedSquare.x, y: selectedSquare.y + selectedSquare.blockSize + halfSize }
+        ];
+    
+        for (let neighbor of neighbors) {
+            let checkingSquare = selectedCheck(neighbor.x, neighbor.y, squares);
+            if (checkingSquare && selectedSquare.checkValue(checkingSquare)) {
+                selectedSquare.value += checkingSquare.value;
+                score += selectedSquare.value;
+                if (selectedSquare.value > maxMergeNumber) {
+                    maxMergeNumber = selectedSquare.value;
+                }
+                squares = squares.filter(block => block !== checkingSquare);
+                return true;
+            }
+        }
+        
+        return false;
+    }
+
+/*     function mergeSquires(selectedSquare) {
         if (checkSelectionEvent(selectedSquare)) {
             let halfSize = selectedSquare.blockSize / 2;
             let rightCheck = selectedSquare.x + selectedSquare.blockSize + halfSize;
@@ -382,7 +412,7 @@ window.runMergeScript = function () {
             return false;
         }
     }  
-
+ */
     function startGame() {
         /* console.log("Game started"); */
         message = "Game started";
