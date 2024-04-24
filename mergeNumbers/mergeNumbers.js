@@ -328,7 +328,42 @@ window.runMergeScript = function () {
         
     }
 
+    let mergeInProgress = false; // dodajemy flagę kontrolną
+
     function mergeSquares(selectedSquare) {
+        if (!checkSelectionEvent(selectedSquare) || mergeInProgress) {
+            return false;
+        }
+
+        mergeInProgress = true; // ustawiamy flagę na true
+        
+        let halfSize = selectedSquare.blockSize / 2;
+        let neighbors = [
+            { x: selectedSquare.x, y: selectedSquare.y - halfSize }, // kwadrat z góry
+            { x: selectedSquare.x, y: selectedSquare.y + selectedSquare.blockSize + halfSize }, // kwadrat z dołu
+            { x: selectedSquare.x - halfSize, y: selectedSquare.y }, // kwadrat z lewej strony
+            { x: selectedSquare.x + selectedSquare.blockSize + halfSize, y: selectedSquare.y } // kwadrat z prawej strony
+        ];
+
+        for (let neighbor of neighbors) {
+            let checkingSquare = selectedCheck(neighbor.x, neighbor.y, squares);
+            if (checkingSquare && selectedSquare.checkValue(checkingSquare)) {
+                selectedSquare.value += checkingSquare.value;
+                score += selectedSquare.value;
+                if (selectedSquare.value > maxMergeNumber) {
+                    maxMergeNumber = selectedSquare.value;
+                }
+                squares = squares.filter(block => block !== checkingSquare);
+                mergeInProgress = false; // resetujemy flagę na false po zakończeniu
+                return true;
+            }
+        }
+        
+        mergeInProgress = false; // resetujemy flagę na false, jeśli nie znaleziono kwadratu do scalenia
+        return false;
+    }
+
+/*     function mergeSquares(selectedSquare) {
         if (!checkSelectionEvent(selectedSquare)) {
             return false;
         }
@@ -355,7 +390,7 @@ window.runMergeScript = function () {
         }
         
         return false;
-    }
+    } */
 
 /*     function mergeSquires(selectedSquare) {
         if (checkSelectionEvent(selectedSquare)) {
