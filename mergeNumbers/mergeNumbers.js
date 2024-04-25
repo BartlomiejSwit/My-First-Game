@@ -319,9 +319,16 @@ window.runMergeScript = function () {
             } else {
                 selectedSquare.blockClick = false;
                 selectedSquare.savePosition();
-                mergeSquares(selectedSquare);
+                if (mergeSquares(selectedSquare)) {
+                    generateSquare();
+                }
+                else {
+                    /* selectedSquare.loadPosition(); */
+                    generateSquare();
+                }
+/*                 mergeSquares(selectedSquare);
                 //mergeSquires(selectedSquare);
-                generateSquare();
+                generateSquare(); */
             }
             
         }
@@ -331,7 +338,7 @@ window.runMergeScript = function () {
     let mergeInProgress = false; // dodajemy flagę kontrolną
 
     function mergeSquares(selectedSquare) {
-        if (!checkSelectionEvent(selectedSquare) || mergeInProgress) {
+        if (!checkSelectionEvent(selectedSquare)){ /* || mergeInProgress) { */
             return false;
         }
 
