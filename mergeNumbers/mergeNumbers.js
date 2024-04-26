@@ -319,26 +319,24 @@ window.runMergeScript = function () {
             } else {
                 selectedSquare.blockClick = false;
                 selectedSquare.savePosition();
-                if (mergeSquares(selectedSquare)) {
-                    generateSquare();
-                }
-                else {
-                    /* selectedSquare.loadPosition(); */
-                    generateSquare();
-                }
 /*                 mergeSquares(selectedSquare);
                 //mergeSquires(selectedSquare);
                 generateSquare(); */
+                let merge = false;
+                do {     
+                    merge = mergeSquares(selectedSquare)
+                } while (merge === true);
+                generateSquare();
             }
             
         }
         
     }
 
-    let mergeInProgress = false; // dodajemy flagę kontrolną
+/*     let mergeInProgress = false; // dodajemy flagę kontrolną
 
     function mergeSquares(selectedSquare) {
-        if (!checkSelectionEvent(selectedSquare)){ /* || mergeInProgress) { */
+        if (!checkSelectionEvent(selectedSquare) || mergeInProgress) {
             return false;
         }
 
@@ -368,9 +366,9 @@ window.runMergeScript = function () {
         
         mergeInProgress = false; // resetujemy flagę na false, jeśli nie znaleziono kwadratu do scalenia
         return false;
-    }
+    } */
 
-/*     function mergeSquares(selectedSquare) {
+    function mergeSquares(selectedSquare) {
         if (!checkSelectionEvent(selectedSquare)) {
             return false;
         }
@@ -397,7 +395,7 @@ window.runMergeScript = function () {
         }
         
         return false;
-    } */
+    }
 
 /*     function mergeSquires(selectedSquare) {
         if (checkSelectionEvent(selectedSquare)) {
