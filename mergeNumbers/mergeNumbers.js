@@ -101,6 +101,12 @@ window.runMergeScript = function () {
         }
 
         move(x, y) {
+            if (x > 0 && x < canvWidth - this.blockSize) {
+                this.x = x;
+            }
+            if (y > 0 && y < canvHeight - this.blockSize) {
+                this.y = y;
+            }
 /*             if (x >= gameAreaStart.x && x <= gameAreaEnd.x && y >= gameAreaStart.y && y <= gameAreaEnd.y) {
                 this.x = x;
                 this.y = y;
