@@ -333,6 +333,10 @@ window.runMergeScript = function () {
                     merge = mergeSquares(selectedSquare)
                 } while (merge === true);
                 generateSquare();
+                squares.forEach(square => {
+                    console.log(square);
+                });
+                console.log("nowe wyliczenie: ", squares.length);
             }
             
         }
