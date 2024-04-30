@@ -158,7 +158,7 @@ window.runMergeScript = function () {
 
     //squares.push(squareN, squareN2, squareN3, squareN4, squareN5, squareN6, squareN7, squareN8, squareN9, squareN10, squareN11);
 
-    function VievList() {
+    function VievList(squares) {
         console.log("nowe wyliczenie: ", squares.length);
         squares.forEach(square => {
             console.log(square);
@@ -334,7 +334,7 @@ window.runMergeScript = function () {
                     merge = mergeSquares(selectedSquare)
                 } while (merge === true);
                 generateSquare();
-                VievList();
+                VievList(squares);
 
             }
             
@@ -349,31 +349,13 @@ window.runMergeScript = function () {
         
         let halfSize = selectedSquare.blockSize / 2;
         let neighbors = [
-            { x: selectedSquare.x + selectedSquare.blockSize + halfSize, y: selectedSquare.y },
-            { x: selectedSquare.x - halfSize, y: selectedSquare.y },
-            { x: selectedSquare.x, y: selectedSquare.y - halfSize },
-            { x: selectedSquare.x, y: selectedSquare.y + selectedSquare.blockSize + halfSize }
+            { x: selectedSquare.x + selectedSquare.blockSize + halfSize, y: selectedSquare.y + halfSize },
+            { x: selectedSquare.x - halfSize, y: selectedSquare.y + halfSize },
+            { x: selectedSquare.x + halfSize, y: selectedSquare.y - halfSize },
+            { x: selectedSquare.x + halfSize, y: selectedSquare.y + selectedSquare.blockSize + halfSize }
         ];
 
-/*         let neighbors = [
-            { x: selectedSquare.x + selectedSquare.blockSize, y: selectedSquare.y }, // sąsiad z prawej
-            { x: selectedSquare.x - selectedSquare.blockSize, y: selectedSquare.y }, // sąsiad z lewej
-            { x: selectedSquare.x, y: selectedSquare.y - selectedSquare.blockSize }, // sąsiad z góry
-            { x: selectedSquare.x, y: selectedSquare.y + selectedSquare.blockSize }  // sąsiad z dołu
-        ]; */
-
-/*         neighbors.forEach(neighbor => {
-            let checkingSquare = selectedCheck(neighbor.x, neighbor.y, squares);
-            if (checkingSquare && selectedSquare.checkValue(checkingSquare)) {
-                selectedSquare.value += checkingSquare.value;
-                score += selectedSquare.value;
-                if (selectedSquare.value > maxMergeNumber) {
-                    maxMergeNumber = selectedSquare.value;
-                }
-                squares = squares.filter(block => block !== checkingSquare);
-                return true;
-            }
-        }); */
+        VievList(neighbors);
     
         for (let neighbor of neighbors) {
             let checkingSquare = selectedCheck(neighbor.x, neighbor.y, squares);
