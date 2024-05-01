@@ -333,8 +333,8 @@ window.runMergeScript = function () {
                 do {     
                     merge = mergeSquares(selectedSquare)
                 } while (merge === true);
-                generateSquare();
-                VievList(squares);
+                //generateSquare();
+                //VievList(squares);
 
             }
             
@@ -387,7 +387,7 @@ window.runMergeScript = function () {
             selectedCheck(selectedSquare.x + halfSize, selectedSquare.y + selectedSquare.blockSize + halfSize, squares)
         ];
 
-        VievList(neighbors);
+        //VievList(neighbors);
         let mergeCount = 0;
 
         let neighborsFitted = [];
@@ -413,6 +413,7 @@ window.runMergeScript = function () {
                 //squares = squares.filter(block => block !== neighbor);
             return true;
         }
+        generateSquare();
 
         
 
