@@ -348,7 +348,7 @@ window.runMergeScript = function () {
         }
         
         let halfSize = selectedSquare.blockSize / 2;
-        let neighbors = [
+/*         let neighbors = [
             { x: selectedSquare.x + selectedSquare.blockSize + halfSize, y: selectedSquare.y + halfSize },
             { x: selectedSquare.x - halfSize, y: selectedSquare.y + halfSize },
             { x: selectedSquare.x + halfSize, y: selectedSquare.y - halfSize },
@@ -367,11 +367,151 @@ window.runMergeScript = function () {
                 if (selectedSquare.value > maxMergeNumber) {
                     maxMergeNumber = selectedSquare.value;
                 }
-                squares = squares.filter(block => block !== checkingSquare);
+                if (selectedSquare.value === 4096) {
+                    squares = squares.filter(block => block !== checkingSquare && block !== selectedSquare);
+                }
+                else {
+                    squares = squares.filter(block => block !== checkingSquare);
+                }
                 return true;
             }
         }
         
+        return false;
+ */
+
+        let neighbors = [
+            selectedCheck(selectedSquare.x + selectedSquare.blockSize + halfSize, selectedSquare.y + halfSize, squares),
+            selectedCheck(selectedSquare.x - halfSize, selectedSquare.y + halfSize, squares),
+            selectedCheck(selectedSquare.x + halfSize, selectedSquare.y - halfSize, squares),
+            selectedCheck(selectedSquare.x + halfSize, selectedSquare.y + selectedSquare.blockSize + halfSize, squares)
+        ];
+
+        VievList(neighbors);
+        let mergeCount = 0;
+
+        let neighborsFitted = [];
+        neighbors.forEach(neighbor => {
+            if (neighbor && selectedSquare.checkValue(neighbor)) {
+                neighborsFitted.push(neighbor);
+                mergeCount++;
+            }
+        });
+
+        if (mergeCount > 0) {
+            selectedSquare.value += selectedSquare.value;
+            score += (mergeCount * selectedSquare.value);
+            //selectedSquare.value += neighbor.value;
+            if (selectedSquare.value > maxMergeNumber) {
+                maxMergeNumber = selectedSquare.value;
+            }
+            if (selectedSquare.value === 4096) {
+                neighborsFitted.push(selectedSquare);
+                //squares = squares.filter(block => block !== neighbor && block !== selectedSquare);
+            }
+            squares = squares.filter(square => !neighborsFitted.includes(square));
+                //squares = squares.filter(block => block !== neighbor);
+            return true;
+        }
+
+        
+
+/*         switch (mergeCount) {
+            case 0:
+                return false;
+            case 1:
+                for (let neighbor of neighborsFitted) {
+                    selectedSquare.value += neighbor.value;
+                    score += selectedSquare.value;
+                    if (selectedSquare.value > maxMergeNumber) {
+                        maxMergeNumber = selectedSquare.value;
+                    }
+                    if (selectedSquare.value === 4096) {
+                        squares = squares.filter(block => block !== neighbor && block !== selectedSquare);
+                    }
+                    else {
+                        squares = squares.filter(block => block !== neighbor);
+                    }
+                }
+                return true;
+                //break;
+            case 2:
+                selectedSquare.value += selectedSquare.value;
+                score += (mergeCount * selectedSquare.value);
+                //selectedSquare.value += neighbor.value;
+                if (selectedSquare.value > maxMergeNumber) {
+                    maxMergeNumber = selectedSquare.value;
+                }
+                if (selectedSquare.value === 4096) {
+                    squares = squares.filter(square => !neighborsFitted.includes(square) && block !== selectedSquare);
+                    //squares = squares.filter(block => block !== neighbor && block !== selectedSquare);
+                }
+                else {
+                    squares = squares.filter(square => !neighborsFitted.includes(square));
+                    //squares = squares.filter(block => block !== neighbor);
+                }
+                return true;
+                //break;
+            case 3:
+                for (let neighbor of neighborsFitted) {
+                    selectedSquare.value += neighbor.value;
+                    score += (mergeCount * selectedSquare.value);
+                    if (selectedSquare.value > maxMergeNumber) {
+                        maxMergeNumber = selectedSquare.value;
+                    }
+                    if (selectedSquare.value === 4096) {
+                        squares = squares.filter(square => !neighborsFitted.includes(square * square) && block !== selectedSquare)
+                        //squares = squares.filter(block => block !== neighbor && block !== selectedSquare);
+                    }
+                    else {
+                        squares = squares.filter(square => !neighborsFitted.includes(square * square));
+                        //squares = squares.filter(block => block !== neighbor);
+                    }
+                }
+
+                break;
+            case 4:
+                for (let neighbor of neighborsFitted) {
+                    selectedSquare.value += neighbor.value;
+                    score += (mergeCount * selectedSquare.value);
+                    if (selectedSquare.value > maxMergeNumber) {
+                        maxMergeNumber = selectedSquare.value;
+                    }
+                    if (selectedSquare.value === 4096) {
+                        squares = squares.filter(square => !neighborsFitted.includes(square * square) && block !== selectedSquare)
+                        //squares = squares.filter(block => block !== neighbor && block !== selectedSquare);
+                    }
+                    else {
+                        squares = squares.filter(square => !neighborsFitted.includes(square * square));
+                        //squares = squares.filter(block => block !== neighbor);
+                    }
+                }
+
+                break;
+            default:
+                console.log("Error mergeCount: ", mergeCount);
+                break;
+        } */
+    
+/*         for (let neighbor of neighbors) {
+            let checkingSquare = neighbor;
+            //console.log("checkingSquare: ", checkingSquare);
+            if (checkingSquare && selectedSquare.checkValue(checkingSquare)) {
+                //console.log("Value merge: ", selectedSquare.checkValue(checkingSquare));
+                selectedSquare.value += checkingSquare.value;
+                score += selectedSquare.value;
+                if (selectedSquare.value > maxMergeNumber) {
+                    maxMergeNumber = selectedSquare.value;
+                }
+                if (selectedSquare.value === 4096) {
+                    squares = squares.filter(block => block !== checkingSquare && block !== selectedSquare);
+                }
+                else {
+                    squares = squares.filter(block => block !== checkingSquare);
+                }
+                return true;
+            }
+        }         */
         return false;
     }
 
