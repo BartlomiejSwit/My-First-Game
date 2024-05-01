@@ -13,6 +13,8 @@ window.runMergeScript = function () {
     const gameAreaWidth = 200;
     const gameAreaHeight = 200;
 
+    const gameStartPoint = {x: 50, y: 300};
+
     let score = 0;
     let maxMergeNumber = 8;
     const mergeNumbers = [2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048];
@@ -30,8 +32,8 @@ window.runMergeScript = function () {
             this.leftSite = null;
             this.upSite = null;
             this.downSite = null;
-            //this.color = "white";
-            this.colorBlock = this.blockColor(this.value);
+            this.colorBlock = "black";
+            //this.colorBlock = this.blockColor(this.value);
             this.colorText = "black";
             this.blockSize = 50;
             this.blockClick = false;
@@ -41,7 +43,8 @@ window.runMergeScript = function () {
             var cornerRadius = 5; // Promień zaokrąglenia krawędzi
 
             //ctx.fillStyle = this.colorBlock;
-            ctx.fillStyle = this.blockColor(this.value); // Ustawiamy kolor wypełnienia
+            //ctx.fillStyle = this.blockColor(this.value); // Ustawiamy kolor wypełnienia
+            ctx.fillStyle = this.blockClick ? this.blockClickColor(this.value) : this.blockColor(this.value); // Ustawiamy kolor wypełnienia
             ctx.strokeStyle = "Blue"; // Ustawiamy kolor obramowania
         
             // Rysujemy zaokrąglony prostokąt
@@ -69,31 +72,83 @@ window.runMergeScript = function () {
         blockColor(value) {
             switch (value) {
                 case 2:
-                    return "white";
+                    //return "white";
+                    return "#f0e1e3";
                 case 4:
-                    return "yellow";
+                    //return "yellow";
+                    return "#ffe005";
                 case 8:
-                    return "orange";
+                    //return "orange";
+                    return "#eb8926";
                 case 16:
-                    return "red";
+                    //return "red";
+                    return "#ff1504";
                 case 32:
-                    return "purple";
+                    //return "purple";
+                    return "#8519ff";
                 case 64:
-                    return "blue";
+                    //return "turquoise";
+                    return "#11728c";
                 case 128:
-                    return "green";
+                    //return "green";
+                    return "#25e200";
                 case 256:
-                    return "brown";
+                    //return "brown";
+                    return "#841515";
                 case 512:
-                    return "pink";
+                    //return "pink";
+                    return "#f17ea0";
                 case 1024:
-                    return "gray";
+                    //return "gray";
+                    return "#b71792";
                 case 2048:
-                    return "gold";
+                    //return "gold";
+                    return "#75e5bc";
                 default:
                     return "black";
             }
         }
+
+        blockClickColor(valueClick) {
+            switch (valueClick) {
+                case 2:
+                    //return "lightgray";
+                    return "#e7ced0";
+                case 4:
+                    //return "darkyellow";
+                    return "#ccb200";
+                case 8:
+                    //return "darkorange";
+                    return "#dc7915";
+                case 16:
+                    //return "darkred";
+                    return "#8d0b0b";
+                case 32:
+                    //return "darkpurple";
+                    return "#7300f3";
+                case 64:
+                    //return "darkturquoise";
+                    return "#185d72";
+                case 128:
+                    //return "darkgreen";
+                    return "#1aa000";
+                case 256:
+                    //return "darkbrown";
+                    return "#720e0e";
+                case 512:
+                    //return "darkpink";
+                    return "#ed507f";
+                case 1024:
+                    //return "darkgray";
+                    return "#9d2882";
+                case 2048:
+                    //return "darkgold";
+                    return "#45be92";
+                default:
+                    return "black";
+            }
+        }
+
 
         positioning() {
             this.x = Math.round(this.x / 50) * 50;
@@ -122,6 +177,24 @@ window.runMergeScript = function () {
                 return false;
             }
         }
+
+        checkIsMoved() {
+            if (this.x === this.setPosition.x && this.y === this.setPosition.y) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        checkStartPosition() {
+            if (this.x === gameStartPoint.x && this.y === gameStartPoint.y) {
+                this.blockClick = true;
+                return true;
+            } else {
+                this.blockClick = false;
+                return false;
+            }
+        }    
 
         savePosition() {
             this.setPosition.x = this.x;
@@ -226,7 +299,7 @@ window.runMergeScript = function () {
         }
         let newSquare = new squareNumbers(x, y, value);
         if (sealSquare === true) {
-            newSquare.blockClick = true;
+            //newSquare.blockClick = true;
         }
         squares.push(newSquare);
         endGame();
@@ -302,10 +375,11 @@ window.runMergeScript = function () {
         mouseClick.y = event.clientY - canvasPosition.top;
         selectedSquare = selectedCheck(mousePosition.x, mousePosition.y, squares);
 /*         console.log("selectedSquare: ", selectedSquare); */
-        if (checkSelectionEvent(selectedSquare)){
+        if (checkSelectionEvent(selectedSquare) && selectedSquare.checkStartPosition()){
             cursorPositionOnBlock.x = mouseClick.x - selectedSquare.x;
             cursorPositionOnBlock.y = mouseClick.y - selectedSquare.y;
             selectedSquare.savePosition();
+            //selectedSquare.blockClick = true;
         } 
 
     }
@@ -322,10 +396,9 @@ window.runMergeScript = function () {
         if (checkSelectionEvent(selectedSquare)) {            
             selectedSquare.positioning();
             if (checksCollisionSquare(squares, selectedSquare) || checksCollisionWall(selectedSquare)) {
-                /* selectedSquare.loadPosition(); */
+                selectedSquare.loadPosition();
             } else {
-                selectedSquare.blockClick = false;
-                selectedSquare.savePosition();
+                selectedSquare.blockClick = false;                
 /*                 mergeSquares(selectedSquare);
                 //mergeSquires(selectedSquare);
                 generateSquare(); */
@@ -333,6 +406,7 @@ window.runMergeScript = function () {
                 do {     
                     merge = mergeSquares(selectedSquare)
                 } while (merge === true);
+                selectedSquare.savePosition();
                 //generateSquare();
                 //VievList(squares);
 
@@ -413,7 +487,10 @@ window.runMergeScript = function () {
                 //squares = squares.filter(block => block !== neighbor);
             return true;
         }
-        generateSquare();
+
+        if(selectedSquare.checkIsMoved()) {
+            generateSquare();
+        }
 
         
 
