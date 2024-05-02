@@ -765,6 +765,5 @@ window.runMergeScript = function () {
 
     return {stop};
     //TODO: Dodać możliwość restartu gry
-    //TODO: Dodać dzwięki do gry: kliknięcie, połączenie kwadratów, wygrana, przegrana
 
 }
