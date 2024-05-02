@@ -5,6 +5,12 @@ window.runMergeScript = function () {
     var gameInterval;
     let canvasPosition = canvas.getBoundingClientRect();
 
+    var mergeUPSound = new Audio('mergeNumbers/sound/MergeUp.mp3');
+    var mergeDownSound = new Audio('mergeNumbers/sound/MergeDown.mp3');
+    var mergeSuccessSound = new Audio('mergeNumbers/sound/MergeSuccess.mp3');
+    var mergeBonusSound = new Audio('mergeNumbers/sound/MergeBonus.mp3');
+    var mergeGameOverSound = new Audio('mergeNumbers/sound/MergeGameOver.mp3');
+
     const canvWidth = canvas.width;
     const canvHeight = canvas.height;
 
@@ -277,6 +283,58 @@ window.runMergeScript = function () {
         drawSquare();
     }
 
+    var startTime = Date.now();
+    var elapsedTime = 0;
+    var timerPaused = false;
+
+    // Funkcja odliczająca czas i aktualizująca czas na ekranie
+    function updateTimer() {
+        if (!timerPaused) {
+            // Oblicza czas, który minął od rozpoczęcia gry
+            elapsedTime = Date.now() - startTime;
+        }
+
+        // Przekształcanie czasu z milisekund na sekundy
+        var totalSeconds = Math.floor(elapsedTime / 1000);
+
+        // Obliczanie godzin, minut i sekund
+        var hours = Math.floor(totalSeconds / 3600);
+        var minutes = Math.floor((totalSeconds % 3600) / 60);
+        var seconds = totalSeconds % 60;
+
+        // Formatowanie czasu
+        var formattedTime = hours.toString().padStart(2, '0') + ":" +
+                            minutes.toString().padStart(2, '0') + ":" +
+                            seconds.toString().padStart(2, '0');
+
+        // Czyszczenie obszar Canvas
+        //ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        ctx.font = "20px Arial";
+        ctx.fillStyle = "white";
+        ctx.fillText("Game Time: " + formattedTime, 100, 385);
+
+        // Wywołanie funkcji przed kolejnym odświeżeniem ekranu
+        requestAnimationFrame(updateTimer);
+    }
+
+    // Funkcja zatrzymująca odliczanie czasu
+    function stopTimer() {
+        timerPaused = true;
+    }
+
+    // Funkcja wznawiająca odliczanie czasu
+    function resumeTimer() {
+        timerPaused = false;
+        startTime = Date.now() - elapsedTime; 
+    }
+
+    // Funkcja resetująca czasomierz
+    function resetTimer() {
+        elapsedTime = 0;
+        startTime = Date.now();
+    }
+
     function generateSquare(x = null, y = null, value = null) {
 /*         let x = Math.floor(Math.random() * 4);
         let y = Math.floor(Math.random() * 4); */
@@ -380,6 +438,7 @@ window.runMergeScript = function () {
             cursorPositionOnBlock.y = mouseClick.y - selectedSquare.y;
             selectedSquare.savePosition();
             //selectedSquare.blockClick = true;
+            mergeUPSound.play();
         } 
 
     }
@@ -397,6 +456,7 @@ window.runMergeScript = function () {
             selectedSquare.positioning();
             if (checksCollisionSquare(squares, selectedSquare) || checksCollisionWall(selectedSquare)) {
                 selectedSquare.loadPosition();
+                mergeDownSound.play();
             } else {
                 selectedSquare.blockClick = false;                
 /*                 mergeSquares(selectedSquare);
@@ -407,6 +467,7 @@ window.runMergeScript = function () {
                     merge = mergeSquares(selectedSquare)
                 } while (merge === true);
                 selectedSquare.savePosition();
+                mergeDownSound.play();
                 //generateSquare();
                 //VievList(squares);
 
@@ -474,7 +535,7 @@ window.runMergeScript = function () {
 
         if (mergeCount > 0) {
             selectedSquare.value += selectedSquare.value;
-            score += (mergeCount * selectedSquare.value);
+            //score += (mergeCount * selectedSquare.value);
             //selectedSquare.value += neighbor.value;
             if (selectedSquare.value > maxMergeNumber) {
                 maxMergeNumber = selectedSquare.value;
@@ -485,6 +546,13 @@ window.runMergeScript = function () {
             }
             squares = squares.filter(square => !neighborsFitted.includes(square));
                 //squares = squares.filter(block => block !== neighbor);
+                if (mergeCount > 1) {
+                    mergeBonusSound.play();
+                    score += (mergeCount * (mergeCount * selectedSquare.value));
+                }else {
+                    mergeSuccessSound.play();
+                    score += (mergeCount * selectedSquare.value);
+                }     
             return true;
         }
 
@@ -657,7 +725,8 @@ window.runMergeScript = function () {
         canvas.addEventListener("mousemove", mouseMoveEvent);
         canvas.addEventListener("mouseup", mouseUpEvent);
         gameInterval = setInterval(gameRuning, 1000 / 60);
-
+        // Rozpocznij odliczanie czasu
+        updateTimer();
     }
 
     function gameWinStage() {
@@ -676,6 +745,8 @@ window.runMergeScript = function () {
         if (squares.length >= 17) {
             squares = [];
             /* console.log("Game over"); */
+            mergeGameOverSound.play();
+            stopTimer();
             message = "Game over";
         }
     }
@@ -693,6 +764,7 @@ window.runMergeScript = function () {
     startGame();
 
     return {stop};
-    //TODO: Dodać alert z informacją o zakończeniu gry
     //TODO: Dodać możliwość restartu gry
+    //TODO: Dodać dzwięki do gry: kliknięcie, połączenie kwadratów, wygrana, przegrana
+
 }
