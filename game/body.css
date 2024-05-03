@@ -53,7 +53,7 @@
       text-align: center;
       margin: 20px;
   }
-  .btn-group button {
+.btnGroupGameStarter button {
     background-color: #4CAF50;
     border: 1px solid green; /* Green border */
     border-radius: 12px;
@@ -65,13 +65,21 @@
     font-size: 20px;
     box-shadow: 0 5px #999;
     display: block; /* Make the buttons appear below each other */
-  }
+    margin-bottom: 10px; /* Add margin bottom between buttons */
+}
   
-  .btn-group button:not(:last-child) {
+  .btnGroupGameStarter button:not(:last-child) {
     border-bottom: none; /* Prevent double borders */
   }
   
   /* Add a background color on hover */
-  .btn-group button:hover {
+  .btnGroupGameStarter button:hover {
     background-color: #3e8e41;
   }
+
+  .GameButtons {
+    display: none; /* Ukryj przyciski domyślnie */
+  }
+
+
+  

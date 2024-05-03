@@ -11,9 +11,15 @@
     <base href=".">
   </head>
   <body>
+  <div>
     <h1>Game Selector</h1>
-    <button class="myButton" onclick="clearGameContainer()">Clear Game</button>
-    <button class="myButton" onclick="stopCurrentGame()">Stop Game</button> <!-- Dodany przycisk Stop Game -->
+    <div class="GameButtons">
+      <button class="myButton" onclick="clearGameContainer()">Clear Game</button>
+      <button class="myButton" onclick="stopCurrentGame()">Stop Game</button> <!-- Dodany przycisk Stop Game -->
+      <button class="myButton" onclick="resetCurrentGame()">Reset Game</button> <!-- Dodany przycisk Reset Game -->
+    </div>
+<!--     <button class="myButton" onclick="clearGameContainer()">Clear Game</button>
+    <button class="myButton" onclick="stopCurrentGame()">Stop Game</button> --> <!-- Dodany przycisk Stop Game -->
 
     <div class="container">
       <div class="box">
@@ -22,7 +28,7 @@
           <!-- Tutaj będą wyświetlane gry -->
         </div>
       </div>
-      <div class="btn-group">
+      <div class="btnGroupGameStarter">
         <button onclick="runSnakeGame()">Run Snake Game</button>
         <button onclick="runSlideGame()">Run Slide Game</button>
         <button onclick="runPongGame()">Run Pong Game</button>
@@ -36,7 +42,8 @@
         <button class="myButton" onclick="runPongGame()">Run Pong Game</button>
         <button class="myButton" onclick="runAnotherGame()">Run Another Game</button>       
       </div> -->
-    </div>    
+    </div>   
+  </div> 
 
     <script src="snake/snake.js"></script>
     <script type="module" src="slide/slide.js"></script>
@@ -61,6 +68,7 @@
         //runSnakeScript();
         //currentGame = runSnakeScript(); // Przypisz aktualną grę do zmiennej
         currentGame = runSnakeScript().stop;
+        document.querySelector('.GameButtons').style.display = 'block'; // Pokaż przyciski Clear Game i Stop Game
       }
 
       function runSlideGame() {
@@ -75,6 +83,7 @@
         //runSlideScript();
         //currentGame = runSlideScript();
         currentGame = window.runSlideScript().stop;
+        document.querySelector('.GameButtons').style.display = 'block';
       }
 
       function runPongGame() {
@@ -89,6 +98,7 @@
         //runPongScript();
         //currentGame = runPongScript();
         currentGame = runPongScript().stop;
+        document.querySelector('.GameButtons').style.display = 'block';
       }
 
       function runMergeGame() {
@@ -104,6 +114,7 @@
         //currentGame = runPongScript();
         //currentGame = runMergeScript().stop;
         currentGame = window.runMergeScript().stop;
+        document.querySelector('.GameButtons').style.display = 'block';
       }
 
       // Dodać funkcje runThirdGame(), runFourthGame() itd. dla reszty gier
@@ -119,6 +130,22 @@
         if (currentGame) {
           currentGame();
           currentGame = null;
+        }
+      }
+
+      function resetCurrentGame() {
+        if (currentGame) {
+          currentGame();
+          currentGame = null;
+          if (playGame.innerHTML == "Snake Game") {
+            runSnakeGame();
+          } else if (playGame.innerHTML == "Slide Game") {
+            runSlideGame();
+          } else if (playGame.innerHTML == "Pong Game") {
+            runPongGame();
+          } else if (playGame.innerHTML == "Merge Game") {
+            runMergeGame();
+          }
         }
       }
 
