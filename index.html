@@ -13,12 +13,41 @@
   <body>
   <div>
     <h1>Game Selector</h1>
+    <p class="bookmarksTop">
+      <a href="#item1">Home</a>
+      <a href="#item2">Game</a>
+      <a href="#item3">About</a>
+      <a href="#default">Clear</a>
+    
+    <div class="items">
+      <div id="item1"> <!-- Zmieniłem <p> na <div> żeby można było wstawić listę przycisków -->
+        <div class="btnGroupGameStarter">
+          <button onclick="runSnakeGame()">Run Snake Game</button>
+          <button onclick="runSlideGame()">Run Slide Game</button>
+          <button onclick="runPongGame()">Run Pong Game</button>
+          <button onclick="runMergeGame()">Run Merge Game</button>
+          <button onclick="runAnotherGame()">Run Another Game</button>
+           <!-- Dodać więcej przycisków dla innych gier -->
+        </div>
+      </div>
+      <div id="item2"> <!-- Zmieniłem <p> na <div> żeby można było wstawić listę przycisków -->
+        <div class="container">
+          <div class="box">
+            <h2 id="playGame">GAME</h2>
+            <div id="gameContainer">          
+              <!-- Tutaj będą wyświetlane gry -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="item3">
+      <div id="default"><!-- domyślnie nie jest wyświetlany żaden tekst --> </p>
+    </div>
 
 <!--     <button class="myButton" onclick="clearGameContainer()">Clear Game</button>
     <button class="myButton" onclick="stopCurrentGame()">Stop Game</button> --> <!-- Dodany przycisk Stop Game -->
 
     <div class="container">
-
       <div class="btnGroupGameStarter">
         <button onclick="runSnakeGame()">Run Snake Game</button>
         <button onclick="runSlideGame()">Run Slide Game</button>
@@ -54,6 +83,7 @@
       var currentGame = null; // Globalna zmienna do przechowywania aktualnej gry
 
       function runSnakeGame() {
+        window.location.hash = "#item2"; // Przełącz na zakładkę z grą
         clearGameContainer();
         const canvasSnake = document.createElement("canvas");
         canvasSnake.id = "snakeCanvas";
@@ -69,6 +99,7 @@
       }
 
       function runSlideGame() {
+        window.location.hash = "#item2"; // Przełącz na zakładkę z grą
         clearGameContainer();
         const canvasSlide = document.createElement("canvas");
         canvasSlide.id = "slideCanvas";
@@ -84,6 +115,7 @@
       }
 
       function runPongGame() {
+        window.location.hash = "#item2"; // Przełącz na zakładkę z grą
         clearGameContainer();
         const canvasPong = document.createElement("canvas");
         canvasPong.id = "pongCanvas";
@@ -99,6 +131,7 @@
       }
 
       function runMergeGame() {
+        window.location.hash = "#item2"; // Przełącz na zakładkę z grą
         clearGameContainer();
         const canvasMerge = document.createElement("canvas");
         canvasMerge.id = "mergeCanvas";
@@ -165,6 +198,16 @@
             console.log("Nieznana gra!");
         }
       }
+
+      document.addEventListener("DOMContentLoaded", function() {
+        var hash = window.location.hash;
+        if (hash) {
+          var item = document.querySelector(hash);
+          if (item) {
+            item.style.display = "block"; // Wyświetl odpowiednią zakładkę
+          }
+        }
+      });
 
     </script>
         <div class="GameButtons">

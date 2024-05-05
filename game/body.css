@@ -1,7 +1,48 @@
+/* div.items p {display: none}
+div.items p:target {display: block}
+div.items p:not(:target) {display: none}
+div.items p:target {display: block} */
+
+/* Domyślnie ukryj wszystkie elementy .items > div */
+.items > div {
+  display: none;
+}
+
+/* Wyświetl aktualnie wybrany element .items > div */
+.items > div:target {
+  display: block;
+}
+
+.bookmarksTop {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 12px;
+    margin: 20px;
+}
+
+.bookmarksTop a {
+    color: #000;
+    text-decoration: none;
+}
+
+/* .bookmarksTop:active {
+    background-color: rgb(126, 11, 11);
+} */
+
+.bookmarksTop a:hover {
+    color: #fff;
+}
+
 .container {
     display: grid; /* Ustaw kontener na grid */
     grid-template-columns: 1fr 1fr; /* Dziel przestrzeń na dwie kolumny o równej szerokości */
     gap: 10px; /* Dodaj odstęp między kolumnami */
+    padding: 20px; /* Dodaj wewnętrzny odstęp */    
+    margin-top: 20px;
   }
   
   .box {
@@ -84,6 +125,8 @@
   .GameButtons {
     display: none; /* Ukryj przyciski domyślnie */
     float: right;
+    margin-right: 20px;
+    margin-bottom: 20px;
   }
 
 
