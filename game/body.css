@@ -77,8 +77,13 @@
     background-color: #3e8e41;
   }
 
+  .btnGroupGameStarter button:active {
+    background-color: rgb(126, 11, 11);
+  }
+
   .GameButtons {
     display: none; /* Ukryj przyciski domyślnie */
+    float: right;
   }
 
 
