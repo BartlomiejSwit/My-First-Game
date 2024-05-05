@@ -13,11 +13,7 @@
   <body>
   <div>
     <h1>Game Selector</h1>
-    <div class="GameButtons">
-      <button class="myButton" onclick="clearGameContainer()">Clear Game</button>
-      <button class="myButton" onclick="stopCurrentGame()">Stop Game</button> <!-- Dodany przycisk Stop Game -->
-      <button class="myButton" onclick="resetCurrentGame()">Reset Game</button> <!-- Dodany przycisk Reset Game -->
-    </div>
+
 <!--     <button class="myButton" onclick="clearGameContainer()">Clear Game</button>
     <button class="myButton" onclick="stopCurrentGame()">Stop Game</button> --> <!-- Dodany przycisk Stop Game -->
 
@@ -149,7 +145,33 @@
         }
       }
 
+      function startGame(gameName) {
+        switch(gameName) {
+          case "Snake Game":
+            runSnakeGame();
+            break;
+          case "Slide Game":
+            runSlideGame();
+            break;
+          case "Pong Game":
+            runPongGame();
+            break;
+          case "Merge Game":
+            runMergeGame();
+            break;
+          // Dodaj więcej przypadków dla innych gier
+          default:
+            console.log("Nieznana gra!");
+        }
+      }
+
     </script>
+        <div class="GameButtons">
+          <button class="myButton" onclick="startGame(playGame.innerHTML)">Start Game</button>
+          <button class="myButton" onclick="clearGameContainer()">Clear Game</button>
+          <button class="myButton" onclick="stopCurrentGame()">Stop Game</button> <!-- Dodany przycisk Stop Game -->
+          <button class="myButton" onclick="resetCurrentGame()">Reset Game</button> <!-- Dodany przycisk Reset Game -->
+        </div>
       <footer>
         <img src="game/icons/author.ico" alt="Ikonka">
         <p1>Created by: Bartłomiej Świt</p1>        
