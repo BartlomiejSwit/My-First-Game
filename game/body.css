@@ -22,6 +22,7 @@ div.items p:target {display: block} */
     color: white;
     border-radius: 12px;
     margin: 20px;
+    font-size: 25px;
 }
 
 .bookmarksTop a {
@@ -122,12 +123,12 @@ div.items p:target {display: block} */
     background-color: rgb(126, 11, 11);
   }
 
-  .GameButtons {
-    display: none; /* Ukryj przyciski domyślnie */
+/*   .GameButtons {
+    display: none; // Hide the element
     float: right;
     margin-right: 20px;
     margin-bottom: 20px;
-  }
+  } */
 
 
   

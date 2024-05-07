@@ -37,6 +37,12 @@
             <div id="gameContainer">          
               <!-- Tutaj będą wyświetlane gry -->
             </div>
+            <div class="GameButtons">
+              <button class="myButton" onclick="startGame(playGame.innerHTML)">Start Game</button>
+              <button class="myButton" onclick="clearGameContainer()">Clear Game</button>
+              <button class="myButton" onclick="stopCurrentGame()">Stop Game</button> <!-- Dodany przycisk Stop Game -->
+              <button class="myButton" onclick="resetCurrentGame()">Reset Game</button> <!-- Dodany przycisk Reset Game -->
+            </div>
           </div>
         </div>
       </div>
@@ -84,6 +90,7 @@
 
       function runSnakeGame() {
         window.location.hash = "#item2"; // Przełącz na zakładkę z grą
+        stopCurrentGame()
         clearGameContainer();
         const canvasSnake = document.createElement("canvas");
         canvasSnake.id = "snakeCanvas";
@@ -95,11 +102,12 @@
         //runSnakeScript();
         //currentGame = runSnakeScript(); // Przypisz aktualną grę do zmiennej
         currentGame = runSnakeScript().stop;
-        document.querySelector('.GameButtons').style.display = 'block'; // Pokaż przyciski Clear Game i Stop Game
+        //document.querySelector('.GameButtons').style.display = 'block'; // Pokaż przyciski Clear Game i Stop Game
       }
 
       function runSlideGame() {
         window.location.hash = "#item2"; // Przełącz na zakładkę z grą
+        stopCurrentGame()
         clearGameContainer();
         const canvasSlide = document.createElement("canvas");
         canvasSlide.id = "slideCanvas";
@@ -111,11 +119,12 @@
         //runSlideScript();
         //currentGame = runSlideScript();
         currentGame = window.runSlideScript().stop;
-        document.querySelector('.GameButtons').style.display = 'block';
+        //document.querySelector('.GameButtons').style.display = 'block';
       }
 
       function runPongGame() {
         window.location.hash = "#item2"; // Przełącz na zakładkę z grą
+        stopCurrentGame()
         clearGameContainer();
         const canvasPong = document.createElement("canvas");
         canvasPong.id = "pongCanvas";
@@ -127,11 +136,12 @@
         //runPongScript();
         //currentGame = runPongScript();
         currentGame = runPongScript().stop;
-        document.querySelector('.GameButtons').style.display = 'block';
+        //document.querySelector('.GameButtons').style.display = 'block';
       }
 
       function runMergeGame() {
         window.location.hash = "#item2"; // Przełącz na zakładkę z grą
+        stopCurrentGame()
         clearGameContainer();
         const canvasMerge = document.createElement("canvas");
         canvasMerge.id = "mergeCanvas";
@@ -144,7 +154,7 @@
         //currentGame = runPongScript();
         //currentGame = runMergeScript().stop;
         currentGame = window.runMergeScript().stop;
-        document.querySelector('.GameButtons').style.display = 'block';
+        //document.querySelector('.GameButtons').style.display = 'block';
       }
 
       // Dodać funkcje runThirdGame(), runFourthGame() itd. dla reszty gier
@@ -210,12 +220,6 @@
       });
 
     </script>
-        <div class="GameButtons">
-          <button class="myButton" onclick="startGame(playGame.innerHTML)">Start Game</button>
-          <button class="myButton" onclick="clearGameContainer()">Clear Game</button>
-          <button class="myButton" onclick="stopCurrentGame()">Stop Game</button> <!-- Dodany przycisk Stop Game -->
-          <button class="myButton" onclick="resetCurrentGame()">Reset Game</button> <!-- Dodany przycisk Reset Game -->
-        </div>
       <footer>
         <img src="game/icons/author.ico" alt="Ikonka">
         <p1>Created by: Bartłomiej Świt</p1>        
