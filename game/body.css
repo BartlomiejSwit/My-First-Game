@@ -108,6 +108,7 @@ div.items p:target {display: block} */
     box-shadow: 0 5px #999;
     display: block; /* Make the buttons appear below each other */
     margin-bottom: 10px; /* Add margin bottom between buttons */
+    margin: 10px;
 }
   
   .btnGroupGameStarter button:not(:last-child) {
@@ -129,6 +130,17 @@ div.items p:target {display: block} */
     margin-right: 20px;
     margin-bottom: 20px;
   } */
+
+  .AboutBox {
+    /* float: right; */
+    margin-right: 10px;
+    margin-bottom: 20px;
+    color: #cf0b0b;
+    font-size: 20px;
+    text-align: center;
+
+
+  }
 
 
   
