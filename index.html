@@ -66,6 +66,11 @@
           <p>- Another Game
           </p>
         </div>
+        <div id="AnimationContainer">
+          <button onclick="dancingOpossom()">Run Dancing Opossum Animation</button>
+          <!-- Tutaj umieszczamy animację oposa -->
+        </div>
+      </div>
       <div id="default"><!-- domyślnie nie jest wyświetlany żaden tekst --> </p>
     </div>
 
@@ -95,16 +100,25 @@
       </div>
     </div>   
   </div> 
-
+    <script src="game/Animation/DancingOposs.js"></script>
     <script src="snake/snake.js"></script>
     <script type="module" src="slide/slide.js"></script>
     <script src="pong/pong.js"></script>
     <script type="module" src="mergeNumbers/mergeNumbers.js"></script>
+
     <!-- Dodać więcej skryptów dla innych gier -->
 
     <script>
-      //var audio = new Audio('pong/Ball.mp3');
-      //audio.play();
+      function dancingOpossom() {
+          const canvasOpossom = document.createElement('canvas');
+          canvasOpossom.id = "canvasOpossom";
+          canvasOpossom.width = 400;
+          canvasOpossom.height = 400;
+          canvasOpossom.style.border = "5px solid green";
+          playGame.innerHTML = "Dancing Opossom";
+          document.getElementById("AnimationContainer").appendChild(canvasOpossom);
+          runOpossomScript(20, 20);
+      }
       var currentGame = null; // Globalna zmienna do przechowywania aktualnej gry
 
       function runSnakeGame() {
