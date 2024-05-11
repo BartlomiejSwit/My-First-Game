@@ -19,6 +19,36 @@ window.runOpossomScript = function () {
         ctx.fillStyle = 'black';
         ctx.fill();
 
+        // Usta
+        ctx.beginPath();
+/*         ctx.moveTo(x - 10, y + 10);
+        ctx.quadraticCurveTo(x, y + 15, x + 10, y + 10); */
+        ctx.moveTo(x + 10, y + 10);
+        ctx.quadraticCurveTo(x, y + 15, x + 0, y + 5);
+        ctx.moveTo(x - 10, y + 10);
+        ctx.quadraticCurveTo(x, y + 15, x + 0, y + 5);
+        ctx.strokeStyle = 'black';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        // Wąsy
+        ctx.beginPath();
+        ctx.moveTo(x - 15, y + 5);
+        ctx.lineTo(x - 35, y - 5);
+        ctx.moveTo(x + 15, y + 5);
+        ctx.lineTo(x + 35, y - 5);
+        ctx.moveTo(x - 15, y + 5);
+        ctx.lineTo(x - 35, y + 5);
+        ctx.moveTo(x + 15, y + 5);
+        ctx.lineTo(x + 35, y + 5);
+        ctx.moveTo(x - 15, y + 5);
+        ctx.lineTo(x - 35, y + 15);
+        ctx.moveTo(x + 15, y + 5);
+        ctx.lineTo(x + 35, y + 15);
+        ctx.strokeStyle = 'black';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
         // Nos
         ctx.beginPath();
         ctx.arc(x, y, 3, 0, Math.PI * 2);
