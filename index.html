@@ -55,20 +55,22 @@
       </div>
       <div id="item3">
         <div class="AboutBox">
-          <h2>About</h2>
-          <p>Witaj w Game Selector! </p>
-          <p>Wybierz grę z listy i zacznij grać.</p>
-          <p>Gry aktualnie dostępne:</p> 
-          <p>- Snake
-          <p>- Slide
-          <p>- Pong
-          <p>- Merge Numbers
-          <p>- Another Game
-          </p>
-        </div>
-        <div id="AnimationContainer">
-          <button onclick="dancingOpossom()">Run Dancing Opossum Animation</button>
-          <!-- Tutaj umieszczamy animację oposa -->
+          <div class="About">
+            <h2>About</h2>
+            <p>Witaj w Game Selector! </p>
+            <p>Wybierz grę z listy i zacznij grać.</p>
+            <p>Gry aktualnie dostępne:</p> 
+            <p>- Snake
+            <p>- Slide
+            <p>- Pong
+            <p>- Merge Numbers
+            <p>- Another Game
+            </p>
+          </div>
+          <div id="AnimationContainer">
+            <!-- <button onclick="dancingOpossom()">Run Dancing Opossum Animation</button> -->
+            <!-- Tutaj umieszczamy animację oposa -->
+          </div>
         </div>
       </div>
       <div id="default"><!-- domyślnie nie jest wyświetlany żaden tekst --> </p>
@@ -109,15 +111,17 @@
     <!-- Dodać więcej skryptów dla innych gier -->
 
     <script>
+      document.addEventListener("DOMContentLoaded", function() {
+          dancingOpossom(); // Uruchomienie animacji oposa po załadowaniu strony
+      });
       function dancingOpossom() {
           const canvasOpossom = document.createElement('canvas');
           canvasOpossom.id = "canvasOpossom";
           canvasOpossom.width = 400;
           canvasOpossom.height = 400;
-          canvasOpossom.style.border = "5px solid green";
-          playGame.innerHTML = "Dancing Opossom";
+          // canvasOpossom.style.border = "5px solid green";
           document.getElementById("AnimationContainer").appendChild(canvasOpossom);
-          runOpossomScript(20, 20);
+          runOpossomScript();
       }
       var currentGame = null; // Globalna zmienna do przechowywania aktualnej gry
 

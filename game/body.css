@@ -131,15 +131,21 @@ div.items p:target {display: block} */
     margin-bottom: 20px;
   } */
 
-  .AboutBox {
+  .About {
     /* float: right; */
     margin-right: 10px;
     margin-bottom: 20px;
     color: #cf0b0b;
     font-size: 20px;
     text-align: center;
+  }
 
-
+  .AboutBox {
+    display: grid; /* Ustaw kontener na grid */
+    grid-template-columns: 1fr 1fr; /* Dziel przestrzeń na dwie kolumny o równej szerokości */
+    gap: 10px; /* Dodaj odstęp między kolumnami */
+    padding: 20px; /* Dodaj wewnętrzny odstęp */    
+    margin-top: 20px;
   }
 
 

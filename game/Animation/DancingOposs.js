@@ -1,5 +1,5 @@
 window.runOpossomScript = function () {    
-    const canvas = document.getElementById('canvas');
+    const canvas = document.getElementById('canvasOpossom');
     const ctx = canvas.getContext('2d');
 
     // Funkcja rysująca tańczącego oposa
@@ -51,13 +51,17 @@ window.runOpossomScript = function () {
         let x = canvas.width / 2;
         let y = canvas.height / 2;
         let angle = 0;
-
-        setInterval(() => {
-            const newX = x + Math.sin(angle) * 10;
-            const newY = y + Math.cos(angle) * 10;
+    
+        function animateFrame() {
+            const newX = x + Math.sin(angle) * 100;
+            const newY = y + Math.cos(angle) * 100;
             drawDancingOpossum(newX, newY);
             angle += 0.1;
-        }, 100);
+            
+            requestAnimationFrame(animateFrame);
+        }
+    
+        animateFrame();
     }
 
     animate();
