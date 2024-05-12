@@ -102,7 +102,7 @@
       </div>
     </div>   
   </div> 
-    <script src="game/Animation/DancingOposs.js"></script>
+    <script src="game/Animation/DancingCat.js"></script>
     <script src="snake/snake.js"></script>
     <script type="module" src="slide/slide.js"></script>
     <script src="pong/pong.js"></script>
@@ -112,16 +112,16 @@
 
     <script>
       document.addEventListener("DOMContentLoaded", function() {
-          dancingOpossom(); // Uruchomienie animacji oposa po załadowaniu strony
+          dancingCat(); // Uruchomienie animacji oposa po załadowaniu strony
       });
-      function dancingOpossom() {
+      function dancingCat() {
           const canvasOpossom = document.createElement('canvas');
-          canvasOpossom.id = "canvasOpossom";
+          canvasOpossom.id = "canvasCat";
           canvasOpossom.width = 400;
           canvasOpossom.height = 400;
           // canvasOpossom.style.border = "5px solid green";
           document.getElementById("AnimationContainer").appendChild(canvasOpossom);
-          runOpossomScript();
+          runCatScript();
       }
       var currentGame = null; // Globalna zmienna do przechowywania aktualnej gry
 
