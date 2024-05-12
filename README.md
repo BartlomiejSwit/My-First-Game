@@ -1,4 +1,4 @@
-#### My-First-Game
+# My-First-Game
 
 The project was created as part of the "100 Commits on GitHub" challenge initiated by "DevMentors" - a group of highly talented individuals founded by Dariusz Pawlikiewicz, Michał Wilczyński, and Piotr Gankiewicz. I decided to create a dynamic website showcasing several classic games such as Snake, Pong, Slide, and many others. The aim of the project is not only to acquire skills in JavaScript, CSS, and HTML but also to provide entertainment through interactive games.
 
