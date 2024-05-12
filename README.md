@@ -29,7 +29,7 @@ Slide Game is a puzzle game where you have to slide blocks around the board to g
 Pong is a classic arcade game where two players compete against each other, controlling paddles to bounce a ball in such a way that the opponent cannot catch it. The game ends when one side reaches a specified number of points or when one side fails to catch the ball.
 
 ## Merge Game
-Pong is a classic arcade game where two players compete against each other, controlling paddles to bounce a ball in such a way that the opponent cannot catch it. The game ends when one side reaches a specified number of points or when one side fails to catch the ball.
+Merge Game is a game based on the principles of merging blocks of different colors or numerical values. Your goal is to merge blocks with the same values to create blocks with higher values and maximize your score. The game ends when the board is full and there are no more opportunities to merge blocks.
 
 ## Technologies
 * JavaScript
