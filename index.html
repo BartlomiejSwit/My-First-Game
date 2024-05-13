@@ -22,11 +22,11 @@
     <div class="items">
       <div id="item1"> <!-- Zmieniłem <p> na <div> żeby można było wstawić listę przycisków -->
         <div class="btnGroupGameStarter">
-          <button onclick="runSnakeGame()">Run Snake Game</button>
-          <button onclick="runSlideGame()">Run Slide Game</button>
-          <button onclick="runPongGame()">Run Pong Game</button>
-          <button onclick="runMergeGame()">Run Merge Game</button>
-          <button onclick="runAnotherGame()">Run Another Game</button>
+          <button onclick="showGameTab(); runSnakeGame()">Run Snake Game</button>
+          <button onclick="showGameTab(); runSlideGame()">Run Slide Game</button>
+          <button onclick="showGameTab(); runPongGame()">Run Pong Game</button>
+          <button onclick="showGameTab(); runMergeGame()">Run Merge Game</button>
+          <button onclick="showGameTab(); runAnotherGame()">Run Another Game</button>
            <!-- Dodać więcej przycisków dla innych gier -->
         </div>
       </div>
@@ -111,9 +111,6 @@
     <!-- Dodać więcej skryptów dla innych gier -->
 
     <script>
-      document.addEventListener("DOMContentLoaded", function() {
-          dancingCat(); // Uruchomienie animacji oposa po załadowaniu strony
-      });
       function dancingCat() {
           const canvasOpossom = document.createElement('canvas');
           canvasOpossom.id = "canvasCat";
@@ -126,7 +123,7 @@
       var currentGame = null; // Globalna zmienna do przechowywania aktualnej gry
 
       function runSnakeGame() {
-        window.location.hash = "#item2"; // Przełącz na zakładkę z grą
+        //window.location.hash = "#item2"; // Przełącz na zakładkę z grą
         stopCurrentGame()
         clearGameContainer();
         const canvasSnake = document.createElement("canvas");
@@ -143,7 +140,7 @@
       }
 
       function runSlideGame() {
-        window.location.hash = "#item2"; // Przełącz na zakładkę z grą
+        //window.location.hash = "#item2"; // Przełącz na zakładkę z grą
         stopCurrentGame()
         clearGameContainer();
         const canvasSlide = document.createElement("canvas");
@@ -160,7 +157,7 @@
       }
 
       function runPongGame() {
-        window.location.hash = "#item2"; // Przełącz na zakładkę z grą
+        //window.location.hash = "#item2"; // Przełącz na zakładkę z grą
         stopCurrentGame()
         clearGameContainer();
         const canvasPong = document.createElement("canvas");
@@ -177,7 +174,7 @@
       }
 
       function runMergeGame() {
-        window.location.hash = "#item2"; // Przełącz na zakładkę z grą
+        //window.location.hash = "#item2"; // Przełącz na zakładkę z grą
         stopCurrentGame()
         clearGameContainer();
         const canvasMerge = document.createElement("canvas");
@@ -245,8 +242,8 @@
             console.log("Nieznana gra!");
         }
       }
-
-      document.addEventListener("DOMContentLoaded", function() {
+      
+/*       document.addEventListener("DOMContentLoaded", function() {
         var hash = window.location.hash;
         if (hash) {
           var item = document.querySelector(hash);
@@ -254,7 +251,72 @@
             item.style.display = "block"; // Wyświetl odpowiednią zakładkę
           }
         }
-      });
+      }); */
+
+
+/*       document.addEventListener("DOMContentLoaded", function() {
+          dancingCat(); // Uruchomienie animacji oposa po załadowaniu strony
+      }); */
+
+      // Funkcja do zmiany widoczności elementów po kliknięciu w link zakładki
+      function showTab(tabId) {
+          // Ukrywa wszystkie zakładki
+          var tabs = document.querySelectorAll(".items > div");
+          tabs.forEach(function(tab) {
+              tab.style.display = "none";
+          });
+          // Wyświetla wybraną zakładkę
+          var selectedTab = document.getElementById(tabId);
+          if (selectedTab) {
+              selectedTab.style.display = "block";
+          }
+      }
+
+      // Funkcja do ustawienia hash URL-a na "#item2" (zakładka z grą) i wywołania funkcji showTab() dla tej zakładki
+      function showGameTab() {
+          window.location.hash = "#item2"; // Ustawia hash URL-a na "#item2" (zakładka z grą)
+          showTab("item2"); // Wywołuje funkcję showTab() dla zakładki z grą
+      }
+
+      document.addEventListener("DOMContentLoaded", function() {
+          // Funkcja do zmiany widoczności elementów po kliknięciu w link zakładki
+          function showTab(tabId) {
+              // Ukrywa wszystkie zakładki
+              var tabs = document.querySelectorAll(".items > div");
+              tabs.forEach(function(tab) {
+                  tab.style.display = "none";
+              });
+              // Wyświetla wybraną zakładkę
+              var selectedTab = document.getElementById(tabId);
+              if (selectedTab) {
+                  selectedTab.style.display = "block";
+                  // Sprawdza, czy wybrana zakładka to trzecia zakładka (About)
+                  if (tabId === "item3") {
+                      // Jeśli tak, to uruchamia animację kota
+                      dancingCat();
+                  }
+                  if (tabId !== "item2") {
+                      clearGameContainer();
+                  }
+              }
+          }
+
+          // Ustawia pierwszą zakładkę jako widoczną po załadowaniu strony
+          var defaultTab = document.getElementById("item1");
+          defaultTab.style.display = "block";
+
+          // Pobiera wszystkie linki zakładek
+          var tabLinks = document.querySelectorAll(".bookmarksTop a");
+          // Dodaje nasłuchiwanie na kliknięcie w link zakładki
+          tabLinks.forEach(function(link) {
+              link.addEventListener("click", function(event) {
+                  event.preventDefault(); // Zapobiega domyślnej akcji linku
+                  var tabId = link.getAttribute("href").substring(1); // Pobiera ID zakładki
+                  showTab(tabId); // Wywołuje funkcję showTab dla wybranej zakładki
+              });
+          });
+      });     
+
 
     </script>
       <footer>

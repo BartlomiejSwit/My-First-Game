@@ -222,10 +222,10 @@ window.runMergeScript = function () {
     }
 
 /*     let squareN = new squareNumbers(50, 50, 2);
-    let squareN2 = new squareNumbers(100, 50, 4);
-    let squareN3 = new squareNumbers(150, 50, 8);
+    let squareN2 = new squareNumbers(100, 50, 2);
+    let squareN3 = new squareNumbers(150, 50, 2);
     let squareN4 = new squareNumbers(50, 100, 16);
-    let squareN5 = new squareNumbers(100, 100, 32);
+    let squareN5 = new squareNumbers(100, 100, 2);
     let squareN6 = new squareNumbers(150, 100, 64);
     let squareN7 = new squareNumbers(200, 100, 128);
     let squareN8 = new squareNumbers(50, 150, 256);
