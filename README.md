@@ -33,23 +33,15 @@ Merge Game is a game based on the principles of merging blocks of different colo
 
 Connect two squares with the same value:
 
-![image](https://github.com/BartlomiejSwit/My-First-Game/assets/92230223/d10be81d-ac16-4822-a876-47f22f2bfdc2)
-
-![image](https://github.com/BartlomiejSwit/My-First-Game/assets/92230223/ed5a2b9f-b662-4d84-80b7-6fd41fe2777a)
-
+![image](https://github.com/BartlomiejSwit/My-First-Game/assets/92230223/d10be81d-ac16-4822-a876-47f22f2bfdc2) => ![image](https://github.com/BartlomiejSwit/My-First-Game/assets/92230223/ed5a2b9f-b662-4d84-80b7-6fd41fe2777a)
 
 You can connect more than just two squares with the same value, which gives you extra points:
 
-![image](https://github.com/BartlomiejSwit/My-First-Game/assets/92230223/202d98b0-fc92-4e03-a195-9512c74179bf)
-
-![image](https://github.com/BartlomiejSwit/My-First-Game/assets/92230223/ce156586-1a2b-4793-980c-0ae11aad5067)
-
+![image](https://github.com/BartlomiejSwit/My-First-Game/assets/92230223/202d98b0-fc92-4e03-a195-9512c74179bf) => ![image](https://github.com/BartlomiejSwit/My-First-Game/assets/92230223/ce156586-1a2b-4793-980c-0ae11aad5067)
 
 When you connect squares with a value of 2048, an additional 4096 points are added to your score, and the squares free up space:
 
-![image](https://github.com/BartlomiejSwit/My-First-Game/assets/92230223/2aa88519-c3e2-47b3-b86d-23106eeb0157)
-
-![image](https://github.com/BartlomiejSwit/My-First-Game/assets/92230223/adbf1884-8833-4be9-8fa7-c3105ed22b78)
+![image](https://github.com/BartlomiejSwit/My-First-Game/assets/92230223/2aa88519-c3e2-47b3-b86d-23106eeb0157) => ![image](https://github.com/BartlomiejSwit/My-First-Game/assets/92230223/adbf1884-8833-4be9-8fa7-c3105ed22b78)
 
 ## Technologies
 * JavaScript
