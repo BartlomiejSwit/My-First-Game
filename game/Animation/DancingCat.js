@@ -149,6 +149,9 @@ window.runCatScript = function () {
         }
     }
 
+    let animationId;
+    let animationLegsId;
+
     // Funkcja animacji
     function animate() {
         let x = canvas.width / 2;
@@ -160,14 +163,21 @@ window.runCatScript = function () {
             const newY = y + Math.cos(angle) * 100;
             drawDancingCat(newX, newY);
             angle += 0.03;
-
-            
+                        
             //setInterval(animationLegs, 10);
-            requestAnimationFrame(animateFrame);
+            animationId = requestAnimationFrame(animateFrame);
         }
-        setInterval(animationLegs, 40);
+        animationLegsId = setInterval(animationLegs, 40);
         animateFrame();
     }
 
+    function stopAnimation() {
+        //ctx.clearRect(0, 0, canvas.width, canvas.height);
+        cancelAnimationFrame(animationId);
+        clearInterval(animationLegsId);
+    }
+
     animate();
+
+    return { stopAnimation };
 }

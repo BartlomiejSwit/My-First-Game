@@ -64,8 +64,7 @@
             <p>Click on the "Clear Game" button to clear the game.</p>
             <p>Click on the "Stop Game" button to stop the game.</p>
             <p>Click on the "Reset Game" button to reset the game.</p>
-            <p>Have fun!</p>
-            
+            <p>Have fun!</p>            
           </div>
           <div class="HowToPlayBody">
             <h2>Game List</h2>
@@ -75,28 +74,28 @@
               <li><a href="#game3">Pong Game</a></li>
               <li><a href="#game4">Merge Game</a></li>
               <li><a href="#game5">Another Game</a></li>
-              <!-- Dodaj kolejne gry -->
+
             </ul>
             <div id="game1">
               <h2>Snake Game</h2>
-              <!-- Zawartość gry 1 -->
+
             </div>
             
             <div id="game2">
               <h2>Slide Game</h2>
-              <!-- Zawartość gry 2 -->
+
             </div>
             <div id="game3">
               <h2>Pong Game</h2>
-              <!-- Zawartość gry 2 -->
+
             </div>
             <div id="game4">
               <h2>Merge Game</h2>
-              <!-- Zawartość gry 2 -->
+
             </div>
             <div id="game5">
               <h2>Another Game</h2>
-              <!-- Zawartość gry 2 -->
+
             </div>
           </div>
         </div>
@@ -159,14 +158,16 @@
     <!-- Dodać więcej skryptów dla innych gier -->
 
     <script>
+
+      var currentAnimation = null; // Globalna zmienna do przechowywania aktualnej animacji
       function dancingCat() {
-          const canvasOpossom = document.createElement('canvas');
-          canvasOpossom.id = "canvasCat";
-          canvasOpossom.width = 400;
-          canvasOpossom.height = 400;
-          // canvasOpossom.style.border = "5px solid green";
-          document.getElementById("AnimationContainer").appendChild(canvasOpossom);
-          runCatScript();
+          const canvasCat = document.createElement('canvas');
+          canvasCat.id = "canvasCat";
+          canvasCat.width = 400;
+          canvasCat.height = 400;
+          // canvasCat.style.border = "5px solid green";
+          document.getElementById("AnimationContainer").appendChild(canvasCat);
+          currentAnimation = runCatScript().stopAnimation;
       }
       var currentGame = null; // Globalna zmienna do przechowywania aktualnej gry
 
@@ -290,6 +291,18 @@
             console.log("Nieznana gra!");
         }
       }
+
+      function clearAnimationContainer() {
+        document.getElementById("AnimationContainer").innerHTML = "";
+        stopanimation();        
+      }
+
+      function stopanimation() {
+        if (currentAnimation) {
+          currentAnimation();
+          currentAnimation = null;
+        }
+      }
       
 /*       document.addEventListener("DOMContentLoaded", function() {
         var hash = window.location.hash;
@@ -339,11 +352,15 @@
               if (selectedTab) {
                   selectedTab.style.display = "block";
                   // Sprawdza, czy wybrana zakładka to trzecia zakładka (About)
-                  if (tabId === "item3") {
+                  if (tabId === "item4") {
                       // Jeśli tak, to uruchamia animację kota
                       dancingCat();
+                  } else {
+                      // Jeśli nie, to czyści kontener z animacją
+                    clearAnimationContainer();
                   }
                   if (tabId !== "item2") {
+                      // Jeśli nie, to czyści kontener z grą
                       clearGameContainer();
                   }
               }
