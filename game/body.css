@@ -118,6 +118,7 @@ div.items p:target {display: block} */
   /* Add a background color on hover */
   .btnGroupGameStarter button:hover {
     background-color: #3e8e41;
+    color: #fff;
   }
 
   .btnGroupGameStarter button:active {
@@ -148,5 +149,56 @@ div.items p:target {display: block} */
     margin-top: 20px;
   }
 
+
+.HowToPlay {
+    /* float: right; */
+    margin-right: 10px;
+    margin-bottom: 20px;
+    color: #cf0b0b;
+    font-size: 20px;
+    text-align: center;
+  }
+
+  .HowToPlayBox {
+    display: grid; /* Ustaw kontener na grid */
+    grid-template-columns: 1fr 1fr; /* Dziel przestrzeń na dwie kolumny o równej szerokości */
+    gap: 10px; /* Dodaj odstęp między kolumnami */
+    padding: 20px; /* Dodaj wewnętrzny odstęp */    
+    margin-top: 20px;
+  }
+
+  .GameButtons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 12px;
+    margin: 20px;
+    font-size: 25px;
+}
+
+.GameList {
+    display: grid; /* Ustaw kontener na grid */    
+    gap: 10px; /* Dodaj odstęp między kolumnami */
+    padding: 20px; /* Dodaj wewnętrzny odstęp */    
+    margin-top: 20px;
+  }
+
+  .GameList a {
+    color: #cf0b0b;
+    text-decoration: none;
+    font-size: 20px;
+  }
+
+  .GameList a:hover {
+    color: #fff;
+  }
+
+/*   .GameList a:active {
+    background-color: rgb(126, 11, 11);
+  }
+ */
 
   
