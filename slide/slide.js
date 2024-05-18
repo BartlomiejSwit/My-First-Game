@@ -140,11 +140,6 @@ window.runSlideScript = function () {
         constructor(x, y, width, height, color) {
             super(x, y, width, height, color);
         }
-        
-
-        //draw() {
-        //    // Nadpisuje rysowanie kwadratu, aby było pustą przestrzenią
-        //}
 
         draw() {
             super.draw(); 
