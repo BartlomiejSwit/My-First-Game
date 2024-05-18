@@ -1,10 +1,10 @@
 
 function runSnakeScript() {
-    let points, snake, running, apple, move, nextmove, canMove, blink = false, itemSize = 18;
    // const ctx = document.getElementById('snakeCanvas').getContext('2d');
     const canvas = document.getElementById('snakeCanvas');
     const ctx = canvas.getContext('2d');
-
+    
+    let points, snake, running, apple, move, nextmove, canMove, blink = false, itemSize = 18;
     var gameInterval;
     var appleInterval;
 

@@ -38,6 +38,66 @@ div.items p:target {display: block} */
     color: #fff;
 }
 
+h2 {
+  font-size: 40px;
+  color: #4CAF50;
+  text-align: center;
+  margin: 20px;
+}
+
+.items {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Wyśrodkowanie w poziomie */
+  margin: 0 auto; /* Wyśrodkowanie kontenera */
+}
+
+.HomeContainer {
+  display: grid; /* Ustaw kontener na grid */
+  grid-template-columns: 1fr 1fr; /* Dziel przestrzeń na dwie kolumny o równej szerokości */
+  gap: 10px; /* Dodaj odstęp między kolumnami */
+  padding: 20px; /* Dodaj wewnętrzny odstęp */    
+  margin-top: 20px;
+}
+
+.Home {
+  margin-right: 10px;
+  margin-bottom: 20px;
+  color: #cf0b0b;
+  font-size: 20px;
+  text-align: center;
+}
+
+.btnGroupGameStarter button {
+  background-color: #4CAF50;
+  border: 1px solid green; /* Green border */
+  border-radius: 12px;
+  color: black; /* White text */
+  padding: 14px 20px;
+  cursor: pointer; /* Pointer/hand icon */
+  width: 50%; /* Set a width if needed */
+  transition: background-color 0.3s;
+  font-size: 20px;
+  box-shadow: 0 5px #999;
+  display: block; /* Make the buttons appear below each other */
+  margin-bottom: 10px; /* Add margin bottom between buttons */
+  margin: 10px;
+}
+
+.btnGroupGameStarter button:not(:last-child) {
+  border-bottom: none; /* Prevent double borders */
+}
+
+/* Add a background color on hover */
+.btnGroupGameStarter button:hover {
+  background-color: #3e8e41;
+  color: #fff;
+}
+
+.btnGroupGameStarter button:active {
+  background-color: rgb(126, 11, 11);
+}
+
 .container {
     display: grid; /* Ustaw kontener na grid */
     grid-template-columns: 1fr 1fr; /* Dziel przestrzeń na dwie kolumny o równej szerokości */
@@ -89,41 +149,7 @@ div.items p:target {display: block} */
       background-color: rgb(126, 11, 11);
     }
   
-  h2 {
-      font-size: 40px;
-      color: #4CAF50;
-      text-align: center;
-      margin: 20px;
-  }
-.btnGroupGameStarter button {
-    background-color: #4CAF50;
-    border: 1px solid green; /* Green border */
-    border-radius: 12px;
-    color: black; /* White text */
-    padding: 14px 20px;
-    cursor: pointer; /* Pointer/hand icon */
-    width: 50%; /* Set a width if needed */
-    transition: background-color 0.3s;
-    font-size: 20px;
-    box-shadow: 0 5px #999;
-    display: block; /* Make the buttons appear below each other */
-    margin-bottom: 10px; /* Add margin bottom between buttons */
-    margin: 10px;
-}
-  
-  .btnGroupGameStarter button:not(:last-child) {
-    border-bottom: none; /* Prevent double borders */
-  }
-  
-  /* Add a background color on hover */
-  .btnGroupGameStarter button:hover {
-    background-color: #3e8e41;
-    color: #fff;
-  }
 
-  .btnGroupGameStarter button:active {
-    background-color: rgb(126, 11, 11);
-  }
 
   .About {
     /* float: right; */
