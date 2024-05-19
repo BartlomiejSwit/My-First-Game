@@ -219,5 +219,15 @@ h2 {
     background-color: rgb(126, 11, 11);
   }
 
+  .BackOnTop {
+    color: #cf0b0b;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+.BackOnTop:hover {
+  color: #fff;
+}
+
 
   
