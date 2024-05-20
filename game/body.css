@@ -23,6 +23,9 @@ div.items p:target {display: block} */
     border-radius: 12px;
     margin: 20px;
     font-size: 25px;
+    z-index: 1000; /* Zapewnia, że pasek zakładek będzie nad innymi elementami */
+    position: fixed;
+    width: 100%;
 }
 
 .bookmarksTop a {
@@ -50,6 +53,7 @@ h2 {
   flex-direction: column;
   align-items: center; /* Wyśrodkowanie w poziomie */
   margin: 0 auto; /* Wyśrodkowanie kontenera */
+  padding-top: 50px; /* Przesuwa zawartość w dół, aby nie była zakryta przez pasek zakładek */
 }
 
 .HomeContainer {
