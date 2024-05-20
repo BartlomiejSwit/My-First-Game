@@ -9,11 +9,11 @@
     <link rel="stylesheet" href="game/body.css">
     <link rel="stylesheet" href="game/footer.css">
     <link rel="icon" href="game/icons/game.ico" type="image/x-icon">
-    <base href=".">
+    <base href=".">    
   </head>
   <body>
-  <div>
-    <h1>Game Selector</h1>
+  <div class="Head">
+    <!-- <h1>Game Selector</h1> -->
     <p class="bookmarksTop">
       <a href="#item1">Home</a>
       <!-- <a href="#item2">Game</a> -->
@@ -46,6 +46,9 @@
             <h2 id="playGame">GAME</h2>
             <div id="gameContainer">          
               <!-- Tutaj będą wyświetlane gry -->
+            </div>
+            <div class="bookMarkcBackToTop">
+              <button class="BackOnTop" onclick="showHomeTab()">Back to List <i class="fa-solid fa-share"></i></button>
             </div>
 
 <!--             <div class="GameButtons">
@@ -94,7 +97,6 @@
                 <p>As the snake grows longer, it becomes increasingly challenging to keep it under control.</p>
                 <p>The game ends when the snake collides with itself.</p>
                 <br/>
-                <a href="#item3" class="BackOnTop"><i class="fa-solid fa-share"></i></a>
               </div>
             </section>            
             <section id="game2">
@@ -106,7 +108,6 @@
                 <p>With each subsequent level, the difficulty increases, </p>
                 <p>requiring players to demonstrate greater dexterity and logical thinking.</p>
                 <br/>
-                <a href="#item3" class="BackOnTop"><i class="fa-solid fa-share"></i></a>
               </div>
             </section>
             <section id="game3">
@@ -117,7 +118,6 @@
                 <p>controlling paddles to bounce a ball in such a way that the opponent cannot catch it. </p>
                 <p>The game ends when one side reaches a specified number of points or when one side fails to catch the ball.</p>
                 <br/>
-                <a href="#item3" class="BackOnTop"><i class="fa-solid fa-share"></i></a>
               </div>
             </section>
             <section id="game4">
@@ -140,16 +140,17 @@
                 <img src="mergeNumbers/Instruction/4.png" alt="Opis obrazka">
                 <img src="mergeNumbers/Instruction/5.png" alt="Opis obrazka">
                 <br/>
-                <a href="#item3" class="BackOnTop"><i class="fa-solid fa-share"></i></a>
               </div>              
             </section>
             <section id="game5">
               <h2>Another Game</h2>
               <br/>
-              <a href="#item3" class="BackOnTop"><i class="fa-solid fa-share"></i></a>
             </section>
             <br/>
             <br/>
+          </div>
+          <div class="bookMarkcBackToTop">
+            <a href="#item3" class="BackOnTop">Back to Top <i class="fa-solid fa-share"></i></a>
           </div>
         </div>
       </div>
@@ -390,6 +391,11 @@
       function showGameTab() {
           window.location.hash = "#item2"; // Ustawia hash URL-a na "#item2" (zakładka z grą)
           showTab("item2"); // Wywołuje funkcję showTab() dla zakładki z grą
+      }
+
+      function showHomeTab() {
+          window.location.hash = "#item1"; // Ustawia hash URL-a na "#item1" (zakładka z grą)
+          showTab("item1"); // Wywołuje funkcję showTab() dla zakładki z grą
       }
 
       document.addEventListener("DOMContentLoaded", function() {

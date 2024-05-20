@@ -21,11 +21,12 @@ div.items p:target {display: block} */
     background-color: #4CAF50;
     color: white;
     border-radius: 12px;
-    margin: 20px;
+    /* margin: 20px; */
     font-size: 25px;
     z-index: 1000; /* Zapewnia, że pasek zakładek będzie nad innymi elementami */
     position: fixed;
     width: 100%;
+    box-sizing: border-box; /* Uwzględnia padding i obramowanie wewnątrz szerokości i wysokości */
 }
 
 .bookmarksTop a {
@@ -227,11 +228,36 @@ h2 {
     color: #cf0b0b;
     text-decoration: none;
     font-size: 20px;
+    background-color: black;
+    border: none;
 }
 
 .BackOnTop:hover {
   color: #fff;
+  background-color: black;
 }
+.bookMarkcBackToTop {
+/*   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border-radius: 12px;
+  margin: 20px;
+  font-size: 25px; */
+  position: fixed;
+  bottom: 60px;
+  left: 20px;
+  /* background-color: #4CAF50; */
+  /* color: white; */
+  border-radius: 12px;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 
+}
 
   
