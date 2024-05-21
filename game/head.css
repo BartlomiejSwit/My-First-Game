@@ -6,3 +6,43 @@ h1 {
     background-color: black;
 }
 
+/* .Head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 12px;
+    margin: 20px;
+    font-size: 25px;
+} */
+.bookmarksTop {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 12px;
+    /* margin: 20px; */
+    font-size: 25px;
+    z-index: 1000; /* Zapewnia, że pasek zakładek będzie nad innymi elementami */
+    position: fixed;
+    width: 100%;
+    box-sizing: border-box; /* Uwzględnia padding i obramowanie wewnątrz szerokości i wysokości */
+    top: 0;
+}
+
+.bookmarksTop a {
+    color: #000;
+    text-decoration: none;
+}
+
+/* .bookmarksTop:active {
+    background-color: rgb(126, 11, 11);
+} */
+
+.bookmarksTop a:hover {
+    color: #fff;
+}
