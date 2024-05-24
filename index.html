@@ -53,7 +53,7 @@
           </div>
         </div>
       </div>
-      <div id="item2"> <!-- Zmieniłem <p> na <div> żeby można było wstawić listę przycisków -->
+      <div id="item2">
         <div class="container">
           <div class="box">
             <h2 id="playGame">GAME</h2>
@@ -74,8 +74,8 @@
           <div class="btnGroupGameStarter">
             <button class="myButton" onclick="startGame(playGame.innerHTML)">Start Game</button>
             <button class="myButton" onclick="clearGameContainer()">Clear Game</button>
-            <button class="myButton" onclick="stopCurrentGame()">Stop Game</button> <!-- Dodany przycisk Stop Game -->
-            <button class="myButton" onclick="resetCurrentGame()">Reset Game</button> <!-- Dodany przycisk Reset Game -->
+            <button class="myButton" onclick="stopCurrentGame()">Stop Game</button>
+            <button class="myButton" onclick="resetCurrentGame()">Reset Game</button>
           </div>
         </div>
       </div>
@@ -99,7 +99,6 @@
               <li><a href="#game3">Pong Game</a></li>
               <li><a href="#game4">Merge Game</a></li>
               <li><a href="#game5">Another Game</a></li>
-
             </ul>
             <section id="game1">
               <h2>Snake Game</h2>
@@ -194,32 +193,11 @@
             </p>
           </div>
           <div id="AnimationContainer">
-            <!-- Tutaj umieszczamy animację oposa -->
           </div>
         </div>
       </div>
       <div id="item5"><!-- domyślnie nie jest wyświetlany żaden tekst --> </p>
     </div>
-
-<!--     <button class="myButton" onclick="clearGameContainer()">Clear Game</button>
-    <button class="myButton" onclick="stopCurrentGame()">Stop Game</button> --> <!-- Dodany przycisk Stop Game -->
-
-    <div class="container">
-      <div class="btnGroupGameStarter">
-<!--         <button onclick="runSnakeGame()">Run Snake Game</button>
-        <button onclick="runSlideGame()">Run Slide Game</button>
-        <button onclick="runPongGame()">Run Pong Game</button>
-        <button onclick="runMergeGame()">Run Merge Game</button>
-        <button onclick="runAnotherGame()">Run Another Game</button> -->
-         <!-- Dodać więcej przycisków dla innych gier -->
-      </div> 
-      <div class="box">
-<!--         <h2 id="playGame">GAME</h2>
-        <div id="gameContainer">          
-
-        </div> -->
-      </div>
-    </div>   
   </div> 
     <script src="game/Animation/DancingCat.js"></script>
     <script src="snake/snake.js"></script>
