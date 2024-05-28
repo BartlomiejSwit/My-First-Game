@@ -877,6 +877,9 @@ window.runSlideScript = function () {
         canvas.removeEventListener("mouseup", mouseUpEvent);
         canvas.removeEventListener("mousemove", mouseMoveEvent);       
     }
+    //TODO poprawić błędy związane z ruchem bloków
+    //TODO rozdzielić gre i canvas - ustawić obszar gry na środku canvas
+    //TODO dodać timet i licznik ruchów
 
     startGame();
 
