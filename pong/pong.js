@@ -264,6 +264,11 @@ function runPongScript() {
 
     }*/
 
+    //TODO wyznaczyć plansze
+    //TODO dodać punktację
+    //TODO Dodać koniec gry
+    //TODO opracować lepsze odbijanie piłeczki
+
     function startGame() {
         console.log("Game started");
         canvas.addEventListener("mousemove", leftPaddlePosition);

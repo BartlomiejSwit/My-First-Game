@@ -879,7 +879,8 @@ window.runSlideScript = function () {
     }
     //TODO poprawić błędy związane z ruchem bloków
     //TODO rozdzielić gre i canvas - ustawić obszar gry na środku canvas
-    //TODO dodać timet i licznik ruchów
+    //TODO dodać timer i licznik ruchów
+    //TODO wywalić info z konsoli!!!
 
     startGame();
 
