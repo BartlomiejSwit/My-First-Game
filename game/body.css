@@ -3,6 +3,19 @@ div.items p:target {display: block}
 div.items p:not(:target) {display: none}
 div.items p:target {display: block} */
 
+* { /* kasuje marginesy i paddingi dla wszystkich elementów */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #000;
+  color: #fff;
+  border: #cf0b0b;
+}
 /* Domyślnie ukryj wszystkie elementy .items > div */
 .items > div {
   display: none;
@@ -13,13 +26,11 @@ div.items p:target {display: block} */
   display: block;
 }
 
-
-
 h2 {
   font-size: 40px;
   color: #4CAF50;
   text-align: center;
-  margin: 20px;
+  /* margin: 20px; */
 }
 
 .items {
@@ -95,14 +106,7 @@ h2 {
     text-align: center;
   }
 
-  html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    background-color: #000;
-    color: #fff;
-    border: #cf0b0b;
-  }
+
   
   button:hover {
       background-color: #45a049;
@@ -177,8 +181,8 @@ h2 {
 .GameList {
     display: grid; /* Ustaw kontener na grid */    
     gap: 10px; /* Dodaj odstęp między kolumnami */
-    padding: 20px; /* Dodaj wewnętrzny odstęp */    
-    margin-top: 20px;
+    /*padding: 20px; /* Dodaj wewnętrzny odstęp */    
+    /* margin-top: 20px; */
   }
 
   .GameList a {
