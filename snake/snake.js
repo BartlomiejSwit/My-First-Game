@@ -103,8 +103,13 @@ function runSnakeScript() {
             }
         });
     }
+    
 
-
+    //TODO  gruntowny refactoring
+    //TODO  rozdzielenie planszy z resztą gry
+    //TODO  dodanie punktacji
+    //TODO  dodanie prędkości
+    //TODO  dodanie przeszkód
     function startGame() {
         console.log("Game started");
         addKeyEventListener();
