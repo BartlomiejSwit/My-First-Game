@@ -110,6 +110,9 @@ function runSnakeScript() {
     //TODO  dodanie punktacji
     //TODO  dodanie prędkości
     //TODO  dodanie przeszkód
+    //TODO  dodanie bonusów
+    //TODO  dodanie menu
+    //TODO  dodanie przeciwnika  sterowanego przes pc
     function startGame() {
         console.log("Game started");
         addKeyEventListener();
