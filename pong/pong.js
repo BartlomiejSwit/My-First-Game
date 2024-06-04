@@ -248,15 +248,6 @@ function runPongScript() {
                
     }
 
-    //To do add arrow keys for right and left paddle
-    //To do add score
-    //To do add two players mode
-    //To do add game over
-    //To do add start game
-    //To do add pause game
-    //To do add restart game
-    //To do change ball sped up !!!!!!!!!
-
     /*function startGame() {
         console.log("Game started");
         canvas.addEventListener("mousemove", leftPaddlePosition);
@@ -268,6 +259,9 @@ function runPongScript() {
     //TODO dodać punktację
     //TODO Dodać koniec gry
     //TODO opracować lepsze odbijanie piłeczki
+    //TODO dodać prędkość piłeczki
+    //TODO dodać sterowanie strzałkami
+    //TODO dodać resztę funkcjonalności pause, restert
 
     function startGame() {
         console.log("Game started");
