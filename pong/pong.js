@@ -248,13 +248,6 @@ function runPongScript() {
                
     }
 
-    /*function startGame() {
-        console.log("Game started");
-        canvas.addEventListener("mousemove", leftPaddlePosition);
-        setInterval(gameRuning, 1000 / 60);
-
-    }*/
-
     //TODO wyznaczyć plansze
     //TODO dodać punktację
     //TODO Dodać koniec gry
