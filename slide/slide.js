@@ -463,10 +463,10 @@ window.runSlideScript = function () {
     }
 
     function mouseDownEvent(event) {
-        console.log("Mouse left button clicked");
+        //console.log("Mouse left button clicked");
         selectedBlock = selectedCheck(mousePosition.x, mousePosition.y, currentStage);
         moveCheck(currentStage, selectedBlock);
-        console.log("Selected block move: ", selectedBlock);    
+        //console.log("Selected block move: ", selectedBlock);    
         //let testy = moveCheck(selectedBlock, currentStage);
         //console.log("Selected block move: ", testy);
         if (checkSelectionEvent(selectedBlock)){
