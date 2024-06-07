@@ -194,31 +194,15 @@ window.runSlideScript = function () {
     let mouse = new Mouse();
     
     const blocksStageOne = [];
-    /*
-    blocksStageOne.push(bigSquare, square1, square2, square3, square4, 
-        square5, square6, square7, square8, square9, square10, 
-        square11, square12, rectangle1, freeSpace1, freeSpace2);
-        */
     blocksStageOne.push(square1, square2, square3, square4, square5, square6, 
         square7, square8, square9, square10, square11, square12, bigSquare, rectangle1);
 
     const blocksStageTwo = [];
-    /*
-    blocksStageTwo.push(square1, square2, square3, square4, square8,
-        square9, square11, square12, bigSquare, rectangle1, 
-        rectangle2, rectangle3, freeSpace1, freeSpace2);
-        */
     blocksStageTwo.push(square1, square2, square3, square4, square8,
         square9, square11, square12, bigSquare, rectangle1, 
         rectangle2, rectangle3);
 
-
     const blocksStageTree = [];
-    /*
-    blocksStageTree.push(square8, square9, square11, square12, bigSquare,
-        rectangle1, rectangle2, rectangle3, rectangle4, rectangle5, 
-        freeSpace1, freeSpace2);        
-        */
     blocksStageTree.push(square8, square9, square11, square12, bigSquare,
         rectangle1, rectangle2, rectangle3, rectangle4, rectangle5);        
 
