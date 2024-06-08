@@ -1,6 +1,6 @@
 # My-First-Game
 
-Welcome to my collection of classic games developed as part of the "100 Commits on GitHub" challenge by DevMentors. Whether you're a seasoned gamer or new to the world of gaming, there's something here for everyone to enjoy and find hard to resist.
+Welcome to my collection of classic games developed as part of the "100 Commits on GitHub" challenge by DevMentors. Whether you're a seasoned gamer or new to the world of gaming, there's something here for everyone to enjoy and find hard to resist....
 
 ![image](https://github.com/BartlomiejSwit/My-First-Game/assets/92230223/feedb796-f49b-425f-b361-9a0fc03f4ec3)
 
